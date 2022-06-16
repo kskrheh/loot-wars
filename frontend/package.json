@@ -26,7 +26,7 @@
       "react-app/jest"
     ],
     "rules": {
-      "react/jsx-indent": ["erorr", 2]
+      "react/jsx-indent": ["erorr", 4]
     }
   },
   "browserslist": {
