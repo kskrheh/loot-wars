@@ -5,9 +5,9 @@ function Nav () {
      <header>
    <>
    {/* <div>︻デ═一</div> */}
-    <div>⚔</div>
-    <div>🛡</div>
-    <div>⚡</div>
+    <div>⚔{}</div>
+    <div>🛡{}</div>
+    <div>⚡{}</div>
     {/* <div>🗡</div> */}
     </>
      </header>
