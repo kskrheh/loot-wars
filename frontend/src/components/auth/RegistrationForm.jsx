@@ -1,8 +1,16 @@
 import { useDispatch } from 'react-redux';
 import { auth } from '../../features/user/userSlice'
+import { useCookies } from 'react-cookie';
 
 const RegistrationForm = () => {
   const dispatch = useDispatch();
+  const [cookies, setCookie] = useCookies(['user']);
+
+  if (cookies) {
+    dispatch(auth(cookies));
+    // console.log(cookies.user.password);
+  }
+
   const goRegister = async (event) => {
     event.preventDefault();
 
@@ -11,10 +19,10 @@ const RegistrationForm = () => {
       password: { value: password },
       email: { value: email },
       method,
-      action: url,
     } = event.target
+    console.log(login, email, password);
     const body = JSON.stringify({ login, password, email });
-    const response = await fetch(url, {
+    const response = await fetch('/auth/register', {
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
       body,
@@ -24,7 +32,8 @@ const RegistrationForm = () => {
     const user = await response.json();
     console.log(user);
 
-    dispatch(auth());
+    setCookie('user', user);
+    dispatch(auth(cookies));
   }
   return (
     <div>

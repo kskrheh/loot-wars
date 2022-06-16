@@ -1,16 +1,16 @@
-'use strict';
 const {
-  Model
+  Model,
 } = require('sequelize');
+
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
-    static associate({Weapon, UserWeapon}) {
-      User.hasMany(UserWeapon, {foreignKey: 'user_id'});
+    static associate({ Weapon, UserWeapon }) {
+      User.hasMany(UserWeapon, { foreignKey: 'user_id' });
       User.belongsToMany(Weapon, {
         through: UserWeapon,
         foreignKey: 'weapon_id',
-        otherKey: 'user_id'
-      })
+        otherKey: 'user_id',
+      });
     }
   }
   User.init({
@@ -18,12 +18,12 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       autoIncrement: true,
       primaryKey: true,
-      type: DataTypes.INTEGER
+      type: DataTypes.INTEGER,
     },
     username: {
       allowNull: false,
       unique: true,
-      type: DataTypes.TEXT
+      type: DataTypes.TEXT,
     },
     email: {
       allowNull: false,
@@ -31,23 +31,23 @@ module.exports = (sequelize, DataTypes) => {
       validate: {
         isEmail: true,
       },
-      type: DataTypes.TEXT
+      type: DataTypes.TEXT,
     },
     password: {
       allowNull: false,
       validate: {
-        min: 8
+        min: 8,
       },
-      type: DataTypes.TEXT
+      type: DataTypes.TEXT,
     },
     createdAt: {
       allowNull: false,
-      type: DataTypes.DATE
+      type: DataTypes.DATE,
     },
     updatedAt: {
       allowNull: false,
-      type: DataTypes.DATE
-    }
+      type: DataTypes.DATE,
+    },
   }, {
     sequelize,
     modelName: 'User',
