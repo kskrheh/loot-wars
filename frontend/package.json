@@ -24,7 +24,10 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "react/jsx-indent": ["erorr", 2]
+    }
   },
   "browserslist": {
     "production": [
