@@ -4,6 +4,7 @@
   "description": "loot wars backend ",
   "main": "app.js",
   "scripts": {
+    "dev": "nodemon app.js --ext js,jsx --ignore ./session",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "kskrheh, bulkasuhomyatka, koshej, baga",
