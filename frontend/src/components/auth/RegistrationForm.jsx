@@ -19,7 +19,7 @@ const RegistrationForm = () => {
 
     const body = JSON.stringify({ username, password, email });
 
-    const response = await fetch('http://localhost:3000/auth/register', {
+    const response = await fetch('http://localhost:4000/auth/register', {
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
       body,
