@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { login } from '../../features/user/userSlice'
+import { login } from '../../../features/user/userSlice'
 
 const LoginForm = () => {
   const [isClicked, setIsClicked] = useState(false);
