@@ -1,5 +1,7 @@
 import Nav from "./components/Nav/Nav";
 import Footer from "./components/Footer/Footer";
+import LogoutButton from "./components/auth/LogoutButton";
+import Loot from "./components/Loot/Loot";
 import RegistrationForm from "./components/Auth/Registration/RegistrationForm";
 import LoginForm from "./components/Auth/Login/LoginForm";
 import { useSelector } from "react-redux";
@@ -32,6 +34,12 @@ function App() {
   return (
     <div>
       <header>
+        <Nav />
+        <RegistrationForm/>
+        <LogoutButton />
+        <LoginForm />
+        <Footer />
+        <Loot/>
         {
           user.user && 
             <>
