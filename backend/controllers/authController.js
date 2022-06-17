@@ -3,21 +3,22 @@ const { User } = require('../db/models');
 const { SALT_ROUNDS } = require('../app/variables');
 
 async function createUser(req, res) {
-  const { login: username, password, email } = req.body;
+  const { username, password, email } = req.body;
   try {
     const user = await User.create({
       username,
       password: await bcrypt.hash(password, SALT_ROUNDS),
       email,
     });
-    res.json(user);
+    req.session.user = user;
+    res.json(req.session.user.username);
   } catch (err) {
     res.send(err.message);
   }
 }
 
 async function loginUser(req, res) {
-  const { login: username, password } = req.body;
+  const { username, password } = req.body;
   let user;
   try {
     user = await User.findOne({
@@ -40,17 +41,27 @@ async function loginUser(req, res) {
   if (!isSame) {
     res.status(403);
   }
-  res.json(user);
+  req.session.user = user;
+  res.json(req.session.user.username);
 }
 
 async function logoutUser(req, res) {
-  // req.session.destroy((err) => {
-  // if (err) {
-  // return res.status(500).json({ message: 'Ошибка при удалении сессии' });
-  // }
-  // res.clearCookie('user_sid');
-  // TODO remove setCookie
-  res.sendStatus(200);
-  // });
+  req.session.destroy((err) => {
+    if (err) {
+      return res.status(500).json({ message: 'Ошибка при удалении сессии' });
+    }
+    res.clearCookie('user_sid');
+    res.sendStatus(200);
+  });
 }
-module.exports = { createUser, loginUser, logoutUser };
+
+async function getUserInfo(req, res) {
+  if (req.session.user) {
+    res.json(req.session.user.username);
+  } else {
+    res.json('ТЫ ХУЙ');
+  }
+}
+module.exports = {
+  createUser, loginUser, logoutUser, getUserInfo,
+};
