@@ -59,7 +59,7 @@ async function getUserInfo(req, res) {
   if (req.session.user) {
     res.json(req.session.user.username);
   } else {
-    res.json('ТЫ ХУЙ');
+    res.json(undefined);
   }
 }
 module.exports = {

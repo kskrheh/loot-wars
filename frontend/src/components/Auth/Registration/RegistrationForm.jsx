@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { auth } from '../../features/user/userSlice'
+import { auth } from '../../../features/user/userSlice'
 import { useState } from 'react';
 
 const RegistrationForm = () => {

@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "../../features/users/usersSlice";
 
+import Modal from "../Modal/Modal";
+
 function Arena() {
   const users = useSelector((state) => state.users);
   console.log(users)
@@ -12,10 +14,11 @@ function Arena() {
   }, [dispatch])
 
   return (
-    <div>
-      <h1>Privet</h1>
+    <>
+      <h1>Enemies</h1>
       {users.users.map((user) => <li key={user.id}>{user.username}</li>)}
-    </div>
+      {/* <Modal /> */}
+    </>
   )
 }
 
