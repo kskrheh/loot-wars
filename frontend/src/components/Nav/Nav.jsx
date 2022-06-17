@@ -1,15 +1,16 @@
-function Nav() {
+import LogoutButton from '../Auth/Logout/LogoutButton';
+import styles from './Nav.module.css'
 
+function Nav() {
 
   return (
     <header>
-      <>
-        {/* <div>︻デ═一</div> */}
+      <div className={styles.container}>
         <div>⚔</div>
         <div>🛡</div>
         <div>⚡</div>
-        {/* <div>🗡</div> */}
-      </>
+        <LogoutButton />
+      </div>
     </header>
   );
 }
