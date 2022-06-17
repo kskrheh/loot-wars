@@ -1,8 +1,6 @@
-const { getLoot } = require('../controllers/lootController2');
-
 const lootRouter = require('express').Router();
+const { getLoot } = require('../controllers/lootController');
 
-lootRouter.get('/', getLoot)
+lootRouter.get('/', getLoot);
 
-
-module.exports = lootRouter
+module.exports = lootRouter;

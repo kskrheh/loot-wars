@@ -1,9 +1,6 @@
 import Nav from "./components/Nav/Nav";
 import Footer from "./components/Footer/Footer";
-// import LogoutButton from "./components/Auth/LogoutButton";
-// import Loot from "./components/Loot/Loot";
-// import RegistrationForm from "./components/Auth/Registration/RegistrationForm";
-// import LoginForm from "./components/Auth/Login/LoginForm";
+import Loot from "./components/Loot/Loot";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { auth } from "./features/user/userSlice";
@@ -12,6 +9,7 @@ import Equipped from "./components/Equipped/Equipped";
 import { Routes, Route } from "react-router-dom";
 import Arena from "./components/Arena/Arena";
 
+// eslint-disable-next-line no-unused-vars
 import styles from "./App.css";
 
 function App() {
@@ -34,15 +32,17 @@ function App() {
   return (
     <div>
       <header>
-        {user.user && (
-          <>
-            <Nav />
-            <Footer />
-          </>
-        )}
+        {
+          user.user && 
+            <>
+              <Nav />
+              <Footer />
+            </>
+        }
         <Routes>
-          <Route path="/" element={<Equipped />} />
-          <Route path="/arena" element={<Arena />} />
+          <Route path='/' element={<Equipped />} />
+          <Route path='/arena' element={<Arena />} />
+          <Route path='/loot' element={<Loot />} />
         </Routes>
       </header>
     </div>
