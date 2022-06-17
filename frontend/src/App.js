@@ -1,9 +1,6 @@
 import Nav from "./components/Nav/Nav";
 import Footer from "./components/Footer/Footer";
-import LogoutButton from "./components/auth/LogoutButton";
 import Loot from "./components/Loot/Loot";
-import RegistrationForm from "./components/Auth/Registration/RegistrationForm";
-import LoginForm from "./components/Auth/Login/LoginForm";
 import { useSelector } from "react-redux";
 import { useDispatch } from 'react-redux';
 import { auth } from './features/user/userSlice'
@@ -34,12 +31,6 @@ function App() {
   return (
     <div>
       <header>
-        <Nav />
-        <RegistrationForm/>
-        <LogoutButton />
-        <LoginForm />
-        <Footer />
-        <Loot/>
         {
           user.user && 
             <>
@@ -50,6 +41,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Equipped />} />
           <Route path='/arena' element={<Arena />} />
+          <Route path='/loot' element={<Loot />} />
         </Routes>
       </header>
     </div>

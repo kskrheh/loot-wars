@@ -8,7 +8,7 @@ function Footer() {
       <nav>
         <ul>
           <li><Link to="/">⛺</Link></li>
-          <li><Link to="/lopata">🪠</Link></li>
+          <li><Link to="/loot">🪠</Link></li>
           <li><Link to="/arena">⚔</Link></li>
           <li><Link to="/telegram">✉</Link></li>
           <li><Link to="/history">📖</Link></li>

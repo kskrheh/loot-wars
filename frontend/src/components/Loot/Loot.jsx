@@ -1,4 +1,4 @@
-import { useSelector, useDispatch,  } from "react-redux";
+import { useSelector, useDispatch, } from "react-redux";
 import { findLoot } from "../../features/loot/lootSlice";
 
 function Loot() {
@@ -6,8 +6,8 @@ function Loot() {
 
   const dispatch = useDispatch();
   fetch('/loot')
-  .then((res) => res.json())
-  .then(data => dispatch(findLoot))
+    .then((res) => res.json())
+    .then(data => dispatch(findLoot))
 
   const handleClick = () => {
     dispatch(findLoot());
@@ -17,9 +17,9 @@ function Loot() {
     <>
       <button type="button" onClick={handleClick}></button>
       <ul>
-        {weapon.map((el) => (
+        {/* {weapon.map((el) => (
           <li key={el.id}>{}</li>
-        ))}
+        ))} */}
       </ul>
     </>
   );
