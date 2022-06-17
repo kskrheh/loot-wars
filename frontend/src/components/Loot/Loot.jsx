@@ -1,9 +1,13 @@
 
-  import { useSelector } from 'react-redux';
-
+  import { useSelector , useDispatch , useEffect } from 'react-redux';
+  
+ 
   function Loot () {
+    
     const weapon = useSelector((state) => state.title);
-   
+   useEffect(() => {
+
+   }, [])
     
     
     return (
