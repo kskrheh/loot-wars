@@ -6,6 +6,8 @@ const cors = require('cors');
 const cookiesMiddleware = require('universal-cookie-express');
 const authRouter = require('./routes/auth.routes');
 const usersRouter = require('./routes/users.routes');
+const lootRouter = require('./routes/loot.routes')
+
 
 const app = express();
 
@@ -24,11 +26,12 @@ app.use(session(
       maxAge: 1000 * 60 * 60 * 12,
     },
   },
-));
-
-// ручки
-app.use('/auth', authRouter);
-app.use('/users', usersRouter);
+  ));
+  
+  // ручки
+  app.use('/auth', authRouter);
+  app.use('/users', usersRouter);
+  app.use('/loot', lootRouter);
 
 app.listen(4000, () => {
   // eslint-disable-next-line no-console
