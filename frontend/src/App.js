@@ -3,6 +3,7 @@ import Footer from "./components/Footer/Footer";
 import RegistrationForm from "./components/auth/RegistrationForm";
 import LogoutButton from "./components/auth/LogoutButton";
 import LoginForm from "./components/auth/LoginForm";
+import Loot from "./components/Loot/Loot";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <LogoutButton />
         <LoginForm />
         <Footer />
+        <Loot/>
       </header>
     </div>
   );
