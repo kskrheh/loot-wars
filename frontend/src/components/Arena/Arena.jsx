@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
 import { fetchUsers } from "../../features/users/usersSlice";
 
 import Modal from "../Modal/Modal";
