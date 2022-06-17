@@ -5,14 +5,14 @@ const FileStore = require('session-file-store')(session);
 const cors = require('cors');
 const cookiesMiddleware = require('universal-cookie-express');
 const authRouter = require('./routes/auth.routes');
-const todoRouter = require('./routes/auth.routes');
+const usersRouter = require('./routes/users.routes');
 
 const app = express();
 
 app.use(express.urlencoded({ extended: true })); // читать тело запросов в формате urlencoded
 app.use(express.json()); // читать тело запросов в формате JSON
 app.use(cookiesMiddleware());
-app.use(cors({ origin: 'http://localhost:3000' }));
+app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
 app.use(session(
   {
     store: new FileStore(),
@@ -28,7 +28,7 @@ app.use(session(
 
 // ручки
 app.use('/auth', authRouter);
-app.use('/todo', todoRouter);
+app.use('/users', usersRouter);
 
 app.listen(4000, () => {
   // eslint-disable-next-line no-console
