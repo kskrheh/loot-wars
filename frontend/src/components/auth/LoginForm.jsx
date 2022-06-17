@@ -1,22 +1,23 @@
-import { useCookies } from "react-cookie";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { login2 } from '../../features/user/userSlice'
+import { login } from '../../features/user/userSlice'
 
 const LoginForm = () => {
+  const [isClicked, setIsClicked] = useState(false);
+
   const dispatch = useDispatch();
-  const [cookies, setCookie] = useCookies(['user']);
 
   const goLogin = async (event) => {
     event.preventDefault();
 
     const {
-      login: { value: login },
+      username: { value: username },
       password: { value: password },
       method,
     } = event.target;
 
-    const body = JSON.stringify({ login, password });
-    const response = await fetch('/auth/login', {
+    const body = JSON.stringify({ username, password });
+    const response = await fetch('http://localhost:3000/auth/login', {
       method,
       body,
       headers: { 'Content-Type': 'application/json' },
@@ -24,23 +25,33 @@ const LoginForm = () => {
     });
 
     const user = await response.json();
-    console.log(user);
-    setCookie('user', user)
-    dispatch(login2(cookies))
+    console.log(user)
+    dispatch(login(user))
   }
+
+  const handleClick = () => {
+    setIsClicked(!isClicked);
+  }
+
   return (
     <div>
-      <form action="/auth/login" method="post" onSubmit={goLogin}>
-        <label htmlFor="login">
-          Login
-          <input type="text" name="login" id="login" />
-        </label>
-        <label htmlFor="password">
-          Password
-          <input type="password" name="password" id="password" />
-        </label>
-        <button type="submit">Login</button>
-      </form>
+      {
+        isClicked ?
+          <form action="/auth/login" method="post" onSubmit={goLogin}>
+            <label htmlFor="username">
+              Username
+              <input type="text" name="username" id="username" />
+            </label>
+            <label htmlFor="password">
+              Password
+              <input type="password" name="password" id="password" />
+            </label>
+            <button type="submit">Login</button>
+          </form>
+          :
+          <button type="button" onClick={handleClick}>Login</button>
+      }
+
     </div>
   );
 };
