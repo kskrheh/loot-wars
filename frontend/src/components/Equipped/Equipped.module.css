@@ -3,15 +3,7 @@
   justify-content: space-evenly;
 }
 
-/* .infoContainer:first-child {
-  margin-right: 25px;
-} */
-
 .button_container {
-  /* display: block; */
-  /* flex-direction: column; */
-  /* justify-content: center; */
-  /* align-items: center; */
   display: table-cell;
   vertical-align: middle; 
 }

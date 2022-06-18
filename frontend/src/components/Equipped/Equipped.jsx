@@ -3,38 +3,38 @@ import LoginForm from '../Auth/Login/LoginForm';
 import RegistrationForm from '../Auth/Registration/RegistrationForm';
 import styles from './Equipped.module.css';
 
-const Equipped = () => {
+const Equipped = ({ handleLiOne }) => {
   const user = useSelector((state) => state.user);
 
   return (
     <>
       {
         user.user ?
-          < div className={styles.container} >
-            <div className={styles.infoContainer}>
-              <div>{ }</div> <div>🗡{ }</div> <div>🛡{ }</div>
-            </div>
+          <ul className={styles.container} >
+            <li className={styles.infoContainer} onClick={handleLiOne}>
+              <span>{ }</span> <span>🗡{ }</span> <span>🛡{ }</span>
+            </li>
 
-            <div className={styles.infoContainer}>
-              <div>{ }</div> <div>🗡{ }</div> <div>🛡{ }</div>
-            </div>
+            <li className={styles.infoContainer} onClick={handleLiOne}>
+              <span>{ }</span> <span>🗡{ }</span> <span>🛡{ }</span>
+            </li>
 
-            <div className={styles.infoContainer}>
-              <div>{ }</div> <div>🗡{ }</div> <div>🛡{ }</div>
-            </div>
+            <li className={styles.infoContainer} onClick={handleLiOne}>
+              <span>{ }</span> <span>🗡{ }</span> <span>🛡{ }</span>
+            </li>
 
-            <div className={styles.infoContainer}>
-              <div>{ }</div> <div>🗡{ }</div> <div>🛡{ }</div>
-            </div>
+            <li className={styles.infoContainer} onClick={handleLiOne}>
+              <span>{ }</span> <span>🗡{ }</span> <span>🛡{ }</span>
+            </li>
 
-            <div className={styles.infoContainer}>
-              <div>{ }</div> <div>🗡{ }</div> <div>🛡{ }</div>
-            </div>
+            <li className={styles.infoContainer} onClick={handleLiOne}>
+              <span>{ }</span> <span>🗡{ }</span> <span>🛡{ }</span>
+            </li>
 
-            <div className={styles.infoContainer}>
-              <div>{ }</div> <div>🗡{ }</div> <div>🛡{ }</div>
-            </div>
-          </div >
+            <li className={styles.infoContainer} onClick={handleLiOne}>
+              <span>{ }</span> <span>🗡{ }</span> <span>🛡{ }</span>
+            </li>
+          </ul >
           :
           <div className={styles.button_container}>
             <RegistrationForm />

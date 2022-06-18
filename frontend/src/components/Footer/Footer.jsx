@@ -6,7 +6,7 @@ function Footer() {
   return (
     <footer>
       <nav>
-        <ul>
+        <ul className={styles.ul_footer}>
           <li><Link to="/">⛺</Link></li>
           <li><Link to="/loot">🪠</Link></li>
           <li><Link to="/arena">⚔</Link></li>
