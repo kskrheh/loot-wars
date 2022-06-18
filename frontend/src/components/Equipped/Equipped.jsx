@@ -9,7 +9,7 @@ const Equipped = ({ handleLiOne }) => {
   return (
     <>
       {
-        user.user ?
+        user.user.name ?
           <ul className={styles.container} >
             <li className={styles.infoContainer} onClick={handleLiOne}>
               <span>{ }</span> <span>🗡{ }</span> <span>🛡{ }</span>

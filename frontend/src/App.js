@@ -33,7 +33,7 @@ function App() {
     <div>
       <header>
         {
-          user.user && 
+          user.user.name && 
             <>
               <Nav />
               <Footer />

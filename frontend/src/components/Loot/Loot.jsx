@@ -1,12 +1,16 @@
+import { useState } from "react";
 import { useSelector, useDispatch, } from "react-redux";
 import { fetchLoot } from "../../features/loot/lootSlice";
+import { weaponsId } from "../../features/user/userSlice";
 import Equipped from "../Equipped/Equipped";
 import styles from './Loot.module.css';
 
 function Loot() {
   let firstItem, secondItem = null;
   const weapons = useSelector((state) => state.loot.weapons);
-  console.log(weapons)
+  const user = useSelector((state) => state.user.user.name)
+  const userReduxWeapons = useSelector((state) => state.user.user.weaponsId);
+  console.log(userReduxWeapons)
 
   const dispatch = useDispatch();
 
@@ -32,12 +36,26 @@ function Loot() {
 
   const handleSwap = () => {
     console.log('handleSwap')
+    const body = JSON.stringify({ userReduxWeapons, user: user });
+    const fetchWeapons = async () => {
+      const response = await fetch('http://localhost:4000/loot', {
+        method: 'POST',
+        headers: { "Content-type": "application/json" },
+        credentials: 'include',
+        body,
+      })
+      const result = await response.json();
+      console.log(result);
+    }
 
+    fetchWeapons();
   }
 
   const handleLi = (e) => {
     e.target.classList.add('selectedTwo');
     secondItem = e.target;
+
+    dispatch(weaponsId(e.target.dataset.id))
     if (firstItem) {
       swapWeapons(firstItem, secondItem);
       firstItem = secondItem = null;
@@ -84,7 +102,11 @@ function Loot() {
       </ul >
       <ul className={`${styles.loot_container} ${styles.ul_loot} js-append`}>
         {weapons.map((weapon) => (
-          <li key={weapon.id} onClick={handleLi}>{weapon.title} 🗡{weapon.ATK} 🛡{weapon.DEF}</li>
+          <li data-id={weapon.id} key={weapon.id} onClick={handleLi}>
+            <span>{weapon.title} </span>
+            <span>🗡 {weapon.ATK} </span>
+            <span>🛡 {weapon.DEF}</span>
+          </li>
         ))}
       </ul>
       {
