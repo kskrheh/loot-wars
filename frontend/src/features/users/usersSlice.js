@@ -2,8 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
   const response = await fetch('http://localhost:4000/users');
-  console.log(response);
-  return response.json();
+  const data = await response.json()
+  return data;
 })
 
 export const usersSlice = createSlice({
@@ -14,9 +14,6 @@ export const usersSlice = createSlice({
     error: null
   },
   reducers: {
-    // getEnemies: (state, action) => {
-    //   state.users = action.payload
-    // }
   },
   extraReducers(builder) {
     builder.addCase(fetchUsers.fulfilled, (state, action) => {

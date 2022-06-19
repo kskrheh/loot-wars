@@ -10,12 +10,6 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   UserWeapon.init({
-    id: {
-      allowNull: false,
-      autoIncrement: true,
-      primaryKey: true,
-      type: DataTypes.INTEGER,
-    },
     weapon_id: {
       allowNull: false,
       references: {
@@ -30,18 +24,6 @@ module.exports = (sequelize, DataTypes) => {
         model: 'Users',
         key: 'id',
       },
-      type: DataTypes.INTEGER,
-    },
-    ATK: {
-      allowNull: false,
-      type: DataTypes.INTEGER,
-    },
-    DEF: {
-      allowNull: false,
-      type: DataTypes.INTEGER,
-    },
-    quality: {
-      allowNull: false,
       type: DataTypes.INTEGER,
     },
     wear: {
