@@ -26,8 +26,11 @@ const Equipped = ({ handleLiOne }) => {
           <ul className={styles.container}>
             {
               emptyArr.map((el, index) => {
-                if (weapons.)
-                <li>{el}</li>
+                if (Object.keys(weapons[index].Weapon.length !== 0)) {
+                  <li>{weapons[index].Weapon.title}</li>
+                } else {
+                  <li>Empty item</li>
+                }
               })
               // weapons.map((weapon) => {
               //   if (Object.keys(weapon).length === 0) {
