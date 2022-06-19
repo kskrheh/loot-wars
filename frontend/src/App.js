@@ -37,6 +37,7 @@ function App() {
             <>
               <Nav />
               <Footer />
+              
             </>
         }
         <Routes>

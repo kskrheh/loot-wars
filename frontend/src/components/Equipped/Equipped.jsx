@@ -20,7 +20,9 @@ const Equipped = ({ handleLiOne }) => {
   }, [dispatch, user.name])
 
   return (
+
     <>
+
       {
         user.name ?
           <ul className={styles.container}>
@@ -53,6 +55,7 @@ const Equipped = ({ handleLiOne }) => {
           <div className={styles.button_container}>
             <RegistrationForm />
             <LoginForm />
+
           </div>
       }
       {/* {

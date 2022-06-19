@@ -5,12 +5,12 @@
   position: fixed;
   top: 0;
   left: 0;
-  display: flex;
+   display: flex;
   align-items: center;
   justify-content: center;
   opacity: 0;
   pointer-events: none;
-  transition: 0.5s;
+  transition: scale(0);
   font-size: 35;
 }
 
@@ -19,20 +19,25 @@
   pointer-events: all;
 }
 
-.modal_content {
+.modal__content {
 font-size: 35px;
   padding: 40px;
   border-radius: 12px;
-  background-color: white;
+  background-color: rgb(236, 134, 134);
+  height: 200px;
+  width: 200px;
+  
   transform: scale(0.5);
-  transition: 0.4s all;
-}
+  transition: 0.4s all; 
+} 
 
-.modal_content.active {
+ .modal_content.active {
   transform: scale(1);
-}
+} 
 
-.open_question {
+
+
+/*.open_question {
   all: unset;
   padding: 10px;
   color: aquamarine;
@@ -46,4 +51,4 @@ font-size: 35px;
 cursor: pointer;
 background: red;
 border: 1px solid violet;
-}
+} */
