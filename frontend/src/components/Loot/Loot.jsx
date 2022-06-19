@@ -1,4 +1,4 @@
-import { useState } from "react";
+// import { useState } from "react";
 import { useSelector, useDispatch, } from "react-redux";
 import { fetchLoot } from "../../features/loot/lootSlice";
 import { weaponsId } from "../../features/user/userSlice";
@@ -74,8 +74,8 @@ function Loot() {
   return (
     <div className={styles.loot_container}>
       <button className={styles.button_loot} type="button" onClick={handleClick}>Loot</button>
-      {/* <Equipped handleLiOne={handleLiOne} /> */}
-      <ul className={styles.container} >
+      <Equipped handleLiOne={handleLiOne} />
+      {/* <ul className={styles.container} >
         <li onClick={handleLiOne}>
           <span>{ }</span> <span>🗡{ }</span> <span>🛡{ }</span>
         </li>
@@ -99,7 +99,7 @@ function Loot() {
         <li onClick={handleLiOne}>
           <span>{ }</span> <span>🗡{ }</span> <span>🛡{ }</span>
         </li>
-      </ul >
+      </ul > */}
       <ul className={`${styles.loot_container} ${styles.ul_loot} js-append`}>
         {weapons.map((weapon) => (
           <li data-id={weapon.id} key={weapon.id} onClick={handleLi}>

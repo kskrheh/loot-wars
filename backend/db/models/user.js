@@ -35,10 +35,18 @@ module.exports = (sequelize, DataTypes) => {
     },
     password: {
       allowNull: false,
+      type: DataTypes.TEXT,
       validate: {
         min: 8,
       },
-      type: DataTypes.TEXT,
+    },
+    energy: {
+      allowNull: false,
+      type: DataTypes.INTEGER,
+      defaultValue: 20,
+    },
+    logoutTime: {
+      type: DataTypes.DATE,
     },
     createdAt: {
       allowNull: false,

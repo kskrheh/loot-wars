@@ -1,25 +1,27 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-// export const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-//   const response = await fetch('http://localhost:4000/loot', {
-//     method: 'POST', 
-//     credentials: 'include',
-//     headers: {"Content-Type": "application/json"}
-//   });
+const initialState = {
+  user: {
+    name: undefined,
+    weapons: [],
+    weaponsId: []
+  },
+}
+
+export const fetchUserWeapons = createAsyncThunk('users/fetchUsers', async (name) => {
+  const response = await fetch(`http://localhost:4000/users/${name}`, {
+    method: 'GET', 
+    credentials: 'include',
+    headers: {"Content-Type": "application/json"}
+  });
   
-//   console.log(response);
-//   return response.json();
-// })
+  const data = await response.json();
+  return data;
+})
 
 export const userSlice = createSlice({
   name: 'user',
-  initialState: {
-    user: {
-      name: undefined,
-      weapons: [],
-      weaponsId: []
-    },
-  },
+  initialState,
   reducers: {
     auth: (state, action) => {
       state.user.name = action.payload
@@ -32,6 +34,11 @@ export const userSlice = createSlice({
     },
     weaponsId: (state, action) => {
       state.user.weaponsId.push(action.payload)
+    }
+  },
+  extraReducers: {
+    [fetchUserWeapons.fulfilled]: (state, {payload}) => {
+      state.user.weapons = payload
     }
   }
 })
