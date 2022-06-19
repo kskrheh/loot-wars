@@ -3,7 +3,10 @@ const { User } = require('../db/models');
 const { SALT_ROUNDS } = require('../app/variables');
 
 async function createUser(req, res) {
-  const { username, password, email } = req.body;
+  const {
+    username, password, email,
+  } = req.body;
+
   try {
     const user = await User.create({
       username,
@@ -39,7 +42,8 @@ async function loginUser(req, res) {
     res.status(403);
   }
   if (!isSame) {
-    res.status(403);
+    res.sendStatus(403);
+    return;
   }
   req.session.user = user;
   res.json(req.session.user.username);
@@ -56,10 +60,17 @@ async function logoutUser(req, res) {
 }
 
 async function getUserInfo(req, res) {
-  if (req.session.user) {
-    res.json(req.session.user.username);
-  } else {
-    res.json('ТЫ ХУЙ');
+  try {
+    const { username } = req.session.user;
+    const user = await User.findOne({
+      where: {
+        username,
+      },
+    });
+    console.log(user.username);
+    res.json(user.username);
+  } catch (err) {
+    res.send(err.message);
   }
 }
 module.exports = {
