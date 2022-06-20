@@ -27,11 +27,11 @@ const Equipped = ({ handleLiOne }) => {
               emptyArr.map((el, index) => {
                 if (weapons[index]) {
                   return (
-                    <li key={index} data-id={weapons[index].Weapon.id} className={styles.infoContainer} onClick={handleLiOne}>
-                      <span>{weapons[index].Weapon.title}</span>
-                      <span>🗡{weapons[index].Weapon.ATK}</span>
-                      <span>🛡{weapons[index].Weapon.DEF}</span>
-                      <span>Q{weapons[index].Weapon.quality}</span>
+                    <li key={index} data-id={weapons[index].id} className={styles.infoContainer} onClick={handleLiOne}>
+                      <span>{weapons[index].title}</span>
+                      <span>🗡{weapons[index].ATK}</span>
+                      <span>🛡{weapons[index].DEF}</span>
+                      <span>Q{weapons[index].quality}</span>
                     </li>
                   )
                 } else {
