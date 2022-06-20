@@ -1,0 +1,13 @@
+.infoContainer {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.button_container {
+  display: table-cell;
+  vertical-align: middle; 
+
+}
+.bgimage {
+  background-image: url('https://img2.freepng.ru/20180630/lek/kisspng-rhttps://w7.pngwing.com/pngs/804/8/png-transparent-computer-icons-symbol-symbol-miscellaneous-angle-text.pngeal-estate-house-computer-icons-business-household-icon-5b37303e7e5ab8.3347936115303434865176.jpg');
+}
