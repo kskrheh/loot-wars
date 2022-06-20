@@ -7,6 +7,9 @@ const initialState = {
     userWeaponsId: [],
     weaponsId: []
   },
+  status: 'idle',
+  error: null,
+  loading: false,
 }
 
 export const fetchUserWeapons = createAsyncThunk('users/fetchUsers', async (name) => {
@@ -28,8 +31,9 @@ export const fetchRegister = createAsyncThunk('user/fetchRegister', async ({ use
       body,
       method: 'POST'
     });
-    console.log(response)
-    return response.json();
+    const data = await response.json();
+    console.log(data);
+    return data;
 })
 export const fetchLogin = createAsyncThunk('user/fetchLogin', async ({ username, password }) => {
     // console.log(username, password)
@@ -50,36 +54,17 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
     credentials: 'include',
     method: 'get'
   });
-  console.log(response);
-  // const data = await response.json();
-  // console.log(data);
-  return response.json();
+  // console.log(response);
+  const data = await response.json();
+  console.log(data);
+  return data;
 })
 export const userSlice = createSlice({
   name: 'user',
-  initialState: {
-    user: undefined,
-    status: 'idle',
-    error: null,
-    loading: false,
-  },
-  reducers: {
-    // auth: (state, action) => {
-    //   state.user = action.payload
-    // },
-    // login: (state, action) => {
-    //   state.user = action.payload
-    // },
   initialState,
   reducers: {
-    auth: (state, action) => {
-      state.user.name = action.payload
-    },
-    login: (state,action) => {
-      state.user.name = action.payload
-    },
     logout: (state) => {
-      state.user.name = null;
+      state.user.name = null
     },
     userWeaponsId: (state, action) => {
       state.user.userWeaponsId.push(action.payload)
@@ -88,19 +73,17 @@ export const userSlice = createSlice({
       state.user.weaponsId.push(action.payload)
     }
   },
-  extraReducers: {
-    [fetchUserWeapons.fulfilled]: (state, {payload}) => {
-      state.user.weapons = payload
-    }
-  },
   extraReducers(builder) {
+    builder.addCase(fetchUserWeapons.fulfilled, (state, action) => {
+      state.user.weapons = action.payload
+    })
     builder.addCase(fetchRegister.pending, (state, action) => {
       state.status = 'pending'
       state.loading = true
     })
     builder.addCase(fetchRegister.fulfilled, (state, action) => {
       state.status = 'succeeded'
-      state.user = action.payload
+      state.user.name = action.payload
       state.loading = false
       console.log(action.payload);
     })
@@ -116,7 +99,7 @@ export const userSlice = createSlice({
     })
     builder.addCase(fetchLogin.fulfilled, (state, action) => {
       state.status = 'succeeded'
-      state.user = action.payload
+      state.user.name = action.payload
       state.loading = false
     })
     builder.addCase(fetchLogin.rejected, (state, action) => {
@@ -130,7 +113,7 @@ export const userSlice = createSlice({
     })
     builder.addCase(fetchUser.fulfilled, (state, action) => {
       state.status = 'succeeded'
-      state.user = action.payload
+      state.user.name = action.payload
       state.loading = false
     })
     builder.addCase(fetchUser.rejected, (state, action) => {
