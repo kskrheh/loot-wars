@@ -21,7 +21,7 @@ const LoginForm = () => {
       method,
       body,
       headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
+      credentials: 'include', // передача в корсе куки и сессии
     });
 
     const user = await response.json();

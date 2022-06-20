@@ -5,7 +5,7 @@ import lootReducer from '../features/loot/lootSlice'
 
 export default configureStore({
   reducer: {
-    user: userReducer,
+    user: userReducer, //подвязка редьюсера
     users: usersReducer,
     loot: lootReducer,
   },
