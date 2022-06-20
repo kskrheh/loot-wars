@@ -1,63 +1,120 @@
-import { useDispatch } from 'react-redux';
-import { auth } from '../../../features/user/userSlice'
-import { useState } from 'react';
+import { useDispatch } from "react-redux";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { fetchRegister } from "../../features/user/userSlice";
 
 const RegistrationForm = () => {
   const [isClicked, setIsClicked] = useState(false);
-
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    reset,
+    getValues,
+  } = useForm({ mode: "onBlur" });
   const dispatch = useDispatch();
 
-  const goRegister = async (event) => {
-    event.preventDefault();
-
-    const {
-      username: { value: username },
-      password: { value: password },
-      email: { value: email },
-      method,
-    } = event.target
-
-    const body = JSON.stringify({ username, password, email });
-
-    const response = await fetch('http://localhost:4000/auth/register', {
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-      body,
-      method
-    });
-
-    const user = await response.json();
-    console.log(user);
-
-    dispatch(auth(user));
-  }
+  const goRegister = (data) => {
+    dispatch(fetchRegister(data));
+    reset();
+  };
 
   const handleClick = () => {
     setIsClicked(!isClicked);
-  }
+  };
 
   return (
     <div>
-      {
-        isClicked ?
-          <form action="/auth/register" onSubmit={goRegister} method="post">
-            <label htmlFor="username">
-              Username
-              <input type="text" name="username" id="username" />
-            </label>
-            <label htmlFor="password">
-              Password
-              <input type="password" name="password" id="password" />
-            </label>
-            <label htmlFor="email">
-              Email
-              <input type="email" name="email" id="email" />
-            </label>
-            <button type="submit">Register</button>
-          </form>
-          :
-          <button type='button' onClick={handleClick}>Register</button>
-      }
+      {isClicked ? (
+        <form
+          action="/auth/register"
+          onSubmit={handleSubmit(goRegister)}
+          method="post"
+        >
+          <label htmlFor="username">
+            Username
+            <input
+              type="text"
+              name="username"
+              id="username"
+              {...register("username", {
+                required: "Поле обязательно к заполнению",
+                minLength: {
+                  value: 3,
+                  message: "Минимум 3 символа!",
+                },
+                pattern: {
+                  value: /[A-Za-z]{3}/,
+                  message: "only english",
+                },
+              })}
+            />
+          </label>
+          <div style={{ color: "red" }}>
+            {errors?.username && <p>{errors?.username?.message || "Error!"}</p>}
+          </div>
+          <label htmlFor="password">
+            Password
+            <input
+              type="password"
+              name="password"
+              id="password"
+              {...register("password", {
+                required: "Поле обязательно к заполнению",
+                minLength: {
+                  value: 8,
+                  message: "Минимум 8 символов!",
+                },
+              })}
+            />
+          </label>
+          <div style={{ color: "red" }}>
+            {errors?.password && <p>{errors?.password?.message || "Error!"}</p>}
+          </div>
+          <label htmlFor="passwordRepeat">
+            RepeatPassword
+            <input
+              type="password"
+              name="passwordRepeat"
+              id="passwordRepeat"
+              {...register("passwordRepeat", {
+                required: "Поле обязательно к заполнению",
+                validate: {
+                  isRepeat: (value) => getValues("password") === value,
+                },
+              })}
+            />
+          </label>
+          <div style={{ color: "red" }}>
+            {errors.passwordRepeat?.type === "isRepeat" && (
+              <p>{"Пароли не совпадают!"}</p>
+            )}
+          </div>
+          <label htmlFor="email">
+            Email
+            <input
+              type="email"
+              name="email"
+              id="email"
+              {...register("email", {
+                required: "Поле обязательно к заполнению",
+                pattern: {
+                  value: /@/,
+                  message: "enter real email!",
+                },
+              })}
+            />
+          </label>
+          <div style={{ color: "red" }}>
+            {errors?.email && <p>{errors?.email?.message || "Error!"}</p>}
+          </div>
+          <button type="submit">Register</button>
+        </form>
+      ) : (
+        <button type="button" onClick={handleClick}>
+          Register
+        </button>
+      )}
     </div>
   );
 };
