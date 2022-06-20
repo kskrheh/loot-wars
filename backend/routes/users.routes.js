@@ -5,7 +5,7 @@ const {
   getUserWeapons,
 } = require('../controllers/usersContoller');
 
-usersRouter.get('/', getUsers);
+usersRouter.post('/', getUsers);
 usersRouter.get('/:username', getUserWeapons);
 
 module.exports = usersRouter;

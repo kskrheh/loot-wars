@@ -1,9 +1,19 @@
+const {Op} = require("sequelize");
 const {
   User, UserWeapon, Weapon, sequelize,
 } = require('../db/models');
 
 async function getUsers(req, res) {
-  const users = await User.findAll();
+  const users = await User.findAll({
+    where: {
+      username: {
+        [Op.ne] : req.body.name
+      }
+    },
+    order: sequelize.fn('RANDOM'),
+    limit: 10
+  });
+  // console.log(users)
   res.json(users);
 }
 
