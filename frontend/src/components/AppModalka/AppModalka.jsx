@@ -7,7 +7,6 @@ const AppModalka = () => {
   const [modalActive , setModalActive] = useState(false)
   return (
     <div className = 'app'>
-      
       <div>
         <button className = 'open-btn' onClick={() => setModalActive(!modalActive)}>модалка</button>
       </div>

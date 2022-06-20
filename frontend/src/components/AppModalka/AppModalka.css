@@ -1,16 +1,34 @@
 * {
   padding: 0;
+  
   margin: 0;
   box-sizing: border-box;
+  
+}
+.mach {
+  
+  background-image: url(https://www.pngmart.com/files/1/Cross-Sword-PNG-Clipart.png);
+  background-size: 60%;
+  background-repeat: no-repeat;
+}
+.app {
+  height: 1000px;
+  width: 100%;
+  align-items: center;
+ 
+  background-image: url(https://www.pngmart.com/files/1/Cross-Sword-PNG-Clipart.png);
+  background-size: 40%;
+  background-repeat: no-repeat;
 }
 
 p {
+  
   margin: 20px;
 }
 
 .open-btn {
   margin: 10px 20px;
-  padding: 20px;
+  padding: 10px;
   font-size: 2rem;
 }
 
