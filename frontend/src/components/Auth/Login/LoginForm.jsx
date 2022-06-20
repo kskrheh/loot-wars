@@ -1,57 +1,63 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { login } from '../../../features/user/userSlice'
+import { fetchLogin, login } from "../../features/user/userSlice";
+import { useForm } from "react-hook-form";
 
 const LoginForm = () => {
   const [isClicked, setIsClicked] = useState(false);
-
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+  } = useForm({ mode: "onBlur" });
   const dispatch = useDispatch();
 
-  const goLogin = async (event) => {
-    event.preventDefault();
-
-    const {
-      username: { value: username },
-      password: { value: password },
-      method,
-    } = event.target;
-
-    const body = JSON.stringify({ username, password });
-    const response = await fetch('http://localhost:4000/auth/login', {
-      method,
-      body,
-      headers: { 'Content-Type': 'application/json' },
-      credentials: 'include',
-    });
-
-    const user = await response.json();
-    console.log(user)
-    dispatch(login(user))
-  }
+  const goLogin = async (data) => {
+    dispatch(fetchLogin(data));
+  };
 
   const handleClick = () => {
     setIsClicked(!isClicked);
-  }
+  };
 
   return (
     <div>
-      {
-        isClicked ?
-          <form action="/auth/login" method="post" onSubmit={goLogin}>
-            <label htmlFor="username">
-              Username
-              <input type="text" name="username" id="username" />
-            </label>
-            <label htmlFor="password">
-              Password
-              <input type="password" name="password" id="password" />
-            </label>
-            <button type="submit">Login</button>
-          </form>
-          :
-          <button type="button" onClick={handleClick}>Login</button>
-      }
-
+      {isClicked ? (
+        <form
+          action="/auth/login"
+          method="post"
+          onSubmit={handleSubmit(goLogin)}
+        >
+          <label htmlFor="username">
+            Username
+            <input
+              type="text"
+              name="username"
+              id="username"
+              {...register("username", {
+                required: "Поле обязательно к заполнению!",
+              })}
+            />
+          </label>
+          <div style={{ color: "red" }}>
+            {errors?.username && <p>{errors?.username?.message || "Error!"}</p>}
+          </div>
+          <label htmlFor="password">
+            Password
+            <input
+              type="password"
+              name="password"
+              id="password"
+              {...register("password", { required: true })}
+            />
+          </label>
+          <button type="submit">Login</button>
+        </form>
+      ) : (
+        <button type="button" onClick={handleClick}>
+          Login
+        </button>
+      )}
     </div>
   );
 };
