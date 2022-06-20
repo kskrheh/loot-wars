@@ -13,7 +13,9 @@ export const lootSlice = createSlice({
     weapons: [],
   },
   reducers: {
-
+    removeWeapons: (state) => {
+      state.weapons = []
+    },
   },
   extraReducers(builder) {  // каждый редьюсер имеет свой слайс состояния
     builder.addCase(fetchLoot.fulfilled, (state, action) => { // добавляет редуктор для одного точного типа дейстий 
@@ -23,6 +25,6 @@ export const lootSlice = createSlice({
   }
 });
 
-export const { findLoot } = lootSlice.actions;
+export const { findLoot, removeWeapons } = lootSlice.actions;
 
 export default lootSlice.reducer;

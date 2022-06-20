@@ -20,28 +20,22 @@ const Equipped = ({ handleLi }) => {
 
   return (
     <>
-      { user.name ?
-      ( <ul className={styles.container}>
-        {weapons.length >= 0 &&
-          emptyArr.map((el, index) => {
-            if (weapons[index]) {
-              return (
-                <Weapon
-                  key={weapons[index].id}
-                  weapon={weapons[index]}
-                  handleLi={handleLi}
-                />
-              );
-            } else {
-              return (
-                <li
-                  key={index}
-                  className={styles.infoContainer}
-                  onClick={handleLi}
-                >
-                  No item
-                </li>
-              );
+      {
+        user.name ?
+          <ul className={styles.container}>
+            {
+              weapons.length >= 0 &&
+              emptyArr.map((el, index) => {
+                if (weapons[index]) {
+                  return (
+                    <Weapon key={weapons[index].id} pertain={'userWeapon'} weapon={weapons[index]} handleLi={handleLi} />
+                  )
+                } else {
+                  return (
+                    <li key={index} className={styles.infoContainer} onClick={handleLi}>No item</li>
+                  )
+                }
+              })
             }
           })}
       </ul> )
