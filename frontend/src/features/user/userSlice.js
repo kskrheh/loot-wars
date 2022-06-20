@@ -12,13 +12,13 @@ const initialState = {
   loading: false,
 }
 
-export const fetchUserWeapons = createAsyncThunk('users/fetchUsers', async (name) => {
+export const fetchUserWeapons = createAsyncThunk('users/fetchUsers', async (name) => { // ac.t
   const response = await fetch(`http://localhost:4000/users/${name}`, {
-    method: 'GET', 
+    method: 'GET',
     credentials: 'include',
     headers: {"Content-Type": "application/json"}
   });
-  
+
   const data = await response.json();
   return data;
 })
@@ -69,7 +69,7 @@ export const userSlice = createSlice({
       state.user.weaponsId.push(action.payload)
     }
   },
-  extraReducers(builder) {
+  extraReducers(builder) { //санки в тулките все пишуться через екстра редюсер
     builder.addCase(fetchUserWeapons.fulfilled, (state, action) => {
       state.user.weapons = action.payload
     })
