@@ -1,16 +1,15 @@
-// import { useState } from "react";
-import { useSelector, useDispatch, } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { fetchLoot } from "../../features/loot/lootSlice";
-import { weaponsId } from "../../features/user/userSlice";
+import { weaponsId, userWeaponsId } from "../../features/user/userSlice";
 import Equipped from "../Equipped/Equipped";
 import styles from './Loot.module.css';
 
 function Loot() {
   let firstItem, secondItem = null;
   const weapons = useSelector((state) => state.loot.weapons);
-  const user = useSelector((state) => state.user.user.name)
+  const user = useSelector((state) => state.user.user.name);
+  const userReduxWeaponsId = useSelector((state) => state.user.userWeaponsId);
   const userReduxWeapons = useSelector((state) => state.user.user.weaponsId);
-  console.log(userReduxWeapons)
 
   const dispatch = useDispatch();
 
@@ -25,17 +24,16 @@ function Loot() {
       console.log('selectedOne');
       document.querySelector('.selectedOne').replaceWith(secondItem);
       // document.querySelector('.selectedOne').classList.remove('selectedOne');
-
-      console.log('selectedTwo');
-      console.log(firstItem);
-      console.log(secondItem);
       document.querySelector('.js-append').append(firstItem);
       // document.querySelector('.selectedTwo').classList.remove('selectedTwo');
+    } else if (document.querySelector('.selectedTwo')) {
+      console.log('two')
+      document.querySelector('.selectedTwo').replaceWith(firstItem);
+      document.querySelector('.js-append-one').append(secondItem);
     }
   }
 
   const handleSwap = () => {
-    console.log('handleSwap')
     const body = JSON.stringify({ userReduxWeapons, user: user });
     const fetchWeapons = async () => {
       const response = await fetch('http://localhost:4000/loot', {
@@ -51,21 +49,27 @@ function Loot() {
     fetchWeapons();
   }
 
-  const handleLi = (e) => {
-    e.target.classList.add('selectedTwo');
-    secondItem = e.target;
+  const handleLiOne = (e) => {
+    e.target.classList.add('selectedOne');
+    firstItem = e.target;
 
-    dispatch(weaponsId(e.target.dataset.id))
-    if (firstItem) {
+    if (e.target.dataset.id) {
+      dispatch(userWeaponsId(e.target.dataset.id));
+    }
+    console.log(firstItem)
+    if (secondItem) {
       swapWeapons(firstItem, secondItem);
       firstItem = secondItem = null;
     }
   }
 
-  const handleLiOne = (e) => {
-    e.target.classList.add('selectedOne');
-    firstItem = e.target;
-    if (secondItem) {
+  const handleLiTwo = (e) => {
+    e.target.classList.add('selectedTwo');
+    secondItem = e.target;
+
+    dispatch(weaponsId(e.target.dataset.id));
+    console.log(secondItem)
+    if (firstItem) {
       swapWeapons(firstItem, secondItem);
       firstItem = secondItem = null;
     }
@@ -75,34 +79,9 @@ function Loot() {
     <div className={styles.loot_container}>
       <button className={styles.button_loot} type="button" onClick={handleClick}>Loot</button>
       <Equipped handleLiOne={handleLiOne} />
-      {/* <ul className={styles.container} >
-        <li onClick={handleLiOne}>
-          <span>{ }</span> <span>🗡{ }</span> <span>🛡{ }</span>
-        </li>
-
-        <li onClick={handleLiOne}>
-          <span>{ }</span> <span>🗡{ }</span> <span>🛡{ }</span>
-        </li>
-
-        <li onClick={handleLiOne}>
-          <span>{ }</span> <span>🗡{ }</span> <span>🛡{ }</span>
-        </li>
-
-        <li onClick={handleLiOne}>
-          <span>{ }</span> <span>🗡{ }</span> <span>🛡{ }</span>
-        </li>
-
-        <li onClick={handleLiOne}>
-          <span>{ }</span> <span>🗡{ }</span> <span>🛡{ }</span>
-        </li>
-
-        <li onClick={handleLiOne}>
-          <span>{ }</span> <span>🗡{ }</span> <span>🛡{ }</span>
-        </li>
-      </ul > */}
       <ul className={`${styles.loot_container} ${styles.ul_loot} js-append`}>
         {weapons.map((weapon) => (
-          <li data-id={weapon.id} key={weapon.id} onClick={handleLi}>
+          <li data-id={weapon.id} key={weapon.id} onClick={handleLiTwo}>
             <span>{weapon.title} </span>
             <span>🗡 {weapon.ATK} </span>
             <span>🛡 {weapon.DEF}</span>

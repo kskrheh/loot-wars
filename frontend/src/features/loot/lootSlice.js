@@ -3,8 +3,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"; // запус�
 // редьюсером и состоянию внутри он использует createAction и createReducer
 export const fetchLoot = createAsyncThunk('users/fetchLoot', async () => {
   const response = await fetch('http://localhost:4000/loot');
-  console.log(response);
-  return response.json();
+  const data = await response.json();
+  return data;
 })
 
 export const lootSlice = createSlice({
