@@ -1,0 +1,9 @@
+.infoContainer {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.button_container {
+  display: table-cell;
+  vertical-align: middle; 
+}

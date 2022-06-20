@@ -1,5 +1,7 @@
 import { useDispatch } from 'react-redux';
-import { logout } from '../../features/user/userSlice'
+import { logout } from '../../../features/user/userSlice'
+
+import styles from './LogoutButton.module.css'
 
 const LogoutButton = () => {
   const dispatch = useDispatch();
@@ -17,8 +19,8 @@ const LogoutButton = () => {
   }
 
   return (
-    <button onClick={goLogout}>
-      EXIT
+    <button className={styles.logout} onClick={goLogout}>
+      Logout
     </button>
   );
 };

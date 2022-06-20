@@ -1,5 +1,5 @@
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up(queryInterface) {
     await queryInterface.bulkInsert('Weapons', [{
       title: 'Kalash',
       ATK: 16,
@@ -105,10 +105,91 @@ module.exports = {
       quality: 5,
       createdAt: new Date(),
       updatedAt: new Date(),
-    }], {});
+    },
+    {
+      title: 'Knife',
+      ATK: 7,
+      DEF: 7,
+      quality: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      title: 'Knife',
+      ATK: 11,
+      DEF: 9,
+      quality: 2,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      title: 'Knife',
+      ATK: 12,
+      DEF: 11,
+      quality: 3,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      title: 'Knife',
+      ATK: 16,
+      DEF: 15,
+      quality: 4,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      title: 'Knife',
+      ATK: 20,
+      DEF: 20,
+      quality: 5,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      title: 'Guitar',
+      ATK: 4,
+      DEF: 5,
+      quality: 1,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      title: 'Guitar',
+      ATK: 6,
+      DEF: 8,
+      quality: 2,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      title: 'Guitar',
+      ATK: 9,
+      DEF: 11,
+      quality: 3,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      title: 'Guitar',
+      ATK: 12,
+      DEF: 12,
+      quality: 4,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    {
+      title: 'Guitar',
+      ATK: 14,
+      DEF: 15,
+      quality: 5,
+      createdAt: new Date(),
+      updatedAt: new Date(),
+    },
+    ], {});
   },
 
-  async down(queryInterface, Sequelize) {
+  async down(queryInterface) {
     await queryInterface.bulkDelete('Weapons', null, {});
   },
 };

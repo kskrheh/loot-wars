@@ -1,22 +1,20 @@
-
 import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux'
-
+import styles from './Footer.module.css';
 
 function Footer() {
 
   return (
     <footer>
       <nav>
-        <ul>
-          <li><Link to="home">⛺</Link></li>
-          <li><Link to="/lopata">🪠</Link></li>
+        <ul className={styles.ul_footer}>
+          <li><Link to="/">⛺</Link></li>
+          <li><Link to="/loot">🪠</Link></li>
           <li><Link to="/arena">⚔</Link></li>
           <li><Link to="/telegram">✉</Link></li>
           <li><Link to="/history">📖</Link></li>
         </ul>
       </nav>
-    </footer>
+    </footer >
   );
 }
 
