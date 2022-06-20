@@ -1,6 +1,6 @@
-function Weapon({ weapon, handleLi }) {
+function Weapon({ weapon, handleLi, pertain }) {
   return (
-    <li id={weapon.id} onClick={handleLi}>
+    <li data-pertain={pertain} id={weapon.id} onClick={handleLi}>
       <span>{weapon.title} </span>
       <span>🗡 {weapon.ATK} </span>
       <span>🛡 {weapon.DEF}</span>
