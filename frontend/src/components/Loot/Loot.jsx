@@ -1,15 +1,15 @@
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchLoot } from "../../features/loot/lootSlice";
-import { weaponsId, userWeaponsId } from "../../features/user/userSlice";
+import { fetchUserWeapons } from "../../features/user/userSlice";
 import Equipped from "../Equipped/Equipped";
 import styles from './Loot.module.css';
+import Weapon from "./Weapon/Weapon";
 
 function Loot() {
-  let firstItem, secondItem = null;
+  const [arrayIds, setArrayIds] = useState([]);
   const weapons = useSelector((state) => state.loot.weapons);
   const user = useSelector((state) => state.user.user.name);
-  const userReduxWeaponsId = useSelector((state) => state.user.userWeaponsId);
-  const userReduxWeapons = useSelector((state) => state.user.user.weaponsId);
 
   const dispatch = useDispatch();
 
@@ -17,24 +17,8 @@ function Loot() {
     dispatch(fetchLoot())
   };
 
-  const swapWeapons = (first, second) => {
-    console.log('swap weapons');
-
-    if (document.querySelector('.selectedOne')) {
-      console.log('selectedOne');
-      document.querySelector('.selectedOne').replaceWith(secondItem);
-      // document.querySelector('.selectedOne').classList.remove('selectedOne');
-      document.querySelector('.js-append').append(firstItem);
-      // document.querySelector('.selectedTwo').classList.remove('selectedTwo');
-    } else if (document.querySelector('.selectedTwo')) {
-      console.log('two')
-      document.querySelector('.selectedTwo').replaceWith(firstItem);
-      document.querySelector('.js-append-one').append(secondItem);
-    }
-  }
-
   const handleSwap = () => {
-    const body = JSON.stringify({ userReduxWeapons, user: user });
+    const body = JSON.stringify({ arrayIds, user: user });
     const fetchWeapons = async () => {
       const response = await fetch('http://localhost:4000/loot', {
         method: 'POST',
@@ -47,52 +31,32 @@ function Loot() {
     }
 
     fetchWeapons();
+    dispatch(fetchUserWeapons(user));
+    setArrayIds([]);
   }
 
-  const handleLiOne = (e) => {
-    e.target.classList.add('selectedOne');
-    firstItem = e.target;
-
-    if (e.target.dataset.id) {
-      dispatch(userWeaponsId(e.target.dataset.id));
+  const handleLi = (e) => {
+    if (arrayIds.length < 2) {
+      setArrayIds((prevState) => [...prevState, e.target.id]);
+      // setArrayIds((prevState) => prevState.push([e.target.id]));
     }
-    console.log(firstItem)
-    if (secondItem) {
-      swapWeapons(firstItem, secondItem);
-      firstItem = secondItem = null;
-    }
-  }
-
-  const handleLiTwo = (e) => {
-    e.target.classList.add('selectedTwo');
-    secondItem = e.target;
-
-    dispatch(weaponsId(e.target.dataset.id));
-    console.log(secondItem)
-    if (firstItem) {
-      swapWeapons(firstItem, secondItem);
-      firstItem = secondItem = null;
-    }
+    console.log(arrayIds);
   }
 
   return (
     <div className={styles.loot_container}>
       <button className={styles.button_loot} type="button" onClick={handleClick}>Loot</button>
-      <Equipped handleLiOne={handleLiOne} />
-      <ul className={`${styles.loot_container} ${styles.ul_loot} js-append`}>
+      <Equipped handleLi={handleLi} />
+      <ul className={`${styles.loot_container} ${styles.ul_loot}`}>
         {weapons.map((weapon) => (
-          <li data-id={weapon.id} key={weapon.id} onClick={handleLiTwo}>
-            <span>{weapon.title} </span>
-            <span>🗡 {weapon.ATK} </span>
-            <span>🛡 {weapon.DEF}</span>
-          </li>
+          <Weapon key={weapon.id} weapon={weapon} handleLi={handleLi} />
         ))}
       </ul>
       {
         weapons.length !== 0 &&
         <button className={styles.button_loot} type="button" onClick={handleSwap}>Swap</button>
       }
-    </div>
+    </div >
   );
 }
 
