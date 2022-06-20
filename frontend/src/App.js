@@ -14,7 +14,7 @@ import styles from "./App.css";
 
 function App() {
   const user = useSelector((state) => state.user);
-  console.log(user);
+  // console.log(user);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -25,11 +25,11 @@ function App() {
     <div>
       <header>
         {
-          user.user.name && 
+          user.user.name &&
             <>
               <Nav />
               <Footer />
-              
+
             </>
         }
         <Routes>

@@ -5,13 +5,16 @@ import './App.css'
 
 import Modal from "../Modal/Modal";
 import EnemyModal from "../Modal/EnemyModal/EnemyModal";
+import {fetchEnemyWeapons} from "../../features/enemy/enemySlice";
 
 function Arena() {
   const dispatch = useDispatch();
   const [active, setActive] = useState(false);
-  const [idEnemy, setIdEnemy] = useState(1);
+  // const [idEnemy, setIdEnemy] = useState();
   const users = useSelector((state) => state.users.users);
-  const name = useSelector((state) => state.user.user.name)
+  const name = useSelector((state) => state.user.user.name);
+  // const enemy = useSelector(((state) => state.enemy.enemy.name));
+  let enemyOne;
 
   const handleFetchUsers = () => {
     dispatch(fetchUsers(name));
@@ -23,7 +26,8 @@ function Arena() {
 
     const handleClickEnemy = (event) => {
         setActive(true);
-        setIdEnemy(event.target.dataset.id);
+        enemyOne = users.filter((user) => user.id === +event.target.dataset.id);
+        dispatch(fetchEnemyWeapons(enemyOne[0].username));
     }
 
   return (
@@ -41,7 +45,7 @@ function Arena() {
       </ul>
       <button onClick={handleFetchUsers}>Shuffle opponents</button>
       <Modal active={active} setActive={setActive}>
-        <EnemyModal idEnemy={idEnemy}/>
+        <EnemyModal/>
       </Modal>
     </>
   )

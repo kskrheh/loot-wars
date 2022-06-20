@@ -2,13 +2,17 @@ import React from 'react';
 import './EnemyModal.css'
 import {useSelector} from "react-redux";
 
-const EnemyModal = ({idEnemy}) => {
- const users = useSelector((state) => state.users.users);
- const user = users.filter((user) => user.id === +idEnemy);
-    console.log(user)
+const EnemyModal = () => {
+  const enemy = useSelector((state) => state.enemy.enemy);
+  console.log(enemy)
   return (
     <div className = 'app'>
-      {idEnemy}
+      {
+        enemy ?
+          <p>{enemy.username}</p>
+            :
+          <p>Privet</p>
+      }
     </div>
   );
 }

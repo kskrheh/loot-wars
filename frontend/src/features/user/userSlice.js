@@ -14,11 +14,11 @@ const initialState = {
 
 export const fetchUserWeapons = createAsyncThunk('users/fetchUsers', async (name) => {
   const response = await fetch(`http://localhost:4000/users/${name}`, {
-    method: 'GET', 
+    method: 'GET',
     credentials: 'include',
     headers: {"Content-Type": "application/json"}
   });
-  
+
   const data = await response.json();
   return data;
 })
@@ -56,7 +56,7 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
   });
   // console.log(response);
   const data = await response.json();
-  console.log(data);
+  // console.log(data);
   return data;
 })
 export const userSlice = createSlice({
