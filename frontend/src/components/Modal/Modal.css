@@ -10,8 +10,8 @@
   justify-content: center;
   opacity: 0;
   pointer-events: none;
-  transition: scale(0);
-  font-size: 35;
+  transition: 0.5s;
+  /*font-size: 35;*/
 }
 
 .modal.active {
@@ -26,14 +26,14 @@ font-size: 35px;
   background-color: rgb(236, 134, 134);
   height: 200px;
   width: 200px;
-  
+
   transform: scale(0.5);
-  transition: 0.4s all; 
-} 
+  transition: 0.4s all;
+}
 
  .modal_content.active {
   transform: scale(1);
-} 
+}
 
 
 
