@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { fetchRegister } from "../../features/user/userSlice";
+import { fetchRegister } from "../../../features/user/userSlice";
 
 const RegistrationForm = () => {
   const [isClicked, setIsClicked] = useState(false);

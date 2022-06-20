@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { fetchLogin, login } from "../../features/user/userSlice";
+import { fetchLogin } from "../../../features/user/userSlice";
 import { useForm } from "react-hook-form";
 
 const LoginForm = () => {
