@@ -8,10 +8,8 @@ import styles from './Equipped.module.css';
 const Equipped = ({ handleLiOne }) => {
   const [emptyArr] = useState(new Array(6).fill(' '))
   const user = useSelector((state) => state.user.user);
-  const weapons = useSelector((state) => state.user.weapons);
+  const weapons = useSelector((state) => state.user.user.weapons);
   const dispatch = useDispatch();
-  console.log(emptyArr)
-  console.log(user.name)
 
   useEffect(() => {
     if (user.name) {
@@ -20,92 +18,35 @@ const Equipped = ({ handleLiOne }) => {
   }, [dispatch, user.name])
 
   return (
-
     <>
-
       {
         user.name ?
-          <ul className={styles.container}>
+          <ul className={`${styles.container} js-append-one`}>
             {
+              weapons.length >= 0 &&
               emptyArr.map((el, index) => {
-                if (Object.keys(weapons[index].Weapon.length !== 0)) {
-                  <li>{weapons[index].Weapon.title}</li>
+                if (weapons[index]) {
+                  return (
+                    <li key={index} data-id={weapons[index].Weapon.id} className={styles.infoContainer} onClick={handleLiOne}>
+                      <span>{weapons[index].Weapon.title}</span>
+                      <span>🗡{weapons[index].Weapon.ATK}</span>
+                      <span>🛡{weapons[index].Weapon.DEF}</span>
+                      <span>Q{weapons[index].Weapon.quality}</span>
+                    </li>
+                  )
                 } else {
-                  <li>Empty item</li>
+                  return (
+                    <li key={index} className={styles.infoContainer} onClick={handleLiOne}>No item</li>
+                  )
                 }
               })
-              // weapons.map((weapon) => {
-              //   if (Object.keys(weapon).length === 0) {
-              //     return (
-              //       <li className={styles.infoContainer} onClick={handleLiOne}>
-              //         Empty item
-              //       </li>
-              //     )
-              //   } else {
-              //     return (
-              //       <li className={styles.infoContainer} onClick={handleLiOne}>
-              //         <span>{weapon.Weapon.title}</span> <span>🗡{weapon.Weapon.ATK}</span> <span>🛡{weapon.Weapon.DEF}</span>
-              //       </li>
-              //     )
-              //   }
-              // })
             }
           </ul>
           :
           <div className={styles.button_container}>
             <RegistrationForm />
             <LoginForm />
-
           </div>
-      }
-      {/* {
-        <ul>
-          {
-            weaponQuantity.map((el, index) => {
-              if (weapons[index] !== 0) {
-                return (
-                  <li className={styles.infoContainer} onClick={handleLiOne}>
-                    <span>{weapons.title}</span> <span>🗡{weapons.ATK}</span> <span>🛡{weapons.DEF}</span>
-                  </li>
-                )
-              }
-              return (
-                <li className={styles.infoContainer} onClick={handleLiOne}>
-                  <span>{ }</span> <span>🗡{ }</span> <span>🛡{ }</span>
-                </li>
-              )
-            }
-          }
-        </ul>
-      }) */
-        // user.user.name ?
-        //   <ul className={styles.container} >
-        //     <li className={styles.infoContainer} onClick={handleLiOne}>
-        //       <span>{ }</span> <span>🗡{ }</span> <span>🛡{ }</span>
-        //     </li>
-
-        //     <li className={styles.infoContainer} onClick={handleLiOne}>
-        //       <span>{ }</span> <span>🗡{ }</span> <span>🛡{ }</span>
-        //     </li>
-
-        //     <li className={styles.infoContainer} onClick={handleLiOne}>
-        //       <span>{ }</span> <span>🗡{ }</span> <span>🛡{ }</span>
-        //     </li>
-
-        //     <li className={styles.infoContainer} onClick={handleLiOne}>
-        //       <span>{ }</span> <span>🗡{ }</span> <span>🛡{ }</span>
-        //     </li>
-
-        //     <li className={styles.infoContainer} onClick={handleLiOne}>
-        //       <span>{ }</span> <span>🗡{ }</span> <span>🛡{ }</span>
-        //     </li>
-
-        //     <li className={styles.infoContainer} onClick={handleLiOne}>
-        //       <span>{ }</span> <span>🗡{ }</span> <span>🛡{ }</span>
-        //     </li>
-        //   </ul >
-        //   :
-
       }
     </>
   );

@@ -4,6 +4,7 @@ const initialState = {
   user: {
     name: undefined,
     weapons: [],
+    userWeaponsId: [],
     weaponsId: []
   },
 }
@@ -32,6 +33,9 @@ export const userSlice = createSlice({
     logout: (state) => {
       state.user.name = null;
     },
+    userWeaponsId: (state, action) => {
+      state.user.userWeaponsId.push(action.payload)
+    },
     weaponsId: (state, action) => {
       state.user.weaponsId.push(action.payload)
     }
@@ -43,6 +47,6 @@ export const userSlice = createSlice({
   }
 })
 
-export const { auth, login, logout, weaponsId } = userSlice.actions
+export const { auth, login, logout, weaponsId, userWeaponsId } = userSlice.actions
 
 export default userSlice.reducer
