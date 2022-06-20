@@ -1,7 +1,7 @@
 .modal {
-  
+
   /* background-color: #63bd14 0.4; */
- 
+
   position: fixed;
   top: 0;
   left: 0;
@@ -12,8 +12,8 @@
   justify-content: center;
   opacity: 0;
   pointer-events: none;
-  transition: scale(0);
-  font-size: 35;
+  transition: 0.5s;
+  /*font-size: 35;*/
 }
 
 .modal.active {
@@ -23,28 +23,33 @@
 
 .modal__content {
 font-size: 35px;
+  /*padding: 40px;*/
+  /*border-radius: 12px;*/
+  background-color: rgb(236, 134, 134);
+  /*height: 200px;*/
+  /*width: 200px;*/
   padding: 50px;
   border-radius: 50px;
- 
+
     border: 10px solid rgb(239,245,195);
 
 
- 
- 
+
+
   /* background: rgb(222,231,178); */
   opacity: .3;
-  
+
 
   height: 400px;
   width: 400px;
-  
+
   transform: scale(0.5);
-  transition: 0.4s all; 
-} 
+  transition: 0.4s all;
+}
 
  .modal_content.active {
   transform: scale(1);
-} 
+}
 
 
 

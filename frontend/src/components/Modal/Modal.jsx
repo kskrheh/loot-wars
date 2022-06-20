@@ -1,7 +1,8 @@
-import React from "react";
-import "./Modalka.css";
+import React from 'react';
+import './Modal.css'
 
-const Modalka = ({ active, setActive, children }) => {
+
+const Modal = ({active, setActive , children}) => {
   return (
     <div
       className={active ? "modal active" : "modal"}
@@ -14,7 +15,7 @@ const Modalka = ({ active, setActive, children }) => {
         {children}
       </div>
     </div>
-  );
+  )
 };
 
-export default Modalka;
+export default Modal;

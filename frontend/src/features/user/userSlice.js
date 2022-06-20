@@ -14,11 +14,11 @@ const initialState = {
 
 export const fetchUserWeapons = createAsyncThunk('users/fetchUsers', async (name) => { // ac.t
   const response = await fetch(`http://localhost:4000/users/${name}`, {
-    method: 'GET', 
+    method: 'GET',
     credentials: 'include',
     headers: {"Content-Type": "application/json"}
   });
-  
+
   const data = await response.json();
   return data;
 })

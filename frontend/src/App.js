@@ -24,7 +24,7 @@ function App() {
     <div>
       <header>
         {
-          user.user.name && 
+          user.user.name &&
             <>
               <Nav />
               <Footer />
