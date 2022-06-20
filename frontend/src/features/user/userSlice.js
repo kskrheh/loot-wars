@@ -124,6 +124,6 @@ export const userSlice = createSlice({
   }
 })
 
-export const { auth, login, logout, weaponsId, userWeaponsId } = userSlice.actions
+export const { logout, weaponsId, userWeaponsId } = userSlice.actions
 
 export default userSlice.reducer
