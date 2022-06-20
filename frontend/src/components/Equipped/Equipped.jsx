@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchUserWeapons } from '../../features/user/userSlice';
 import LoginForm from '../Auth/Login/LoginForm';
 import RegistrationForm from '../Auth/Registration/RegistrationForm';
+import Weapon from '../Loot/Weapon/Weapon';
 import styles from './Equipped.module.css';
 
-const Equipped = ({ handleLiOne }) => {
+const Equipped = ({ handleLi }) => {
   const [emptyArr] = useState(new Array(6).fill(' '))
   const user = useSelector((state) => state.user.user);
   const weapons = useSelector((state) => state.user.user.weapons);
@@ -21,22 +22,17 @@ const Equipped = ({ handleLiOne }) => {
     <>
       {
         user.name ?
-          <ul className={`${styles.container} js-append-one`}>
+          <ul className={styles.container}>
             {
               weapons.length >= 0 &&
               emptyArr.map((el, index) => {
                 if (weapons[index]) {
                   return (
-                    <li key={index} data-id={weapons[index].id} className={styles.infoContainer} onClick={handleLiOne}>
-                      <span>{weapons[index].title}</span>
-                      <span>🗡{weapons[index].ATK}</span>
-                      <span>🛡{weapons[index].DEF}</span>
-                      <span>Q{weapons[index].quality}</span>
-                    </li>
+                    <Weapon key={weapons[index].id} weapon={weapons[index]} handleLi={handleLi} />
                   )
                 } else {
                   return (
-                    <li key={index} className={styles.infoContainer} onClick={handleLiOne}>No item</li>
+                    <li key={index} className={styles.infoContainer} onClick={handleLi}>No item</li>
                   )
                 }
               })
