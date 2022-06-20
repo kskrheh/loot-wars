@@ -10,10 +10,11 @@ import {fetchEnemyWeapons} from "../../features/enemy/enemySlice";
 function Arena() {
   const dispatch = useDispatch();
   const [active, setActive] = useState(false);
-  // const [idEnemy, setIdEnemy] = useState();
+    const [idEnemy, setIdEnemy] = useState();
   const users = useSelector((state) => state.users.users);
   const name = useSelector((state) => state.user.user.name);
-  // const enemy = useSelector(((state) => state.enemy.enemy.name));
+  const enemy = useSelector(((state) => state.enemy.enemy.name))
+    console.log(users, enemy)
   let enemyOne;
 
   const handleFetchUsers = () => {
