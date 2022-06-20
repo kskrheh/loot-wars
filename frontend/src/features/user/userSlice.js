@@ -4,8 +4,8 @@ const initialState = {
   user: {
     name: undefined,
     weapons: [],
-    userWeaponsId: [],
-    weaponsId: []
+    weaponsId: [],
+    userWeaponsId: []
   },
   status: 'idle',
   error: null,
@@ -32,7 +32,6 @@ export const fetchRegister = createAsyncThunk('user/fetchRegister', async ({ use
       method: 'POST'
     });
     const data = await response.json();
-    console.log(data);
     return data;
 })
 export const fetchLogin = createAsyncThunk('user/fetchLogin', async ({ username, password }) => {
@@ -45,7 +44,6 @@ export const fetchLogin = createAsyncThunk('user/fetchLogin', async ({ username,
       method: 'POST'
     });
     return response.json();
-    // console.log("data", data)
 })
 
 export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
@@ -54,9 +52,11 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
     credentials: 'include',
     method: 'get'
   });
-  // console.log(response);
   const data = await response.json();
+<<<<<<< HEAD
   // console.log(data);
+=======
+>>>>>>> b5b36057ecfb2de140be0ff804bc43d744305571
   return data;
 })
 export const userSlice = createSlice({

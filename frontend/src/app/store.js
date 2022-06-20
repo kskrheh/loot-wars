@@ -6,7 +6,7 @@ import enemyReducer from '../features/enemy/enemySlice'
 
 export default configureStore({
   reducer: {
-    user: userReducer,
+    user: userReducer, //подвязка редьюсера
     users: usersReducer,
     loot: lootReducer,
     enemy: enemyReducer,
