@@ -52,7 +52,7 @@ function Arena() {
             </li>
           ))}
         </ul>
-        <button onClick={handleFetchUsers}>Shuffle opponents</button>
+        <button className='random'onClick={handleFetchUsers}>Update</button>
         <Modal active={active} setActive={setActive}>
           <EnemyModal />
         </Modal>
