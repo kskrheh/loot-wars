@@ -45,22 +45,12 @@ async function swapLoot(req, res) {
   const user = await User.findOne({ where: { username: req.body.user } });
 
   if (userWeaponID.length) {
-    console.log(userWeaponID.length, 'asdasdddddddddddddddddddddddddasdas');
     userWeaponID.forEach(async (elementID) => {
       const weapon = await UserWeapon.findOne({
         where: {
-          user_id: user.id,
-          weapon_id: +elementID,
+          id: +elementID,
         },
-        raw: true,
       });
-      console.log(weapon, 'asdasdddddddddddddddddddddddddddd');
-      // await UserWeapon.destroy({
-      //   where: {
-      //     user_id: user.id,
-      //     weapon_id: +elementID,
-      //   },
-      // });
       await weapon.destroy();
     });
   }
