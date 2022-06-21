@@ -1,6 +1,7 @@
 import React from 'react';
 import './EnemyModal.css'
 import {useSelector} from "react-redux";
+import Weapon from "../../Loot/Weapon/Weapon";
 
 const EnemyModal = () => {
   const enemy = useSelector((state) => state.enemy.enemy);
@@ -8,11 +9,9 @@ const EnemyModal = () => {
   return (
     <div className = 'app'>
       {
-        enemy ?
-          <p>{enemy.username}</p>
-            :
-          <p>Privet</p>
+        enemy.weapons.map((weapon, index) => <Weapon weapon={weapon} key={index}/>)
       }
+      <button>Бить</button>
     </div>
   );
 }

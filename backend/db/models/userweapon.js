@@ -10,6 +10,12 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   UserWeapon.init({
+    id: {
+      allowNull: false,
+      autoIncrement: true,
+      primaryKey: true,
+      type: DataTypes.INTEGER,
+    },
     weapon_id: {
       allowNull: false,
       references: {
