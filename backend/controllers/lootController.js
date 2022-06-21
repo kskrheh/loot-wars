@@ -43,17 +43,29 @@ async function getLoot(req, res) {
 async function swapLoot(req, res) {
   const { userWeaponID, lootWeaponID } = req.body.arrayIds;
   const user = await User.findOne({ where: { username: req.body.user } });
-  if (userWeaponID) {
+
+  if (userWeaponID.length) {
+    console.log(userWeaponID.length, 'asdasdddddddddddddddddddddddddasdas');
     userWeaponID.forEach(async (elementID) => {
-      await UserWeapon.destroy({
+      const weapon = await UserWeapon.findOne({
         where: {
           user_id: user.id,
           weapon_id: +elementID,
         },
+        raw: true,
       });
+      console.log(weapon, 'asdasdddddddddddddddddddddddddddd');
+      // await UserWeapon.destroy({
+      //   where: {
+      //     user_id: user.id,
+      //     weapon_id: +elementID,
+      //   },
+      // });
+      await weapon.destroy();
     });
   }
-  if (lootWeaponID) {
+
+  if (lootWeaponID.length) {
     lootWeaponID.forEach(async (elementID) => {
       await UserWeapon.create({
         user_id: user.id,
@@ -62,7 +74,6 @@ async function swapLoot(req, res) {
       });
     });
   }
-
   const userWeapons = await UserWeapon.findAll({
     where: {
       user_id: user.id,
