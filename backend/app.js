@@ -32,7 +32,7 @@ app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 app.use('/loot', lootRouter);
 
-app.listen(4000, () => {
+app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
-  console.log('Listening on port: 4000, Yo ASAKURA');
+  console.log('Listening on port: ', process.env.PORT, 'Yo, Asakura');
 });

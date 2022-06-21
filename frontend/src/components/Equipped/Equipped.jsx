@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { v4 as uuidv4 } from "uuid";
 
 import { fetchUserWeapons } from "../../features/user/userSlice";
 
@@ -23,30 +24,40 @@ const Equipped = ({ handleLi }) => {
 
   return (
     <>
-      {
-        user.name ?
+      <div className={styles.home}>
+        {user.name ? (
           <ul className={styles.container}>
-            {
-              weapons.length >= 0 &&
+            {weapons.length >= 0 &&
               emptyArr.map((el, index) => {
                 if (weapons[index]) {
                   return (
-                    <Weapon key={index} pertain={'userWeapon'} weapon={weapons[index]} handleLi={handleLi} />
-                  )
+                    <Weapon
+                      key={index}
+                      pertain={"userWeapon"}
+                      weapon={weapons[index]}
+                      handleLi={handleLi}
+                    />
+                  );
                 } else {
                   return (
-                    <li key={index} className={styles.infoContainer} pertain={'userWeapon'}>No item</li>
-                  )
+                    <li
+                      key={index}
+                      className={styles.infoContainer}
+                      onClick={handleLi}
+                    >
+                      No item
+                    </li>
+                  );
                 }
-              })
-            }
+              })}
           </ul>
-          : (
-            <div className={styles.button_container}>
-              <RegistrationForm />
-              <LoginForm />
-            </div>
-          )}
+        ) : (
+          <div className={styles.button_container}>
+            <RegistrationForm />
+            <LoginForm />
+          </div>
+        )}
+      </div>
     </>
   );
 };

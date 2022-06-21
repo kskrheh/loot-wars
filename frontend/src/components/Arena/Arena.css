@@ -1,0 +1,23 @@
+
+.img {
+  background-color: rgb(216,176,15);
+}
+.button {
+  width: auto;
+  height: auto;
+  border-radius: 5px; box-shadow: 0px 1px 3px; font-size: 20px;
+  background-color: rgb(211, 237, 184);
+}
+ .button:hover {
+  background-color: red;
+ }
+.random {
+  background-color: rgb(211, 237, 184);
+  border-radius: 10px; box-shadow: 0px 1px 3px; font-size: 20px;
+}
+
+.random:hover {
+
+  background-color: brown;
+  padding: 2px 4px;
+}
