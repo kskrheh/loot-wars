@@ -9,7 +9,7 @@ import Modal from "../Modal/Modal";
 import EnemyModal from "../Modal/EnemyModal/EnemyModal";
 
 import { fetchEnemyWeapons } from "../../features/enemy/enemySlice";
-import {fetchUserWeapons} from "../../features/user/userSlice";
+import { fetchUserWeapons } from "../../features/user/userSlice";
 
 function Arena() {
   const dispatch = useDispatch();
@@ -47,7 +47,7 @@ function Arena() {
 
                 className={styles.button}
                 data-id={user.id}
-                onClick={handleClickEnemy}
+                onClick={() => handleClickEnemy(user.id)}
               >
                 <img className={styles.red} src={lol} alt="" />
                 {/* Fight {user.username} */}
