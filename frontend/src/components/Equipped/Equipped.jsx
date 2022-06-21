@@ -32,7 +32,7 @@ const Equipped = ({ handleLi }) => {
               emptyArr.map((el, index) => {
                 if (weapons[index]) {
                   return (
-                    <Weapon key={uuidv4()} pertain={'userWeapon'} weapon={weapons[index]} handleLi={handleLi} />
+                    <Weapon key={index} pertain={'userWeapon'} weapon={weapons[index]} handleLi={handleLi} />
                   )
                 } else {
                   return (
