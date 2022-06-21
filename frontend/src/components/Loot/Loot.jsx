@@ -46,16 +46,22 @@ function Loot() {
 
   const handleLi = (e) => {
     const { pertain } = e.target.dataset;
-    const dublicateCount = userWeapons.filter((el) => +el.id === +e.target.id).length
-    console.log('dublicateCount', dublicateCount);
+    const dublicateCount = userWeapons.filter(
+      (el) => +el.id === +e.target.id
+    ).length;
+    const dublicateWeapons = weapons.filter(
+      (el) => +el.id === +e.target.id
+    ).length;
     let count =
       userWeapons.length -
       arrayIds.userWeaponID.length +
       arrayIds.lootWeaponID.length;
     if (count <= 6) {
       if (pertain === "userWeapon") {
-        console.log(count);
-        if (!arrayIds.userWeaponID.includes(e.target.id)) {
+        if (
+          arrayIds.userWeaponID.filter((el) => +el === +e.target.id).length !==
+          +dublicateCount
+        ) {
           e.target.style.backgroundColor = "green";
           setArrayIds((prevState) => {
             return {
@@ -64,12 +70,18 @@ function Loot() {
               errorLoot: "",
             };
           });
-        }else{
+        } else {
           e.target.style.backgroundColor = "white";
           setArrayIds((prevState) => {
+            const index = prevState.userWeaponID.findIndex(
+              (el) => el === e.target.id
+            );
+            console.log(index, "индеч");
+            const newUserWeaponID = [...prevState.userWeaponID];
+            newUserWeaponID.splice(index, 1);
             return {
               ...prevState,
-              userWeaponID: [...prevState.userWeaponID.filter((el) => el !== e.target.id)],
+              userWeaponID: newUserWeaponID,
               errorLoot: "",
             };
           });
@@ -78,7 +90,10 @@ function Loot() {
 
       if (pertain === "lootWeapon") {
         if (count < 6) {
-          if (!arrayIds.lootWeaponID.includes(e.target.id)) {
+          if (
+            arrayIds.lootWeaponID.filter((el) => +el === +e.target.id)
+              .length !== +dublicateWeapons
+          ) {
             e.target.style.backgroundColor = "green";
             setArrayIds((prevState) => {
               return {
@@ -90,11 +105,15 @@ function Loot() {
           } else {
             e.target.style.backgroundColor = "#5e2e2e";
             setArrayIds((prevState) => {
+              const index = prevState.lootWeaponID.findIndex(
+                (el) => el === e.target.id
+              );
+              console.log(index, "индеч");
+              const newLootWeaponID = [...prevState.lootWeaponID];
+              newLootWeaponID.splice(index, 1);
               return {
                 ...prevState,
-                lootWeaponID: [
-                  ...prevState.lootWeaponID.filter((el) => el !== e.target.id),
-                ],
+                lootWeaponID: newLootWeaponID,
                 errorLoot: "",
               };
             });
@@ -103,7 +122,8 @@ function Loot() {
           setArrayIds((prevState) => {
             return {
               ...prevState,
-              errorLoot: "У вас максимальное количество оружия(6), попробуйте выставить ненужные вам пушки на выброс",
+              errorLoot:
+                "У вас максимальное количество оружия(6), попробуйте выставить ненужные вам пушки на выброс",
             };
           });
         }

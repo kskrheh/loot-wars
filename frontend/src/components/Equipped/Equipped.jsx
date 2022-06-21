@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { v4 as uuidv4 } from 'uuid';
 
 import { fetchUserWeapons } from "../../features/user/userSlice";
 
@@ -36,7 +35,7 @@ const Equipped = ({ handleLi }) => {
                   )
                 } else {
                   return (
-                    <li key={index} className={styles.infoContainer} onClick={handleLi}>No item</li>
+                    <li key={index} className={styles.infoContainer} pertain={'userWeapon'}>No item</li>
                   )
                 }
               })
