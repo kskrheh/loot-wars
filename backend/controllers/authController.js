@@ -94,7 +94,7 @@ async function getUserInfo(req, res) {
     if (weapons.length) {
       res.json({ name: user.username, weapons, energy: user.energy });
     } else {
-      res.json(user.username);
+      res.json({ name: user.username, energy: user.energy });
     }
   } catch (err) {
     res.send(err.message);

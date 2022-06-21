@@ -1,7 +1,7 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchLoot, removeWeapons } from "../../features/loot/lootSlice";
-import { fetchUserWeapons } from "../../features/user/userSlice";
+import { decreaseEnergy, fetchUserWeapons, increaseEnergy } from "../../features/user/userSlice";
 import Equipped from "../Equipped/Equipped";
 import Weapon from "./Weapon/Weapon";
 import styles from "./Loot.module.css";
@@ -9,7 +9,12 @@ import styles from "./Loot.module.css";
 function Loot() {
   const weapons = useSelector((state) => state.loot.weapons);
   const user = useSelector((state) => state.user.user.name);
+  const energy = useSelector((state) => state.user.user.energy);
   const userWeapons = useSelector((state) => state.user.user.weapons);
+
+  const [delay, setDelay] = useState(1000)
+  const [isPlaying, setPlaying] = useState(false)
+
   const [arrayIds, setArrayIds] = useState({
     userWeaponID: [],
     lootWeaponID: [],
@@ -17,8 +22,39 @@ function Loot() {
   });
   const dispatch = useDispatch();
 
+  function useInterval(callback, delay) {
+    const savedCallback = useRef(callback)
+
+    // Remember the latest callback if it changes.
+    useEffect(() => {
+      savedCallback.current = callback
+    }, [callback])
+
+    // Set up the interval.
+    useEffect(() => {
+      // Don't schedule if no delay is specified.
+      // Note: 0 is a valid value for delay.
+      if (!delay && delay !== 0) {
+        return
+      }
+
+      const id = setInterval(() => savedCallback.current(), delay)
+
+      return () => clearInterval(id)
+    }, [delay])
+  }
+
+  useInterval(() => {
+    dispatch(increaseEnergy());
+    setPlaying(!isPlaying);
+  }, isPlaying ? delay : null)
+
+
+
   const handleClick = () => {
     dispatch(fetchLoot());
+    dispatch(decreaseEnergy());
+    setPlaying(!isPlaying)
   };
 
   const handleSwap = () => {
@@ -42,7 +78,6 @@ function Loot() {
     });
     dispatch(removeWeapons());
     dispatch(fetchUserWeapons(user));
-    
   };
 
   const handleLi = (e) => {
