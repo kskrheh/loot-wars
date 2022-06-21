@@ -1,0 +1,22 @@
+{
+  "name": "loot-wars",
+  "version": "1.0.0",
+  "description": "Release 0  Продумать релизы проекта Договориться о стиле кода Прописать название ручек Проговорить стек - Postgres, js, express, nodejs, module.css, react-redux, *WEBSOCKET",
+  "main": "index.js",
+  "scripts": {
+    "postinstall": "cd backend && npm i && cd ../frontend && npm i",
+    "start": "cd frontend && npm run build && cd ../backend && npm run db && npm start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kskrheh/loot-wars.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kskrheh/loot-wars/issues"
+  },
+  "homepage": "https://github.com/kskrheh/loot-wars#readme"
+}
