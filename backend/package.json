@@ -7,8 +7,8 @@
     "start": "node app.js",
     "dev": "nodemon app.js --ext js,jsx --ignore ./sessions",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "db": "npx sequelize db:migrate && npx sequelize db:seed:all",
-    "dbr": "npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate"
+    "db": "npx sequelize db:migrate",
+    "dbr": "npx sequelize db:drop && npx sequelize db:create && npx sequelize db:migrate && npx sequelize db:seed:all"
   },
   "author": "kskrheh, bulkasuhomyatka, koshej, baga",
   "license": "ISC",
