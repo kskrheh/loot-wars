@@ -1,10 +1,11 @@
 function Weapon({ weapon, handleLi, pertain }) {
   return (
-    <li data-pertain={pertain} id={weapon.id} onClick={handleLi}>
-      {weapon.title}
-      🗡 {weapon.ATK}
-      🛡 {weapon.DEF}  Q{weapon.quality}
-    </li>
+    <tr data-pertain={pertain} id={weapon.id} onClick={handleLi}>
+      <td>{weapon.title} </td>
+      <td>🗡 {weapon.ATK} </td>
+      <td>🛡 {weapon.DEF}</td>
+      <td> Q{weapon.quality}</td>
+    </tr>
   );
 }
 

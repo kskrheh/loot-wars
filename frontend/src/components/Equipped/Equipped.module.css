@@ -1,18 +1,25 @@
 
 .infoContainer {
+  /* display: flex;
+  justify-content: space-evenly; */
   display: flex;
-  justify-content: space-evenly;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: space-evenly;
+	align-items: baseline;
+	align-content: stretch;
 }
 
 .button_container {
   display: table-cell;
   vertical-align: middle; 
-  
+ 
+
 
 }
-.bgimage {
+/* .bgimage {
   background-image: url('https://img2.freepng.ru/20180630/lek/kisspng-rhttps://w7.pngwing.com/pngs/804/8/png-transparent-computer-icons-symbol-symbol-miscellaneous-angle-text.pngeal-estate-house-computer-icons-business-household-icon-5b37303e7e5ab8.3347936115303434865176.jpg');
-}
+} */
 .container{
 	display: flex;
 	flex-direction: column;
@@ -38,4 +45,8 @@
   background-position: center; /* Позиция фона по центру */
   /* width: 100vw; */
   /* height: 100vh; */
+}
+
+td {
+  width: 100px
 }

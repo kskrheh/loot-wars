@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchLogin } from "../../../features/user/userSlice";
 import { useForm } from "react-hook-form";
+import styles from './LoginForm.module.css'
 
 const LoginForm = () => {
   const [isClicked, setIsClicked] = useState(false);
@@ -21,7 +22,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div>
+    <div className={styles.rega}>
       {isClicked ? (
         <form
           action="/auth/login"
