@@ -23,7 +23,7 @@ function App() {
 
   return (
     <div>
-      <header>
+      <header className={styles.app}>
         {user.user.name && (
           <>
             <Nav />

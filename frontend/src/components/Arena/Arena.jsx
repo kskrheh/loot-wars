@@ -43,7 +43,7 @@ function Arena() {
             <li key={user.id}>
               {user.username}
               <button
-                className={styles.button}
+                className={styles.buttonArena}
                 data-id={user.id}
                 onClick={handleClickEnemy}
               >

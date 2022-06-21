@@ -3,11 +3,4 @@
   margin: 0;
   padding: 0;
 }
-.appa{
-	display: flex;
-	flex-direction: column;
-	flex-wrap: nowrap;
-	justify-content: center;
-	align-items: center;
-	align-content: stretch;
-}
+

@@ -6,6 +6,7 @@ import { fetchUserWeapons } from "../../features/user/userSlice";
 
 import LoginForm from "../Auth/Login/LoginForm";
 import RegistrationForm from "../Auth/Registration/RegistrationForm";
+// import Button from "../Button/Button";
 import Weapon from "../Loot/Weapon/Weapon";
 
 import styles from "./Equipped.module.css";

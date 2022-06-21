@@ -22,7 +22,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div className={styles.rega}>
+    <div>
       {isClicked ? (
         <form
           action="/auth/login"
@@ -52,10 +52,10 @@ const LoginForm = () => {
               {...register("password", { required: true })}
             />
           </label>
-          <button type="submit">Login</button>
+          <button className={styles.button} type="submit">Login</button>
         </form>
       ) : (
-        <button type="button" onClick={handleClick}>
+        <button className={styles.button} type="button" onClick={handleClick}>
           Login
         </button>
       )}
