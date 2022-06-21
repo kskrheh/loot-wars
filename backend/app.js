@@ -30,9 +30,9 @@ app.use(session(
 ));
 
 // ручки
-app.use('/auth', authRouter);
-app.use('/users', usersRouter);
-app.use('/loot', lootRouter);
+app.use('/api/auth', authRouter);
+app.use('/api/users', usersRouter);
+app.use('/api/loot', lootRouter);
 
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console

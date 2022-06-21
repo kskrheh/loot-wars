@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"; // запус�
 // createSlice функция принимающая начальное состояние, обьект функций редьюсера,авто создает действия и типы действия соответствующие 
 // редьюсером и состоянию внутри он использует createAction и createReducer
 export const fetchLoot = createAsyncThunk('users/fetchLoot', async () => {
-  const response = await fetch('/loot');
+  const response = await fetch('/api/loot');
   const data = await response.json();
   console.log(data);
   return data;

@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchUsers = createAsyncThunk('users/fetchUsers', async (name) => {
-  const response = await fetch('/users', {
+  const response = await fetch('/api/users', {
     body: JSON.stringify({name}),
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
