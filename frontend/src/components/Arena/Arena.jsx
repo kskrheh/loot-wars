@@ -47,12 +47,12 @@ function Arena() {
                 data-id={user.id}
                 onClick={handleClickEnemy}
               >
-                <img className='red' src={lol} alt=''/>{/* Fight {user.username} */}
+                <img className='red' src={lol} alt='' />{/* Fight {user.username} */}
               </button>
             </li>
           ))}
         </ul>
-        <button className='random'onClick={handleFetchUsers}>Update</button>
+        <button className='random' onClick={handleFetchUsers}>Update</button>
         <Modal active={active} setActive={setActive}>
           <EnemyModal />
         </Modal>

@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const initialState = {
   user: {
     name: undefined,
+    energy: undefined,
     weapons: [],
     weaponsId: [],
     userWeaponsId: []
@@ -12,8 +13,8 @@ const initialState = {
   loading: false,
 }
 
-export const fetchUserWeapons = createAsyncThunk('users/fetchUsers', async (name) => { // ac.t
-  const response = await fetch(`http://localhost:4000/users/${name}`, {
+export const fetchUserWeapons = createAsyncThunk('user/fetchUserWeapon', async (name) => { // ac.t
+  const response = await fetch(`http://localhost:4000/users/${name}/weapon`, {
     method: 'GET',
     credentials: 'include',
     headers: {"Content-Type": "application/json"}
@@ -109,7 +110,8 @@ export const userSlice = createSlice({
     })
     builder.addCase(fetchUser.fulfilled, (state, action) => {
       state.status = 'succeeded'
-      state.user.name = action.payload
+      state.user.name = action.payload.username
+      state.user.energy = action.payload.energy
       state.loading = false
     })
     builder.addCase(fetchUser.rejected, (state, action) => {

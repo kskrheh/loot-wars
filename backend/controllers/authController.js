@@ -67,8 +67,7 @@ async function getUserInfo(req, res) {
         username,
       },
     });
-    console.log(user.username);
-    res.json(user.username);
+    res.json({ username: user.username, energy: user.energy });
   } catch (err) {
     res.send(err.message);
   }
