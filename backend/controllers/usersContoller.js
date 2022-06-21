@@ -5,12 +5,15 @@ const {
 
 async function getUsers(req, res) {
   const users = await User.findAll({
-    include: {
-      model: Weapon,
-      attributes: [
-        'ATK', 'DEF',
-      ],
-    },
+    include: [{
+      model: UserWeapon,
+      include: {
+        model: Weapon,
+        attributes: [
+          'ATK', 'DEF',
+        ],
+      },
+    }],
     where: {
       username: {
         [Op.ne]: req.body.name,
@@ -18,9 +21,7 @@ async function getUsers(req, res) {
     },
     order: sequelize.fn('RANDOM'),
     limit: 10,
-    // raw: true,
   });
-  console.log(users[1]);
   res.json(users);
 }
 
