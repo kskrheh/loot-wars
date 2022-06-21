@@ -13,7 +13,7 @@ const initialState = {
 }
 
 export const fetchUserWeapons = createAsyncThunk('users/fetchUsers', async (name) => { // ac.t
-  const response = await fetch(`http://localhost:4000/users/${name}`, {
+  const response = await fetch(`/users/${name}`, {
     method: 'GET',
     credentials: 'include',
     headers: {"Content-Type": "application/json"}
@@ -25,7 +25,7 @@ export const fetchUserWeapons = createAsyncThunk('users/fetchUsers', async (name
 
 export const fetchRegister = createAsyncThunk('user/fetchRegister', async ({ username, email, password, passwordRepeat }) => {
     const body = JSON.stringify({ username, passwordRepeat, password, email });
-    const response = await fetch('http://localhost:4000/auth/register', {
+    const response = await fetch('/auth/register', {
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
       body,
@@ -37,7 +37,7 @@ export const fetchRegister = createAsyncThunk('user/fetchRegister', async ({ use
 export const fetchLogin = createAsyncThunk('user/fetchLogin', async ({ username, password }) => {
     // console.log(username, password)
     const body = JSON.stringify({ username, password });
-    const response = await fetch('http://localhost:4000/auth/login', {
+    const response = await fetch('/auth/login', {
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
       body,
@@ -47,7 +47,7 @@ export const fetchLogin = createAsyncThunk('user/fetchLogin', async ({ username,
 })
 
 export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
-  const response = await fetch('http://localhost:4000/auth/info', {
+  const response = await fetch('/auth/info', {
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
     method: 'get'

@@ -11,7 +11,7 @@ const initialState = {
 }
 
 export const fetchEnemyWeapons = createAsyncThunk('enemy/fetchUsers', async (name) => {
-    const response = await fetch(`http://localhost:4000/users/enemy/${name}`, {
+    const response = await fetch(`/users/enemy/${name}`, {
         method: 'GET',
         credentials: 'include',
         headers: {"Content-Type": "application/json"}

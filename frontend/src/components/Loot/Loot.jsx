@@ -44,7 +44,7 @@ function Loot() {
     if (limit <= 6) {
       const body = JSON.stringify({ arrayIds, user: user });
       const fetchWeapons = async () => {
-        const response = await fetch("http://localhost:4000/loot", {
+        const response = await fetch("/loot", {
           method: "POST",
           headers: { "Content-type": "application/json" },
           credentials: "include",
