@@ -1,13 +1,9 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { v4 as uuidv4 } from 'uuid';
-
 import { fetchLoot, removeWeapons } from "../../features/loot/lootSlice";
 import { fetchUserWeapons } from "../../features/user/userSlice";
-
 import Equipped from "../Equipped/Equipped";
 import Weapon from "./Weapon/Weapon";
-
 import styles from "./Loot.module.css";
 
 function Loot() {
@@ -26,91 +22,88 @@ function Loot() {
   };
 
   const handleSwap = () => {
-    let limit;
-    if (!userWeapons.length) {
-      limit = Math.abs(arrayIds.lootWeaponID.length - arrayIds.userWeaponID.length);
-    } else {
-      if (arrayIds.userWeaponID.length > arrayIds.lootWeaponID.length) {
-        limit = userWeapons.length - (arrayIds.userWeaponID.length - arrayIds.lootWeaponID.length);
-      }
-      if (arrayIds.userWeaponID.length < arrayIds.lootWeaponID.length) {
-        limit = userWeapons.length + (arrayIds.lootWeaponID.length - arrayIds.userWeaponID.length);
-      }
-      if (arrayIds.userWeaponID.length === arrayIds.lootWeaponID.length) {
-        limit = userWeapons.length;
-      }
-    }
-    console.log(limit);
-    if (limit <= 6) {
-      const body = JSON.stringify({ arrayIds, user: user });
-      const fetchWeapons = async () => {
-        const response = await fetch("http://localhost:4000/loot", {
-          method: "POST",
-          headers: { "Content-type": "application/json" },
-          credentials: "include",
-          body,
-        });
-        const result = await response.json();
-        console.log(result);
-      };
+    const body = JSON.stringify({ arrayIds, user: user });
+    const fetchWeapons = async () => {
+      const response = await fetch("http://localhost:4000/loot", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        credentials: "include",
+        body,
+      });
+      const result = await response.json();
+      console.log(result);
+    };
 
-      fetchWeapons();
-      dispatch(fetchUserWeapons(user));
-      setArrayIds({
-        userWeaponID: [],
-        lootWeaponID: [],
-        errorLoot: undefined,
-      });
-      dispatch(removeWeapons())
-    } else {
-      setArrayIds((prevState) => {
-        return {
-          ...prevState,
-          errorLoot: "У вас максимальное количество оружия",
-        };
-      });
-    }
+    fetchWeapons();
+    setArrayIds({
+      userWeaponID: [],
+      lootWeaponID: [],
+      errorLoot: undefined,
+    });
+    dispatch(removeWeapons());
+    dispatch(fetchUserWeapons(user));
   };
 
   const handleLi = (e) => {
     const { pertain } = e.target.dataset;
-    let limit;
-    if (!userWeapons.length) {
-      limit = Math.abs(arrayIds.lootWeaponID.length - arrayIds.userWeaponID.length);
-    } else {
-      if (arrayIds.userWeaponID.length > arrayIds.lootWeaponID.length) {
-        limit = userWeapons.length - (arrayIds.userWeaponID.length - arrayIds.lootWeaponID.length);
-      }
-      if (arrayIds.userWeaponID.length < arrayIds.lootWeaponID.length) {
-        limit = userWeapons.length + (arrayIds.lootWeaponID.length - arrayIds.userWeaponID.length);
-      }
-      if (arrayIds.userWeaponID.length === arrayIds.lootWeaponID.length) {
-        limit = userWeapons.length;
-      }
-    }
-    console.log(limit);
-    console.log(arrayIds.userWeaponID);
-    if (!arrayIds.userWeaponID.includes(e.target.id)) {
-      e.target.style.backgroundColor = "green";
+    const dublicateCount = userWeapons.filter((el) => +el.id === +e.target.id).length
+    console.log('dublicateCount', dublicateCount);
+    let count =
+      userWeapons.length -
+      arrayIds.userWeaponID.length +
+      arrayIds.lootWeaponID.length;
+    if (count <= 6) {
       if (pertain === "userWeapon") {
-        setArrayIds((prevState) => {
-          return {
-            ...prevState,
-            userWeaponID: [...prevState.userWeaponID, e.target.id],
-          };
-        });
-      }
-    }
-
-    if (!arrayIds.lootWeaponID.includes(e.target.id)) {
-      if (limit < 6) {
-        e.target.style.backgroundColor = "green";
-
-        if (pertain === "lootWeapon") {
+        console.log(count);
+        if (!arrayIds.userWeaponID.includes(e.target.id)) {
+          e.target.style.backgroundColor = "green";
           setArrayIds((prevState) => {
             return {
               ...prevState,
-              lootWeaponID: [...prevState.lootWeaponID, e.target.id],
+              userWeaponID: [...prevState.userWeaponID, e.target.id],
+              errorLoot: "",
+            };
+          });
+        }else{
+          e.target.style.backgroundColor = "white";
+          setArrayIds((prevState) => {
+            return {
+              ...prevState,
+              userWeaponID: [...prevState.userWeaponID.filter((el) => el !== e.target.id)],
+              errorLoot: "",
+            };
+          });
+        }
+      }
+
+      if (pertain === "lootWeapon") {
+        if (count < 6) {
+          if (!arrayIds.lootWeaponID.includes(e.target.id)) {
+            e.target.style.backgroundColor = "green";
+            setArrayIds((prevState) => {
+              return {
+                ...prevState,
+                lootWeaponID: [...prevState.lootWeaponID, e.target.id],
+                errorLoot: "",
+              };
+            });
+          } else {
+            e.target.style.backgroundColor = "#5e2e2e";
+            setArrayIds((prevState) => {
+              return {
+                ...prevState,
+                lootWeaponID: [
+                  ...prevState.lootWeaponID.filter((el) => el !== e.target.id),
+                ],
+                errorLoot: "",
+              };
+            });
+          }
+        } else {
+          setArrayIds((prevState) => {
+            return {
+              ...prevState,
+              errorLoot: "У вас максимальное количество оружия(6), попробуйте выставить ненужные вам пушки на выброс",
             };
           });
         }
@@ -130,9 +123,9 @@ function Loot() {
       </button>
       <Equipped handleLi={handleLi} />
       <ul className={`${styles.loot_container} ${styles.ul_loot}`}>
-        {weapons.map((weapon) => (
+        {weapons.map((weapon, index) => (
           <Weapon
-            key={uuidv4()}
+            key={index}
             pertain={"lootWeapon"}
             weapon={weapon}
             handleLi={handleLi}
