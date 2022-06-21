@@ -1,4 +1,5 @@
 require('dotenv').config();
+const path = require('path');
 const express = require('express');
 const session = require('express-session');
 const FileStore = require('session-file-store')(session);
@@ -14,6 +15,7 @@ app.use(express.urlencoded({ extended: true })); // читать тело зап
 app.use(express.json()); // читать тело запросов в формате JSON
 app.use(cookiesMiddleware());
 app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+app.use(express.static(path.join(__dirname, '../frontend/build')));
 app.use(session(
   {
     store: new FileStore(),
