@@ -71,35 +71,34 @@ async function getUserInfo(req, res) {
         username,
       },
     });
+    try {
+      weapons = await UserWeapon.findAll({
+        where: {
+          user_id: user.id,
+        },
+        include: {
+          model: Weapon,
+          attributes: [
+            'id', 'ATK', 'DEF', 'title', 'quality',
+          ],
+        },
+        attributes: [
+          'id',
+          ['weapon_id', 'weapon_id'],
+          'wear',
+          [sequelize.col('Weapon.ATK'), 'ATK'],
+          [sequelize.col('Weapon.DEF'), 'DEF'],
+          [sequelize.col('Weapon.title'), 'title'],
+          [sequelize.col('Weapon.quality'), 'quality'],
+        ],
+        raw: true,
+      });
+      res.json({ name: user.username, weapons, energy: user.energy });
+    } catch (err) {
+      res.json(user.username);
+    }
   } catch (err) {
     res.send(err.message);
-  }
-
-  try {
-    weapons = await UserWeapon.findAll({
-      where: {
-        user_id: user.id,
-      },
-      include: {
-        model: Weapon,
-        attributes: [
-          'id', 'ATK', 'DEF', 'title', 'quality',
-        ],
-      },
-      attributes: [
-        'id',
-        ['weapon_id', 'weapon_id'],
-        'wear',
-        [sequelize.col('Weapon.ATK'), 'ATK'],
-        [sequelize.col('Weapon.DEF'), 'DEF'],
-        [sequelize.col('Weapon.title'), 'title'],
-        [sequelize.col('Weapon.quality'), 'quality'],
-      ],
-      raw: true,
-    });
-    res.json({ name: user.username, weapons, energy: user.energy });
-  } catch (err) {
-    res.json(user.username);
   }
 }
 module.exports = {
