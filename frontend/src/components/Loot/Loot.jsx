@@ -42,6 +42,7 @@ function Loot() {
     });
     dispatch(removeWeapons());
     dispatch(fetchUserWeapons(user));
+    
   };
 
   const handleLi = (e) => {
@@ -131,6 +132,7 @@ function Loot() {
       }
     }
   };
+
 
   return (
     <div className={styles.loot_container}>

@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const initialState = {
   user: {
     name: undefined,
+    energy: undefined,
     weapons: [],
     weaponsId: [],
     userWeaponsId: []
@@ -53,6 +54,7 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
     method: 'get'
   });
   const data = await response.json();
+  console.log(data)
   return data;
 })
 export const userSlice = createSlice({
@@ -109,7 +111,9 @@ export const userSlice = createSlice({
     })
     builder.addCase(fetchUser.fulfilled, (state, action) => {
       state.status = 'succeeded'
-      state.user.name = action.payload
+      state.user.name = action.payload.name;
+      state.user.energy = action.payload.energy;
+      state.user.weapons.push(...action.payload.weapons);
       state.loading = false
     })
     builder.addCase(fetchUser.rejected, (state, action) => {
