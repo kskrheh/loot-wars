@@ -24,40 +24,38 @@ const Equipped = ({ handleLi }) => {
 
   return (
     <>
-      <div className={styles.home}>
-        {user.name ? (
-          <ul className={styles.container}>
-            {weapons.length >= 0 &&
-              emptyArr.map((el, index) => {
-                if (weapons[index]) {
-                  return (
-                    <Weapon
-                      key={index}
-                      pertain={"userWeapon"}
-                      weapon={weapons[index]}
-                      handleLi={handleLi}
-                    />
-                  );
-                } else {
-                  return (
-                    <li
-                      key={index}
-                      className={styles.infoContainer}
-                      onClick={handleLi}
-                    >
-                      No item
-                    </li>
-                  );
-                }
-              })}
-          </ul>
-        ) : (
-          <div className={styles.button_container}>
-            <RegistrationForm />
-            <LoginForm />
-          </div>
-        )}
-      </div>
+      {user.name ? (
+        <table className={styles.container}>
+          {weapons.length >= 0 &&
+            emptyArr.map((el, index) => {
+              if (weapons[index]) {
+                return (
+                  <Weapon
+                    key={index}
+                    pertain={"userWeapon"}
+                    weapon={weapons[index]}
+                    handleLi={handleLi}
+                  />
+                );
+              } else {
+                return (
+                  <li
+                    key={index}
+                    className={styles.infoContainer}
+                    onClick={handleLi}
+                  >
+                    No item
+                  </li>
+                );
+              }
+            })}
+        </table>
+      ) : (
+        <div className={styles.button_container}>
+          <RegistrationForm />
+          <LoginForm />
+        </div>
+      )}
     </>
   );
 };
