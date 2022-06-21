@@ -13,6 +13,7 @@ import Arena from "./components/Arena/Arena";
 import styles from "./App.css";
 
 function App() {
+  //saving situation
   const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
