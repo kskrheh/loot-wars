@@ -7,11 +7,11 @@ function Footer() {
     <footer>
       <nav>
         <ul className={styles.ul_footer}>
-          <li><Link to="/">⛺</Link></li>
-          <li><Link to="/loot">🪠</Link></li>
-          <li><Link to="/arena">⚔</Link></li>
-          <li><Link to="/telegram">✉</Link></li>
-          <li><Link to="/history">📖</Link></li>
+          <li className={styles.li}><Link to="/">⛺</Link></li>
+          <li className={styles.li}><Link to="/loot">🪠</Link></li>
+          <li className={styles.li}><Link to="/arena">⚔</Link></li>
+          <li className={styles.li}><Link to="/telegram">✉</Link></li>
+          <li className={styles.li}><Link to="/history">📖</Link></li>
         </ul>
       </nav>
     </footer >
