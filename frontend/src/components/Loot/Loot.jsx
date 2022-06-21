@@ -130,9 +130,9 @@ function Loot() {
       </button>
       <Equipped handleLi={handleLi} />
       <ul className={`${styles.loot_container} ${styles.ul_loot}`}>
-        {weapons.map((weapon) => (
+        {weapons.map((weapon, index) => (
           <Weapon
-            key={uuidv4()}
+            key={index}
             pertain={"lootWeapon"}
             weapon={weapon}
             handleLi={handleLi}

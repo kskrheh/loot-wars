@@ -1,0 +1,7 @@
+.img {
+  background-color: rgb(216,176,15);
+}
+.button {
+  border-radius: 5px; box-shadow: 0px 1px 3px; font-size: 20px;
+  background-color: rgb(168,199,135);
+}

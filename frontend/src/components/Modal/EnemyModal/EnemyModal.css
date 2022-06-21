@@ -5,25 +5,30 @@
   box-sizing: border-box;
   
 }
-.mach {
+/* .mach {
   
   background-image: url(https://www.pngmart.com/files/1/Cross-Sword-PNG-Clipart.png);
   background-size: 60%;
   background-repeat: no-repeat;
-}
+} */
 .app {
+  justify-content: center;
   height: 1000px;
   width: 100%;
   align-items: center;
- 
-  background-image: url(https://www.pngmart.com/files/1/Cross-Sword-PNG-Clipart.png);
-  background-size: 40%;
-  background-repeat: no-repeat;
+
+  /* background-image: url(https://www.pngmart.com/files/1/Cross-Sword-PNG-Clipart.png); */
+  /* background-size: 40%;
+  background-repeat: no-repeat; */
 }
 
 p {
-  
+  display: flex;
+  /* color: rgb(248,255,206); */
+  justify-content: center;
+  padding-right: 15%;
   margin: 20px;
+  border: 2px solid rgb(248,255,206)
 }
 
 .open-btn {
@@ -31,6 +36,7 @@ p {
   padding: 10px;
   font-size: 2rem;
 }
+
 
 /* .modal {
   height: 100vh;

@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "../../features/users/usersSlice";
-import './App.css'
+import "./App.css";
+import './Arena.css'
 
 import Modal from "../Modal/Modal";
 import EnemyModal from "../Modal/EnemyModal/EnemyModal";
-import {fetchEnemyWeapons} from "../../features/enemy/enemySlice";
+import { fetchEnemyWeapons } from "../../features/enemy/enemySlice";
 
 function Arena() {
   const dispatch = useDispatch();
@@ -13,43 +14,44 @@ function Arena() {
   const [idEnemy, setIdEnemy] = useState();
   const users = useSelector((state) => state.users.users);
   const name = useSelector((state) => state.user.user.name);
-  const enemy = useSelector(((state) => state.enemy.enemy.name))
+  const enemy = useSelector((state) => state.enemy.enemy.name);
   let enemyOne;
 
   const handleFetchUsers = () => {
     dispatch(fetchUsers(name));
-  }
+  };
 
   useEffect(() => {
-      handleFetchUsers()
-  }, [name])
+    handleFetchUsers();
+  }, [name]);
 
-    const handleClickEnemy = (event) => {
-        setActive(true);
-        enemyOne = users.filter((user) => user.id === +event.target.dataset.id);
-        dispatch(fetchEnemyWeapons(enemyOne[0].username));
-    }
+  const handleClickEnemy = (event) => {
+    setActive(true);
+    enemyOne = users.filter((user) => user.id === +event.target.dataset.id);
+    dispatch(fetchEnemyWeapons(enemyOne[0].username));
+  };
 
   return (
     <>
-      <h1>Opponents</h1>
-      <ul>
-        {
-        users.map((user) => (
-          <li key={user.id}>{user.username}
-            <span></span>
-            <button data-id={user.id} onClick={handleClickEnemy}>Fight with {user.username}</button>
-          </li>
-          )
-        )
-      }
-      </ul>
-      <button onClick={handleFetchUsers}>Shuffle opponents</button>
-      <Modal active={active} setActive={setActive}>
-        <EnemyModal/>
-      </Modal>
+      <div className="img">
+        <h1>Opponents</h1>
+        <ul>
+          {users.map((user) => (
+            <li key={user.id}>
+              {user.username}
+              <button className="button" data-id={user.id} onClick={handleClickEnemy}>,
+                {/* Fight {user.username} */}
+              </button>
+            </li>
+          ))}
+        </ul>
+        <button onClick={handleFetchUsers}>Shuffle opponents</button>
+        <Modal active={active} setActive={setActive}>
+          <EnemyModal />
+        </Modal>
+      </div>
     </>
-  )
+  );
 }
 
 export default Arena;
