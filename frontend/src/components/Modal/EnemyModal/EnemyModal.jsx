@@ -9,7 +9,7 @@ const EnemyModal = () => {
     <div className = 'app'>
       {
         enemy ?
-          <p>{enemy.username}</p>
+          <p className = 'p'>{enemy.username}</p>
             :
           <p>Privet</p>
       }

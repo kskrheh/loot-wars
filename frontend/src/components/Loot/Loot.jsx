@@ -1,10 +1,14 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
+
 import { fetchLoot, removeWeapons } from "../../features/loot/lootSlice";
 import { fetchUserWeapons } from "../../features/user/userSlice";
+
 import Equipped from "../Equipped/Equipped";
-import styles from "./Loot.module.css";
 import Weapon from "./Weapon/Weapon";
+
+import styles from "./Loot.module.css";
 
 function Loot() {
   const weapons = useSelector((state) => state.loot.weapons);
@@ -23,21 +27,21 @@ function Loot() {
 
   const handleSwap = () => {
     let limit;
-    if(!userWeapons.length){
+    if (!userWeapons.length) {
       limit = Math.abs(arrayIds.lootWeaponID.length - arrayIds.userWeaponID.length);
-    }else{
-      if(arrayIds.userWeaponID.length > arrayIds.lootWeaponID.length){
+    } else {
+      if (arrayIds.userWeaponID.length > arrayIds.lootWeaponID.length) {
         limit = userWeapons.length - (arrayIds.userWeaponID.length - arrayIds.lootWeaponID.length);
       }
-      if(arrayIds.userWeaponID.length < arrayIds.lootWeaponID.length){
+      if (arrayIds.userWeaponID.length < arrayIds.lootWeaponID.length) {
         limit = userWeapons.length + (arrayIds.lootWeaponID.length - arrayIds.userWeaponID.length);
       }
-      if(arrayIds.userWeaponID.length === arrayIds.lootWeaponID.length){
+      if (arrayIds.userWeaponID.length === arrayIds.lootWeaponID.length) {
         limit = userWeapons.length;
       }
     }
     console.log(limit);
-    if (+limit <= 6) {
+    if (limit <= 6) {
       const body = JSON.stringify({ arrayIds, user: user });
       const fetchWeapons = async () => {
         const response = await fetch("http://localhost:4000/loot", {
@@ -71,44 +75,50 @@ function Loot() {
   const handleLi = (e) => {
     const { pertain } = e.target.dataset;
     let limit;
-    if(!userWeapons.length){
+    if (!userWeapons.length) {
       limit = Math.abs(arrayIds.lootWeaponID.length - arrayIds.userWeaponID.length);
-    }else{
-      if(arrayIds.userWeaponID.length > arrayIds.lootWeaponID.length){
+    } else {
+      if (arrayIds.userWeaponID.length > arrayIds.lootWeaponID.length) {
         limit = userWeapons.length - (arrayIds.userWeaponID.length - arrayIds.lootWeaponID.length);
       }
-      if(arrayIds.userWeaponID.length < arrayIds.lootWeaponID.length){
+      if (arrayIds.userWeaponID.length < arrayIds.lootWeaponID.length) {
         limit = userWeapons.length + (arrayIds.lootWeaponID.length - arrayIds.userWeaponID.length);
       }
-      if(arrayIds.userWeaponID.length === arrayIds.lootWeaponID.length){
+      if (arrayIds.userWeaponID.length === arrayIds.lootWeaponID.length) {
         limit = userWeapons.length;
       }
     }
     console.log(limit);
-    if (pertain === "userWeapon") {
+    console.log(arrayIds.userWeaponID);
+    if (!arrayIds.userWeaponID.includes(e.target.id)) {
       e.target.style.backgroundColor = "green";
-      setArrayIds((prevState) => {
-        return {
-          ...prevState,
-          userWeaponID: [...prevState.userWeaponID, e.target.id],
-        };
-      });
-    }
-    if(limit < 6){
-      e.target.style.backgroundColor = "green";
-
-      if (pertain === "lootWeapon") {
+      if (pertain === "userWeapon") {
         setArrayIds((prevState) => {
           return {
             ...prevState,
-            lootWeaponID: [...prevState.lootWeaponID, e.target.id],
+            userWeaponID: [...prevState.userWeaponID, e.target.id],
           };
         });
       }
-      console.log(arrayIds);
+    }
+
+    if (!arrayIds.lootWeaponID.includes(e.target.id)) {
+      if (limit < 6) {
+        e.target.style.backgroundColor = "green";
+
+        if (pertain === "lootWeapon") {
+          setArrayIds((prevState) => {
+            return {
+              ...prevState,
+              lootWeaponID: [...prevState.lootWeaponID, e.target.id],
+            };
+          });
+        }
+        console.log(arrayIds);
+      }
     }
   };
-  
+
   return (
     <div className={styles.loot_container}>
       <button
@@ -120,9 +130,9 @@ function Loot() {
       </button>
       <Equipped handleLi={handleLi} />
       <ul className={`${styles.loot_container} ${styles.ul_loot}`}>
-        {weapons.map((weapon) => (
+        {weapons.map((weapon, index) => (
           <Weapon
-            key={weapon.id}
+            key={index}
             pertain={"lootWeapon"}
             weapon={weapon}
             handleLi={handleLi}
