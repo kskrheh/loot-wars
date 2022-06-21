@@ -6,6 +6,7 @@ import './App.css'
 import Modal from "../Modal/Modal";
 import EnemyModal from "../Modal/EnemyModal/EnemyModal";
 import {fetchEnemyWeapons} from "../../features/enemy/enemySlice";
+import Button from "../Button/Button";
 
 function Arena() {
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ function Arena() {
         {
         users.map((user) => (
           <li key={user.id}>{user.username}
-            <button data-id={user.id} onClick={handleClickEnemy}>Fight with {user.username}</button>
+            <button className='red' data-id={user.id} onClick={handleClickEnemy}>Fight with {user.username}</button>
           </li>
           )
         )
@@ -48,6 +49,7 @@ function Arena() {
       <Modal active={active} setActive={setActive}>
         <EnemyModal/>
       </Modal>
+      <Button/>
     </>
   )
 }
