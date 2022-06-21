@@ -8,8 +8,8 @@ module.exports = (sequelize, DataTypes) => {
       Weapon.hasMany(UserWeapon, { foreignKey: 'weapon_id' });
       Weapon.belongsToMany(User, {
         through: UserWeapon,
-        foreignKey: 'user_id',
-        otherKey: 'weapon_id',
+        foreignKey: 'weapon_id',
+        otherKey: 'user_id',
       });
     }
   }
