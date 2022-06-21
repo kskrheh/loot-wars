@@ -37,14 +37,13 @@ const Equipped = ({ handleLi }) => {
                 }
               })
             }
-          })}
-      </ul> )
-      : (
-        <div className={styles.button_container}>
-          <RegistrationForm />
-          <LoginForm />
-        </div>
-      ) }
+          </ul>
+          :
+          <div className={styles.button_container}>
+            <RegistrationForm />
+            <LoginForm />
+          </div>
+      }
     </>
   );
 };
