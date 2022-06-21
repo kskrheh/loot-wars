@@ -1,5 +1,7 @@
 const bcrypt = require('bcrypt');
-const { User } = require('../db/models');
+const {
+  User, UserWeapon, Weapon, sequelize,
+} = require('../db/models');
 const { SALT_ROUNDS } = require('../app/variables');
 
 async function createUser(req, res) {
@@ -67,8 +69,33 @@ async function getUserInfo(req, res) {
         username,
       },
     });
-    console.log(user.username);
-    res.json(user.username);
+
+    const weapons = await UserWeapon.findAll({
+      where: {
+        user_id: user.id,
+      },
+      include: {
+        model: Weapon,
+        attributes: [
+          'id', 'ATK', 'DEF', 'title', 'quality',
+        ],
+      },
+      attributes: [
+        'id',
+        ['weapon_id', 'weapon_id'],
+        'wear',
+        [sequelize.col('Weapon.ATK'), 'ATK'],
+        [sequelize.col('Weapon.DEF'), 'DEF'],
+        [sequelize.col('Weapon.title'), 'title'],
+        [sequelize.col('Weapon.quality'), 'quality'],
+      ],
+      raw: true,
+    });
+    if (weapons.length) {
+      res.json({ name: user.username, weapons, energy: user.energy });
+    } else {
+      res.json(user.username);
+    }
   } catch (err) {
     res.send(err.message);
   }
