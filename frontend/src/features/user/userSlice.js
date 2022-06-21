@@ -12,8 +12,8 @@ const initialState = {
   loading: false,
 }
 
-export const fetchUserWeapons = createAsyncThunk('users/fetchUsers', async (name) => { // ac.t
-  const response = await fetch(`http://localhost:4000/users/${name}`, {
+export const fetchUserWeapons = createAsyncThunk('user/fetchUserWeapon', async (name) => { // ac.t
+  const response = await fetch(`http://localhost:4000/users/${name}/weapon`, {
     method: 'GET',
     credentials: 'include',
     headers: {"Content-Type": "application/json"}

@@ -9,14 +9,13 @@ import Modal from "../Modal/Modal";
 import EnemyModal from "../Modal/EnemyModal/EnemyModal";
 
 import { fetchEnemyWeapons } from "../../features/enemy/enemySlice";
+import {fetchUserWeapons} from "../../features/user/userSlice";
 
 function Arena() {
   const dispatch = useDispatch();
   const [active, setActive] = useState(false);
-  const [idEnemy, setIdEnemy] = useState();
   const users = useSelector((state) => state.users.users);
   const name = useSelector((state) => state.user.user.name);
-  const enemy = useSelector((state) => state.enemy.enemy.name);
   let enemyOne;
 
   const handleFetchUsers = () => {
