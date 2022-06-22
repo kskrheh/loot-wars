@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   fetchLoot,
@@ -8,7 +8,7 @@ import {
 import {
   decreaseEnergy,
   fetchUserWeapons,
-  increaseEnergy,
+  isTimer,
   pickWeapon,
 } from "../../features/user/userSlice";
 import Equipped from "../Equipped/Equipped";
@@ -21,9 +21,6 @@ function Loot() {
   const energy = useSelector((state) => state.user.user.energy);
   const userWeapons = useSelector((state) => state.user.user.weapons);
 
-  const [delay, setDelay] = useState(1000);
-  const [isPlaying, setPlaying] = useState(false);
-
   const [arrayIds, setArrayIds] = useState({
     userWeaponID: [],
     lootWeaponID: [],
@@ -31,36 +28,15 @@ function Loot() {
   });
   const dispatch = useDispatch();
 
-  function useInterval(callback, delay) {
-    const savedCallback = useRef(callback);
-
-    useEffect(() => {
-      savedCallback.current = callback;
-    }, [callback]);
-
-    useEffect(() => {
-      if (!delay && delay !== 0) {
-        return;
-      }
-
-      const id = setInterval(() => savedCallback.current(), delay);
-
-      return () => clearInterval(id);
-    }, [delay]);
-  }
-
-  useInterval(
-    () => {
-      dispatch(increaseEnergy());
-      setPlaying(!isPlaying);
-    },
-    isPlaying ? delay : null
-  );
-
   const handleClick = () => {
-    dispatch(fetchLoot());
-    dispatch(decreaseEnergy());
-    setPlaying(!isPlaying);
+    if (energy === 0) {
+      console.log('You have to wait')
+      return;
+    } else {
+      dispatch(fetchLoot());
+      dispatch(decreaseEnergy());
+      dispatch(isTimer(true))
+    }
   };
 
   const handleSwap = () => {
@@ -100,10 +76,10 @@ function Loot() {
         userWeapons.length -
         arrayIds.userWeaponID.length +
         arrayIds.lootWeaponID.length;
-        console.log(userWeapons, 'пушки с которыми пришли');
-        console.log(arrayIds.userWeaponID.length, 'хотим выбросить');
-        console.log(arrayIds.lootWeaponID.length, 'хотим взять');
-        console.log(count,'count limit')
+      console.log(userWeapons, 'пушки с которыми пришли');
+      console.log(arrayIds.userWeaponID.length, 'хотим выбросить');
+      console.log(arrayIds.lootWeaponID.length, 'хотим взять');
+      console.log(count, 'count limit')
       if (count <= 6) {
         if (pertain === "userWeapon") {
           if (
@@ -157,7 +133,7 @@ function Loot() {
             } else {
               // e.target.style.backgroundColor = "#5e2e2e";
               dispatch(pickLootWeapon(e.target.dataset.ind));
-              
+
               setArrayIds((prevState) => {
                 const index = prevState.lootWeaponID.findIndex(
                   (el) => el === e.target.id
