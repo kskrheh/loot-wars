@@ -105,7 +105,7 @@ async function getUserInfo(req, res) {
       res.json({ name: user.username, weapons: null, energy: user.energy });
     }
   } catch (err) {
-    res.json(user.username);
+    res.send(err.message);
   }
 }
 module.exports = {
