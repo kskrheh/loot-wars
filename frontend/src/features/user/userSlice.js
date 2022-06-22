@@ -85,7 +85,7 @@ export const userSlice = createSlice({
       state.user.energy -= 1
     },
     increaseEnergy: (state) => {
-      state.user.energy += 1     
+      state.user.energy += 1
     }
   },
   extraReducers(builder) { //санки в тулките все пишуться через екстра редюсер
