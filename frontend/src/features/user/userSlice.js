@@ -69,6 +69,12 @@ export const userSlice = createSlice({
     },
     weaponsId: (state, action) => {
       state.user.weaponsId.push(action.payload)
+    },
+    decreaseEnergy: (state ) => {
+      state.user.energy -= 1
+    },
+    increaseEnergy: (state) => {
+      state.user.energy += 1     
     }
   },
   extraReducers(builder) { //санки в тулките все пишуться через екстра редюсер
@@ -124,6 +130,6 @@ export const userSlice = createSlice({
   }
 })
 
-export const { logout, weaponsId, userWeaponsId } = userSlice.actions
+export const { logout, weaponsId, userWeaponsId, decreaseEnergy, increaseEnergy } = userSlice.actions
 
 export default userSlice.reducer
