@@ -78,92 +78,95 @@ function Loot() {
   };
 
   const handleLi = (e) => {
-    const { pertain } = e.target.dataset;
-    const dublicateCount = userWeapons.filter(
-      (el) => +el.id === +e.target.id
-    ).length;
-    const dublicateWeapons = weapons.filter(
-      (el) => +el.id === +e.target.id
-    ).length;
-    let count =
-      userWeapons.length -
-      arrayIds.userWeaponID.length +
-      arrayIds.lootWeaponID.length;
-    if (count <= 6) {
-      if (pertain === "userWeapon") {
-        if (
-          arrayIds.userWeaponID.filter((el) => +el === +e.target.id).length !==
-          +dublicateCount
-        ) {
-          dispatch(pickWeapon(e.target.id));
-          // e.target.style.backgroundColor = "green";
-          setArrayIds((prevState) => {
-            return {
-              ...prevState,
-              userWeaponID: [...prevState.userWeaponID, e.target.id],
-              errorLoot: "",
-            };
-          });
-        } else {
-          // e.target.style.backgroundColor = "white";
-          dispatch(pickWeapon(e.target.id));
-          setArrayIds((prevState) => {
-            const index = prevState.userWeaponID.findIndex(
-              (el) => el === e.target.id
-            );
-            console.log(index, "индеч");
-            const newUserWeaponID = [...prevState.userWeaponID];
-            newUserWeaponID.splice(index, 1);
-            return {
-              ...prevState,
-              userWeaponID: newUserWeaponID,
-              errorLoot: "",
-            };
-          });
-        }
-      }
+    if(weapons.length){
 
-      if (pertain === "lootWeapon") {
-        if (count < 6) {
+      const { pertain } = e.target.dataset;
+      const dublicateCount = userWeapons.filter(
+        (el) => +el.id === +e.target.id
+      ).length;
+      const dublicateWeapons = weapons.filter(
+        (el) => +el.id === +e.target.id
+      ).length;
+      let count =
+        userWeapons.length -
+        arrayIds.userWeaponID.length +
+        arrayIds.lootWeaponID.length;
+      if (count <= 6) {
+        if (pertain === "userWeapon") {
           if (
-            arrayIds.lootWeaponID.filter((el) => +el === +e.target.id)
-              .length !== +dublicateWeapons
+            arrayIds.userWeaponID.filter((el) => +el === +e.target.id).length !==
+            +dublicateCount && isPlaying
           ) {
+            dispatch(pickWeapon(e.target.id));
             // e.target.style.backgroundColor = "green";
-            dispatch(pickLootWeapon(e.target.id))
             setArrayIds((prevState) => {
               return {
                 ...prevState,
-                lootWeaponID: [...prevState.lootWeaponID, e.target.id],
+                userWeaponID: [...prevState.userWeaponID, e.target.id],
                 errorLoot: "",
               };
             });
           } else {
-            e.target.style.backgroundColor = "#5e2e2e";
+            // e.target.style.backgroundColor = "white";
+            dispatch(pickWeapon(e.target.id));
             setArrayIds((prevState) => {
-              const index = prevState.lootWeaponID.findIndex(
+              const index = prevState.userWeaponID.findIndex(
                 (el) => el === e.target.id
               );
               console.log(index, "индеч");
-              const newLootWeaponID = [...prevState.lootWeaponID];
-              newLootWeaponID.splice(index, 1);
+              const newUserWeaponID = [...prevState.userWeaponID];
+              newUserWeaponID.splice(index, 1);
               return {
                 ...prevState,
-                lootWeaponID: newLootWeaponID,
+                userWeaponID: newUserWeaponID,
                 errorLoot: "",
               };
             });
           }
-        } else {
-          setArrayIds((prevState) => {
-            return {
-              ...prevState,
-              errorLoot:
-                "У вас максимальное количество оружия(6), попробуйте выставить ненужные вам пушки на выброс",
-            };
-          });
         }
-        console.log(arrayIds);
+  
+        if (pertain === "lootWeapon") {
+          if (count < 6) {
+            if (
+              arrayIds.lootWeaponID.filter((el) => +el === +e.target.id)
+                .length !== +dublicateWeapons
+            ) {
+              // e.target.style.backgroundColor = "green";
+              dispatch(pickLootWeapon(e.target.id))
+              setArrayIds((prevState) => {
+                return {
+                  ...prevState,
+                  lootWeaponID: [...prevState.lootWeaponID, e.target.id],
+                  errorLoot: "",
+                };
+              });
+            } else {
+              e.target.style.backgroundColor = "#5e2e2e";
+              setArrayIds((prevState) => {
+                const index = prevState.lootWeaponID.findIndex(
+                  (el) => el === e.target.id
+                );
+                console.log(index, "индеч");
+                const newLootWeaponID = [...prevState.lootWeaponID];
+                newLootWeaponID.splice(index, 1);
+                return {
+                  ...prevState,
+                  lootWeaponID: newLootWeaponID,
+                  errorLoot: "",
+                };
+              });
+            }
+          } else {
+            setArrayIds((prevState) => {
+              return {
+                ...prevState,
+                errorLoot:
+                  "У вас максимальное количество оружия(6), попробуйте выставить ненужные вам пушки на выброс",
+              };
+            });
+          }
+          console.log(arrayIds);
+        }
       }
     }
   };
