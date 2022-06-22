@@ -17,6 +17,8 @@ const Equipped = ({ handleLi }) => {
   const weapons = useSelector((state) => state.user.user.weapons);
   const dispatch = useDispatch();
 
+  console.log(weapons);
+
   useEffect(() => {
     if (user.name) {
       dispatch(fetchUserWeapons(user.name));

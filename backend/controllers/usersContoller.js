@@ -1,19 +1,27 @@
-const {Op} = require("sequelize");
+const { Op } = require('sequelize');
 const {
   User, UserWeapon, Weapon, sequelize,
 } = require('../db/models');
 
 async function getUsers(req, res) {
   const users = await User.findAll({
+    include: [{
+      model: UserWeapon,
+      include: {
+        model: Weapon,
+        attributes: [
+          'ATK', 'DEF',
+        ],
+      },
+    }],
     where: {
       username: {
-        [Op.ne] : req.body.name
-      }
+        [Op.ne]: req.body.name,
+      },
     },
     order: sequelize.fn('RANDOM'),
-    limit: 10
+    limit: 10,
   });
-  // console.log(users)
   res.json(users);
 }
 
@@ -27,11 +35,12 @@ async function getUserWeapons(req, res) {
     include: {
       model: Weapon,
       attributes: [
-        'ATK', 'DEF', 'title', 'quality',
+        'id', 'ATK', 'DEF', 'title', 'quality',
       ],
     },
     attributes: [
-      ['weapon_id', 'id'],
+      'id',
+      ['weapon_id', 'weapon_id'],
       'wear',
       [sequelize.col('Weapon.ATK'), 'ATK'],
       [sequelize.col('Weapon.DEF'), 'DEF'],
@@ -40,6 +49,7 @@ async function getUserWeapons(req, res) {
     ],
     raw: true,
   });
+  console.log(weapons);
   res.json(weapons);
 }
 
@@ -66,7 +76,7 @@ async function getEnemyWeapons(req, res) {
     ],
     raw: true,
   });
-  res.json({weapons, user});
+  res.json({ weapons, user });
 }
 
 module.exports = { getUsers, getUserWeapons, getEnemyWeapons };
