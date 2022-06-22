@@ -4,6 +4,7 @@ const initialState = {
   user: {
     name: undefined,
     energy: undefined,
+    fight: false,
     weapons: [],
     weaponsId: [],
     userWeaponsId: []
@@ -75,6 +76,9 @@ export const userSlice = createSlice({
     },
     increaseEnergy: (state) => {
       state.user.energy += 1
+    },
+    isFighting: (state) => {
+      state.user.fight = !state.user.fight
     }
   },
   extraReducers(builder) { //санки в тулките все пишуться через екстра редюсер
@@ -130,6 +134,6 @@ export const userSlice = createSlice({
   }
 })
 
-export const { logout, weaponsId, userWeaponsId, decreaseEnergy, increaseEnergy } = userSlice.actions
+export const { logout, weaponsId, userWeaponsId, decreaseEnergy, increaseEnergy, isFighting } = userSlice.actions
 
 export default userSlice.reducer
