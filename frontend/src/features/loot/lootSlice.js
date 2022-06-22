@@ -20,8 +20,8 @@ export const lootSlice = createSlice({
       state.weapons = []
     },
     pickLootWeapon: (state, action) => {
-      state.weapons = state.weapons.map((el) => {
-        if (+el.id === +action.payload) {
+      state.weapons = state.weapons.map((el, i) => {
+        if (i === +action.payload) {
           return {
             ...el,
             pick: el.pick === 1 ? 3 : 1

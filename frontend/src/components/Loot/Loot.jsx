@@ -82,8 +82,8 @@ function Loot() {
       lootWeaponID: [],
       errorLoot: undefined,
     });
-    dispatch(removeWeapons());
     dispatch(fetchUserWeapons(user));
+    dispatch(removeWeapons());
   };
 
   const handleLi = (e) => {
@@ -100,7 +100,10 @@ function Loot() {
         userWeapons.length -
         arrayIds.userWeaponID.length +
         arrayIds.lootWeaponID.length;
-        console.log(count,'count')
+        console.log(userWeapons, 'пушки с которыми пришли');
+        console.log(arrayIds.userWeaponID.length, 'хотим выбросить');
+        console.log(arrayIds.lootWeaponID.length, 'хотим взять');
+        console.log(count,'count limit')
       if (count <= 6) {
         if (pertain === "userWeapon") {
           if (
@@ -143,7 +146,7 @@ function Loot() {
                 .length !== +dublicateWeapons
             ) {
               // e.target.style.backgroundColor = "green";
-              dispatch(pickLootWeapon(e.target.id));
+              dispatch(pickLootWeapon(e.target.dataset.ind));
               setArrayIds((prevState) => {
                 return {
                   ...prevState,
@@ -153,7 +156,8 @@ function Loot() {
               });
             } else {
               // e.target.style.backgroundColor = "#5e2e2e";
-              dispatch(pickLootWeapon(e.target.id));
+              dispatch(pickLootWeapon(e.target.dataset.ind));
+              
               setArrayIds((prevState) => {
                 const index = prevState.lootWeaponID.findIndex(
                   (el) => el === e.target.id
@@ -200,6 +204,7 @@ function Loot() {
             pertain={"lootWeapon"}
             weapon={weapon}
             handleLi={handleLi}
+            ind={index}
           />
         ))}
       </div>
