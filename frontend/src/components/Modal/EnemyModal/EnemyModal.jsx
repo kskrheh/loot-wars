@@ -1,17 +1,19 @@
 import React from 'react';
 import './EnemyModal.css'
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import Weapon from "../../Loot/Weapon/Weapon";
-import {useState} from "react";
 import FightModal from "../FightModal/FightModal";
+import {isFighting} from "../../../features/user/userSlice";
 
 const EnemyModal = () => {
-  const [fight, setFight] = useState(false)
+  const fight = useSelector((state) => state.user.user.fight)
   const enemy = useSelector((state) => state.enemy.enemy);
+  const dispatch = useDispatch()
 
   const handleClick = () => {
-    setFight(true)
+    dispatch(isFighting());
   }
+
   return (
     <>
       { fight ?

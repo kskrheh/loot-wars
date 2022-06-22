@@ -1,7 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchLoot, pickLootWeapon, removeWeapons } from "../../features/loot/lootSlice";
-import { decreaseEnergy, fetchUserWeapons, increaseEnergy, pickWeapon } from "../../features/user/userSlice";
+import {
+  fetchLoot,
+  pickLootWeapon,
+  removeWeapons,
+} from "../../features/loot/lootSlice";
+import {
+  decreaseEnergy,
+  fetchUserWeapons,
+  increaseEnergy,
+  pickWeapon,
+} from "../../features/user/userSlice";
 import Equipped from "../Equipped/Equipped";
 import Weapon from "./Weapon/Weapon";
 import styles from "./Loot.module.css";
@@ -12,8 +21,8 @@ function Loot() {
   const energy = useSelector((state) => state.user.user.energy);
   const userWeapons = useSelector((state) => state.user.user.weapons);
 
-  const [delay, setDelay] = useState(1000)
-  const [isPlaying, setPlaying] = useState(false)
+  const [delay, setDelay] = useState(1000);
+  const [isPlaying, setPlaying] = useState(false);
 
   const [arrayIds, setArrayIds] = useState({
     userWeaponID: [],
@@ -23,35 +32,35 @@ function Loot() {
   const dispatch = useDispatch();
 
   function useInterval(callback, delay) {
-    const savedCallback = useRef(callback)
+    const savedCallback = useRef(callback);
 
     useEffect(() => {
-      savedCallback.current = callback
-    }, [callback])
+      savedCallback.current = callback;
+    }, [callback]);
 
     useEffect(() => {
-
       if (!delay && delay !== 0) {
-        return
+        return;
       }
 
-      const id = setInterval(() => savedCallback.current(), delay)
+      const id = setInterval(() => savedCallback.current(), delay);
 
-      return () => clearInterval(id)
-    }, [delay])
+      return () => clearInterval(id);
+    }, [delay]);
   }
 
-  useInterval(() => {
-    dispatch(increaseEnergy());
-    setPlaying(!isPlaying);
-  }, isPlaying ? delay : null)
-
-
+  useInterval(
+    () => {
+      dispatch(increaseEnergy());
+      setPlaying(!isPlaying);
+    },
+    isPlaying ? delay : null
+  );
 
   const handleClick = () => {
     dispatch(fetchLoot());
     dispatch(decreaseEnergy());
-    setPlaying(!isPlaying)
+    setPlaying(!isPlaying);
   };
 
   const handleSwap = () => {
@@ -78,8 +87,8 @@ function Loot() {
   };
 
   const handleLi = (e) => {
-    if(weapons.length){
-
+    console.log(weapons, 'пушки с лута');
+    if (weapons.length) {
       const { pertain } = e.target.dataset;
       const dublicateCount = userWeapons.filter(
         (el) => +el.id === +e.target.id
@@ -91,11 +100,12 @@ function Loot() {
         userWeapons.length -
         arrayIds.userWeaponID.length +
         arrayIds.lootWeaponID.length;
+        console.log(count,'count')
       if (count <= 6) {
         if (pertain === "userWeapon") {
           if (
-            arrayIds.userWeaponID.filter((el) => +el === +e.target.id).length !==
-            +dublicateCount && isPlaying
+            arrayIds.userWeaponID.filter((el) => +el === +e.target.id)
+              .length !== +dublicateCount
           ) {
             dispatch(pickWeapon(e.target.id));
             // e.target.style.backgroundColor = "green";
@@ -116,6 +126,7 @@ function Loot() {
               console.log(index, "индеч");
               const newUserWeaponID = [...prevState.userWeaponID];
               newUserWeaponID.splice(index, 1);
+
               return {
                 ...prevState,
                 userWeaponID: newUserWeaponID,
@@ -124,7 +135,7 @@ function Loot() {
             });
           }
         }
-  
+
         if (pertain === "lootWeapon") {
           if (count < 6) {
             if (
@@ -132,7 +143,7 @@ function Loot() {
                 .length !== +dublicateWeapons
             ) {
               // e.target.style.backgroundColor = "green";
-              dispatch(pickLootWeapon(e.target.id))
+              dispatch(pickLootWeapon(e.target.id));
               setArrayIds((prevState) => {
                 return {
                   ...prevState,
@@ -141,7 +152,8 @@ function Loot() {
                 };
               });
             } else {
-              e.target.style.backgroundColor = "#5e2e2e";
+              // e.target.style.backgroundColor = "#5e2e2e";
+              dispatch(pickLootWeapon(e.target.id));
               setArrayIds((prevState) => {
                 const index = prevState.lootWeaponID.findIndex(
                   (el) => el === e.target.id
@@ -170,7 +182,6 @@ function Loot() {
       }
     }
   };
-
 
   return (
     <div className={styles.loot_container}>
