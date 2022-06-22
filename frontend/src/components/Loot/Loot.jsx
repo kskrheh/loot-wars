@@ -56,7 +56,6 @@ function Loot() {
 
   const handleSwap = () => {
     const body = JSON.stringify({ arrayIds, user: user });
-    console.log(body, '<---------BODY');
     const fetchWeapons = async () => {
       const response = await fetch("http://localhost:4000/api/loot", {
         headers: { "Content-Type": "application/json" },
@@ -65,7 +64,6 @@ function Loot() {
         credentials: "include",
       });
       const result = await response.json();
-      console.log(result);
     };
 
     fetchWeapons();
@@ -110,7 +108,6 @@ function Loot() {
             const index = prevState.userWeaponID.findIndex(
               (el) => el === e.target.id
             );
-            console.log(index, "индеч");
             const newUserWeaponID = [...prevState.userWeaponID];
             newUserWeaponID.splice(index, 1);
             return {
@@ -142,7 +139,6 @@ function Loot() {
               const index = prevState.lootWeaponID.findIndex(
                 (el) => el === e.target.id
               );
-              console.log(index, "индеч");
               const newLootWeaponID = [...prevState.lootWeaponID];
               newLootWeaponID.splice(index, 1);
               return {
@@ -161,7 +157,6 @@ function Loot() {
             };
           });
         }
-        console.log(arrayIds);
       }
     }
   };

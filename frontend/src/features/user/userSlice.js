@@ -36,7 +36,6 @@ export const fetchRegister = createAsyncThunk('user/fetchRegister', async ({ use
     return data;
 })
 export const fetchLogin = createAsyncThunk('user/fetchLogin', async ({ username, password }) => {
-    // console.log(username, password)
     const body = JSON.stringify({ username, password });
     const response = await fetch('/api/auth/login', {
       headers: { 'Content-Type': 'application/json' },
@@ -89,12 +88,10 @@ export const userSlice = createSlice({
       state.status = 'succeeded'
       state.user.name = action.payload
       state.loading = false
-      console.log(action.payload);
     })
     builder.addCase(fetchRegister.rejected, (state, action) => {
       state.status = 'rejected'
       state.error = action.payload
-      console.log(action.payload);
       state.loading = false
     })
     builder.addCase(fetchLogin.pending, (state, action) => {

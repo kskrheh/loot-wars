@@ -14,7 +14,6 @@ const LoginForm = () => {
   const dispatch = useDispatch();
 
   const goLogin = async (data) => {
-    // console.log(data);
     dispatch(fetchLogin(data));
   };
 

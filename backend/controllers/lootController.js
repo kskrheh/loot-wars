@@ -10,7 +10,6 @@ async function getLoot(req, res) {
   const weaponsLoot = emptyArr.map(async () => {
     const number = getRandom();
     let weapon;
-    console.log(number);
 
     if (number >= 45 && number <= 70) {
       weapon = await Weapon.findOne({ where: { quality: '2' }, order: sequelize.fn('RANDOM'), raw: true });
@@ -41,42 +40,41 @@ async function getLoot(req, res) {
 }
 
 async function swapLoot(req, res) {
-  console.log(req.body, '<-----');
-  // const { userWeaponID, lootWeaponID } = req.body.arrayIds;
-  // const user = await User.findOne({ where: { username: req.body.user } });
+  const { userWeaponID, lootWeaponID } = req.body.arrayIds;
+  const user = await User.findOne({ where: { username: req.body.user } });
 
-  // if (userWeaponID.length) {
-  //   userWeaponID.forEach(async (elementID) => {
-  //     const weapon = await UserWeapon.findOne({
-  //       where: {
-  //         id: +elementID,
-  //       },
-  //     });
-  //     await weapon.destroy();
-  //   });
-  // }
+  if (userWeaponID.length) {
+    userWeaponID.forEach(async (elementID) => {
+      const weapon = await UserWeapon.findOne({
+        where: {
+          id: +elementID,
+        },
+      });
+      await weapon.destroy();
+    });
+  }
 
-  // if (lootWeaponID.length) {
-  //   lootWeaponID.forEach(async (elementID) => {
-  //     await UserWeapon.create({
-  //       user_id: user.id,
-  //       weapon_id: +elementID,
-  //       wear: 10,
-  //     });
-  //   });
-  // }
-  // const userWeapons = await UserWeapon.findAll({
-  //   where: {
-  //     user_id: user.id,
-  //   },
-  //   include: {
-  //     model: Weapon,
-  //   },
-  // });
+  if (lootWeaponID.length) {
+    lootWeaponID.forEach(async (elementID) => {
+      await UserWeapon.create({
+        user_id: user.id,
+        weapon_id: +elementID,
+        wear: 10,
+      });
+    });
+  }
+  const userWeapons = await UserWeapon.findAll({
+    where: {
+      user_id: user.id,
+    },
+    include: {
+      model: Weapon,
+    },
+  });
 
-  // console.log(userWeapons);
+  console.log(userWeapons, '<----UserWeapons');
 
-  // res.json(userWeapons);
+  res.json(userWeapons);
 }
 
 module.exports = { getLoot, swapLoot };
