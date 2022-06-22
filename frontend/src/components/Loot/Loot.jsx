@@ -99,7 +99,7 @@ function Loot() {
         userWeapons.length -
         arrayIds.userWeaponID.length +
         arrayIds.lootWeaponID.length;
-        console.log(count,'count')
+      console.log(count, 'count')
       if (count <= 6) {
         if (pertain === "userWeapon") {
           if (
@@ -122,8 +122,8 @@ function Loot() {
               const index = prevState.userWeaponID.findIndex(
                 (el) => el === e.target.id
               );
-              const newLootWeaponID = [...prevState.lootWeaponID];
-              newLootWeaponID.splice(index, 1);
+              const newUserWeaponID = [...prevState.userWeaponID];
+              newUserWeaponID.splice(index, 1);
               return {
                 ...prevState,
                 userWeaponID: newUserWeaponID,
