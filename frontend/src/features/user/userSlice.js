@@ -120,7 +120,7 @@ export const userSlice = createSlice({
       state.user.name = action.payload.name;
       state.user.energy = action.payload.energy;
       if (action.payload.weapons) {
-        state.user.weapons.push(...action.payload.weapons);
+        state.user.weapons = action.payload.weapons;
       }
       state.loading = false
     })
