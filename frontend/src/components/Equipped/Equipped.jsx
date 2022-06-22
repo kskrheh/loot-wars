@@ -28,7 +28,7 @@ const Equipped = ({ handleLi }) => {
   return (
     <>
       {user.name ? (
-        <table className={styles.container}>
+        <div className={styles.container}>
           {weapons.length >= 0 &&
             emptyArr.map((el, index) => {
               if (weapons[index]) {
@@ -52,7 +52,7 @@ const Equipped = ({ handleLi }) => {
                 );
               }
             })}
-        </table>
+        </div>
       ) : (
         <div className={styles.button_container}>
           <RegistrationForm />

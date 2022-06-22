@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchLoot, removeWeapons } from "../../features/loot/lootSlice";
-import { decreaseEnergy, fetchUserWeapons, increaseEnergy } from "../../features/user/userSlice";
+import { fetchLoot, pickLootWeapon, removeWeapons } from "../../features/loot/lootSlice";
+import { decreaseEnergy, fetchUserWeapons, increaseEnergy, pickWeapon } from "../../features/user/userSlice";
 import Equipped from "../Equipped/Equipped";
 import Weapon from "./Weapon/Weapon";
 import styles from "./Loot.module.css";
@@ -95,7 +95,8 @@ function Loot() {
           arrayIds.userWeaponID.filter((el) => +el === +e.target.id).length !==
           +dublicateCount
         ) {
-          e.target.style.backgroundColor = "green";
+          dispatch(pickWeapon(e.target.id));
+          // e.target.style.backgroundColor = "green";
           setArrayIds((prevState) => {
             return {
               ...prevState,
@@ -104,7 +105,8 @@ function Loot() {
             };
           });
         } else {
-          e.target.style.backgroundColor = "white";
+          // e.target.style.backgroundColor = "white";
+          dispatch(pickWeapon(e.target.id));
           setArrayIds((prevState) => {
             const index = prevState.userWeaponID.findIndex(
               (el) => el === e.target.id
@@ -127,7 +129,8 @@ function Loot() {
             arrayIds.lootWeaponID.filter((el) => +el === +e.target.id)
               .length !== +dublicateWeapons
           ) {
-            e.target.style.backgroundColor = "green";
+            // e.target.style.backgroundColor = "green";
+            dispatch(pickLootWeapon(e.target.id))
             setArrayIds((prevState) => {
               return {
                 ...prevState,
