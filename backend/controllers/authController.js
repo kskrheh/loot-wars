@@ -64,7 +64,10 @@ async function logoutUser(req, res) {
 async function getUserInfo(req, res) {
   let weapons;
   let user;
-  const { username } = req.session.user;
+  let username;
+  if (req.session.user) {
+    username = req.session.user.username;
+  }
   try {
     user = await User.findOne({
       where: {
