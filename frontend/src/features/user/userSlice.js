@@ -71,6 +71,17 @@ export const userSlice = createSlice({
     weaponsId: (state, action) => {
       state.user.weaponsId.push(action.payload)
     },
+    pickWeapon: (state, action) => {
+      state.user.weapons = state.user.weapons.map((el) => {
+        if(+el.id === +action.payload){
+          return {
+            ...el,
+            pick: el.pick === 1 ? 2 : 1
+          }
+        }
+        return el
+      })
+    },
     decreaseEnergy: (state ) => {
       state.user.energy -= 1
     },
@@ -83,7 +94,13 @@ export const userSlice = createSlice({
   },
   extraReducers(builder) { //санки в тулките все пишуться через екстра редюсер
     builder.addCase(fetchUserWeapons.fulfilled, (state, action) => {
-      state.user.weapons = action.payload
+      const updateActionPayload = action.payload.map((el) => {
+        return {
+          ...el, 
+          pick: 1
+        }
+      })
+      state.user.weapons = updateActionPayload
     })
     builder.addCase(fetchRegister.pending, (state, action) => {
       state.status = 'pending'
@@ -93,12 +110,12 @@ export const userSlice = createSlice({
       state.status = 'succeeded'
       state.user.name = action.payload
       state.loading = false
-      console.log(action.payload);
+      // console.log(action.payload);
     })
     builder.addCase(fetchRegister.rejected, (state, action) => {
       state.status = 'rejected'
       state.error = action.payload
-      console.log(action.payload);
+      // console.log(action.payload);
       state.loading = false
     })
     builder.addCase(fetchLogin.pending, (state, action) => {
@@ -123,7 +140,9 @@ export const userSlice = createSlice({
       state.status = 'succeeded'
       state.user.name = action.payload.name;
       state.user.energy = action.payload.energy;
-      state.user.weapons = action.payload.weapons;
+      if (action.payload.weapons) {
+        state.user.weapons = action.payload.weapons
+      }
       state.loading = false
     })
     builder.addCase(fetchUser.rejected, (state, action) => {
@@ -134,6 +153,6 @@ export const userSlice = createSlice({
   }
 })
 
-export const { logout, weaponsId, userWeaponsId, decreaseEnergy, increaseEnergy, isFighting } = userSlice.actions
+export const { logout, weaponsId, userWeaponsId, decreaseEnergy, increaseEnergy, pickWeapon, isFighting } = userSlice.actions
 
 export default userSlice.reducer

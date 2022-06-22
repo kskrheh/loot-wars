@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { v4 as uuidv4 } from "uuid";
 
 import { fetchUserWeapons } from "../../features/user/userSlice";
 
@@ -28,7 +27,7 @@ const Equipped = ({ handleLi }) => {
   return (
     <>
       {user.name ? (
-        <table className={styles.container}>
+        <div className={styles.container}>
           {weapons.length >= 0 &&
             emptyArr.map((el, index) => {
               if (weapons[index]) {
@@ -52,7 +51,7 @@ const Equipped = ({ handleLi }) => {
                 );
               }
             })}
-        </table>
+        </div>
       ) : (
         <div className={styles.button_container}>
           <RegistrationForm />
