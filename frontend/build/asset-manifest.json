@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.aa081b79.css",
+    "main.js": "/static/js/main.ced38046.js",
+    "static/media/crossed-swords-svgrepo-com.svg": "/static/media/crossed-swords-svgrepo-com.560e372198d8a5bc95f3197d8c47b2b4.svg",
+    "index.html": "/index.html",
+    "main.aa081b79.css.map": "/static/css/main.aa081b79.css.map",
+    "main.ced38046.js.map": "/static/js/main.ced38046.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.aa081b79.css",
+    "static/js/main.ced38046.js"
+  ]
+}
