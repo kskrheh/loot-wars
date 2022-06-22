@@ -34,6 +34,7 @@ async function getUserWeapons(req, res) {
   } catch (err) {
     console.log(err.message);
   }
+  
   try {
     weapons = await UserWeapon.findAll({
       where: {
