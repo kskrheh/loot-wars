@@ -1,6 +1,6 @@
 import styles from "./Weapon.module.css";
 function Weapon({ weapon, handleLi, pertain }) {
-  console.log(weapon);
+  // console.log(weapon);
   return (
     <li
       data-pertain={pertain}
