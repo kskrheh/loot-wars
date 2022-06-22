@@ -1,5 +1,17 @@
+<<<<<<< HEAD
 .li {
   display: flex;
   width: 100vw;
 
+=======
+.pickOnLoot{
+background-color: chartreuse;
+}
+.pickOnUserWeapon{
+  background-color: rgb(211, 8, 103);
+  }
+
+.pickOff{
+background-color: inherit;
+>>>>>>> dev
 }

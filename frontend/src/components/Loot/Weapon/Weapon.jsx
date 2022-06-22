@@ -1,13 +1,22 @@
-import styles from './Weapon.module.css'
-
-
+import styles from "./Weapon.module.css";
 function Weapon({ weapon, handleLi, pertain }) {
+  console.log(weapon);
   return (
-    <div className={styles.li} data-pertain={pertain} id={weapon.id} onClick={handleLi}>
-      <div>{weapon.title}</div>
-      <div>🗡 {weapon.ATK}</div>
-      <div>🛡 {weapon.DEF}</div>
-      <div>Q{weapon.quality}</div> 
+    <div
+      data-pertain={pertain}
+      id={weapon.id}
+      className={
+        weapon.pick === 2
+          ? styles.pickOnUserWeapon
+          : weapon.pick === 3
+          ? styles.pickOnLoot
+          : styles.pickOff
+      }
+      onClick={handleLi}
+    >
+      {weapon.title}
+      🗡 {weapon.ATK}
+      🛡 {weapon.DEF}Q{weapon.quality}
     </div>
   );
 }
