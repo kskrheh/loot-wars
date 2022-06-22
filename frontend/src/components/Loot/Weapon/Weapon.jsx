@@ -1,11 +1,14 @@
+import styles from './Weapon.module.css'
+
+
 function Weapon({ weapon, handleLi, pertain }) {
   return (
-    <li data-pertain={pertain} id={weapon.id} onClick={handleLi}>
-      {weapon.title}
-      🗡 {weapon.ATK}
-      🛡 {weapon.DEF}
-      Q{weapon.quality}
-    </li>
+    <div className={styles.li} data-pertain={pertain} id={weapon.id} onClick={handleLi}>
+      <div>{weapon.title}</div>
+      <div>🗡 {weapon.ATK}</div>
+      <div>🛡 {weapon.DEF}</div>
+      <div>Q{weapon.quality}</div> 
+    </div>
   );
 }
 

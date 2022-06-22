@@ -1,0 +1,18 @@
+.modal {
+  
+	display: flex;
+	flex-direction: row;
+	flex-wrap: nowrap;
+	justify-content: center;
+	align-items: center;
+	align-content: stretch;
+  width: 100vw;
+  justify-content: space-around;
+}
+
+.modalUl {
+  justify-content: center;
+  align-items: center;
+  width: 220px;
+
+}

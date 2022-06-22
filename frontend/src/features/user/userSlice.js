@@ -74,7 +74,7 @@ export const userSlice = createSlice({
       state.user.energy -= 1
     },
     increaseEnergy: (state) => {
-      state.user.energy += 1     
+      state.user.energy += 1
     }
   },
   extraReducers(builder) { //санки в тулките все пишуться через екстра редюсер
@@ -119,7 +119,7 @@ export const userSlice = createSlice({
       state.status = 'succeeded'
       state.user.name = action.payload.name;
       state.user.energy = action.payload.energy;
-      state.user.weapons.push(...action.payload.weapons);
+      state.user.weapons = action.payload.weapons;
       state.loading = false
     })
     builder.addCase(fetchUser.rejected, (state, action) => {
