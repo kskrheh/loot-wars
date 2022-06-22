@@ -10,7 +10,7 @@ const initialState = {
     userWeaponsId: []
   },
   status: 'idle',
-  error: null,
+  errorReg: null,
   loading: false,
 }
 
@@ -55,7 +55,7 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
     method: 'get'
   });
   const data = await response.json();
-  console.log(data)
+  // console.log(data)
   return data;
 })
 export const userSlice = createSlice({
@@ -114,7 +114,7 @@ export const userSlice = createSlice({
     })
     builder.addCase(fetchRegister.rejected, (state, action) => {
       state.status = 'rejected'
-      state.error = action.payload
+      state.errorReg = 'ошибка регистрации, возможно пользователь с таким логином уже существует'
       // console.log(action.payload);
       state.loading = false
     })
@@ -129,7 +129,7 @@ export const userSlice = createSlice({
     })
     builder.addCase(fetchLogin.rejected, (state, action) => {
       state.status = 'rejected'
-      state.error = 'Пользователя с таким логином или паролем не существует'
+      state.errorReg = 'Пользователя с таким логином или паролем не существует'
       state.loading = false
     })
     builder.addCase(fetchUser.pending, (state, action) => {
@@ -147,7 +147,7 @@ export const userSlice = createSlice({
     })
     builder.addCase(fetchUser.rejected, (state, action) => {
       state.status = 'rejected'
-      state.error = action.payload
+      state.errorReg = action.payload
       state.loading = false
     })
   }
