@@ -119,7 +119,9 @@ export const userSlice = createSlice({
       state.status = 'succeeded'
       state.user.name = action.payload.name;
       state.user.energy = action.payload.energy;
-      state.user.weapons.push(...action.payload.weapons);
+      if (action.payload.weapons) {
+        state.user.weapons.push(...action.payload.weapons);
+      }
       state.loading = false
     })
     builder.addCase(fetchUser.rejected, (state, action) => {
