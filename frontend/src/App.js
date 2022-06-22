@@ -14,7 +14,7 @@ import styles from "./App.module.css";
 
 function App() {
   //saving situation
-  const user = useSelector((state) => state.user);
+  const name = useSelector((state) => state.user.user.name);
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -24,7 +24,7 @@ function App() {
   return (
     <div>
       <header className={styles.app}>
-        {user.user.name && (
+        {name && (
           <>
             <Nav />
             <Footer />
