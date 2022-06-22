@@ -14,6 +14,7 @@ const LoginForm = () => {
   const dispatch = useDispatch();
 
   const goLogin = async (data) => {
+    // console.log(data);
     dispatch(fetchLogin(data));
   };
 
@@ -25,7 +26,7 @@ const LoginForm = () => {
     <div>
       {isClicked ? (
         <form
-          action="/auth/login"
+          action="/api/auth/login"
           method="post"
           onSubmit={handleSubmit(goLogin)}
         >

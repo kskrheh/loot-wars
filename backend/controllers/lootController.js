@@ -41,41 +41,42 @@ async function getLoot(req, res) {
 }
 
 async function swapLoot(req, res) {
-  const { userWeaponID, lootWeaponID } = req.body.arrayIds;
-  const user = await User.findOne({ where: { username: req.body.user } });
+  console.log(req.body, '<-----');
+  // const { userWeaponID, lootWeaponID } = req.body.arrayIds;
+  // const user = await User.findOne({ where: { username: req.body.user } });
 
-  if (userWeaponID.length) {
-    userWeaponID.forEach(async (elementID) => {
-      const weapon = await UserWeapon.findOne({
-        where: {
-          id: +elementID,
-        },
-      });
-      await weapon.destroy();
-    });
-  }
+  // if (userWeaponID.length) {
+  //   userWeaponID.forEach(async (elementID) => {
+  //     const weapon = await UserWeapon.findOne({
+  //       where: {
+  //         id: +elementID,
+  //       },
+  //     });
+  //     await weapon.destroy();
+  //   });
+  // }
 
-  if (lootWeaponID.length) {
-    lootWeaponID.forEach(async (elementID) => {
-      await UserWeapon.create({
-        user_id: user.id,
-        weapon_id: +elementID,
-        wear: 10,
-      });
-    });
-  }
-  const userWeapons = await UserWeapon.findAll({
-    where: {
-      user_id: user.id,
-    },
-    include: {
-      model: Weapon,
-    },
-  });
+  // if (lootWeaponID.length) {
+  //   lootWeaponID.forEach(async (elementID) => {
+  //     await UserWeapon.create({
+  //       user_id: user.id,
+  //       weapon_id: +elementID,
+  //       wear: 10,
+  //     });
+  //   });
+  // }
+  // const userWeapons = await UserWeapon.findAll({
+  //   where: {
+  //     user_id: user.id,
+  //   },
+  //   include: {
+  //     model: Weapon,
+  //   },
+  // });
 
-  console.log(userWeapons);
+  // console.log(userWeapons);
 
-  res.json(userWeapons);
+  // res.json(userWeapons);
 }
 
 module.exports = { getLoot, swapLoot };

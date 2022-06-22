@@ -32,7 +32,7 @@ async function loginUser(req, res) {
       },
     });
   } catch (err) {
-    res.send(err.message);
+    res.status(400);
   }
   if (!user) {
     res.status(403);
@@ -75,7 +75,7 @@ async function getUserInfo(req, res) {
       },
     });
   } catch (err) {
-    res.send(err.message);
+    res.status(400);
   }
   try {
     weapons = await UserWeapon.findAll({
@@ -102,7 +102,7 @@ async function getUserInfo(req, res) {
     if (weapons.length) {
       res.json({ name: user.username, weapons, energy: user.energy });
     } else {
-      res.json({ name: user.username, weapons: null, energy: user.energy });
+      res.json({ name: user.username, weapons: [], energy: user.energy });
     }
   } catch (err) {
     res.send(err.message);

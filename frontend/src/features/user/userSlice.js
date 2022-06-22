@@ -50,8 +50,8 @@ export const fetchLogin = createAsyncThunk('user/fetchLogin', async ({ username,
 export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
   const response = await fetch('/api/auth/info', {
     headers: { 'Content-Type': 'application/json' },
+    method: 'get',
     credentials: 'include',
-    method: 'get'
   });
   const data = await response.json();
   console.log(data)

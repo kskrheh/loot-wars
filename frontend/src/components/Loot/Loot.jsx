@@ -56,12 +56,13 @@ function Loot() {
 
   const handleSwap = () => {
     const body = JSON.stringify({ arrayIds, user: user });
+    console.log(body, '<---------BODY');
     const fetchWeapons = async () => {
       const response = await fetch("http://localhost:4000/api/loot", {
+        headers: { "Content-Type": "application/json" },
         method: "POST",
-        headers: { "Content-type": "application/json" },
-        credentials: "include",
         body,
+        credentials: "include",
       });
       const result = await response.json();
       console.log(result);
