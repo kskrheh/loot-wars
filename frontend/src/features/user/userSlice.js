@@ -102,6 +102,17 @@ export const userSlice = createSlice({
       })
       state.user.weapons = updateActionPayload
     })
+    builder.addCase(fetchUserWeapons.pending, (state, action) => {
+      state.status = 'pending'
+      state.loading = true
+    })
+    builder.addCase(fetchUserWeapons.rejected, (state, action) => {
+      state.status = 'rejected'
+      state.loading = false
+      state.errorReg = 'Ошибка при обновлении вашего инвентаря'
+
+
+    })
     builder.addCase(fetchRegister.pending, (state, action) => {
       state.status = 'pending'
       state.loading = true

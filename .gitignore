@@ -1,6 +1,7 @@
 sessions
 .DS_Store
 .idea
+/frontend/build
 
 # Logs
 logs

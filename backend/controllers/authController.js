@@ -62,15 +62,23 @@ async function logoutUser(req, res) {
 }
 
 async function getUserInfo(req, res) {
+  let weapons;
+  let user;
+  let username;
+  if (req.session.user) {
+    username = req.session.user.username;
+  }
   try {
-    const { username } = req.session.user;
-    const user = await User.findOne({
+    user = await User.findOne({
       where: {
         username,
       },
     });
-
-    const weapons = await UserWeapon.findAll({
+  } catch (err) {
+    res.status(400);
+  }
+  try {
+    weapons = await UserWeapon.findAll({
       where: {
         user_id: user.id,
       },
@@ -94,7 +102,7 @@ async function getUserInfo(req, res) {
     if (weapons.length) {
       res.json({ name: user.username, weapons, energy: user.energy });
     } else {
-      res.json({ name: user.username, weapons: null, energy: user.energy });
+      res.json({ name: user.username, weapons: [], energy: user.energy });
     }
   } catch (err) {
     res.send(err.message);

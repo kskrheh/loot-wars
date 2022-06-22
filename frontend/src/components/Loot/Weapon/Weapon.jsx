@@ -1,10 +1,11 @@
 import styles from "./Weapon.module.css";
-function Weapon({ weapon, handleLi, pertain }) {
+function Weapon({ weapon, handleLi, pertain, ind }) {
   // console.log(weapon);
   return (
     <div
       data-pertain={pertain}
       id={weapon.id}
+      data-ind={ind}
       className={
         weapon.pick === 2
           ? styles.pickOnUserWeapon
