@@ -1,14 +1,15 @@
 import React from 'react';
 import './Modal.css'
-import {useDispatch} from "react-redux";
-import {isFighting} from "../../features/user/userSlice";
+import {useDispatch, useSelector} from "react-redux";
+import {fetchFightUserUpdate, isFighting} from "../../features/user/userSlice";
 
 const Modal = ({active, setActive, children}) => {
+  const enemy = useSelector((state) => state.enemy.enemy)
   const dispatch = useDispatch();
 
   const handleClick = () => {
     setActive(false)
-    dispatch(isFighting());
+    dispatch(fetchFightUserUpdate(enemy.id));
   }
 
   return (

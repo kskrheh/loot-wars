@@ -100,14 +100,19 @@ async function getUserInfo(req, res) {
       raw: true,
     });
     if (weapons.length) {
-      res.json({ name: user.username, weapons, energy: user.energy });
+      res.json({
+        name: user.username, weapons, energy: user.energy, fight: user.fight,
+      });
     } else {
-      res.json({ name: user.username, weapons: [], energy: user.energy });
+      res.json({
+        name: user.username, weapons: [], energy: user.energy, fight: user.fight,
+      });
     }
   } catch (err) {
     res.send(err.message);
   }
 }
+
 module.exports = {
   createUser, loginUser, logoutUser, getUserInfo,
 };

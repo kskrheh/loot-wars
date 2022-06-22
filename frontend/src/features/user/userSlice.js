@@ -58,6 +58,17 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
   // console.log(data)
   return data;
 })
+
+export const fetchFightUserUpdate = createAsyncThunk('user/fetchFightUserUpdate', async (enemyId) => {
+  const response = await fetch(`http://localhost:4000/users/${enemyId}/fight`, {
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    method: 'put'
+  })
+  const data = await response.json();
+  return data;
+})
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -88,15 +99,15 @@ export const userSlice = createSlice({
     increaseEnergy: (state) => {
       state.user.energy += 1
     },
-    isFighting: (state) => {
-      state.user.fight = !state.user.fight
-    }
+    // isFighting: (state) => {
+    //   state.user.fight = !state.user.fight
+    // }
   },
   extraReducers(builder) { //санки в тулките все пишуться через екстра редюсер
     builder.addCase(fetchUserWeapons.fulfilled, (state, action) => {
       const updateActionPayload = action.payload.map((el) => {
         return {
-          ...el, 
+          ...el,
           pick: 1
         }
       })
@@ -151,6 +162,7 @@ export const userSlice = createSlice({
       state.status = 'succeeded'
       state.user.name = action.payload.name;
       state.user.energy = action.payload.energy;
+      // state.user.fight = action.payload.fight
       if (action.payload.weapons) {
         state.user.weapons = action.payload.weapons
       }
@@ -159,6 +171,11 @@ export const userSlice = createSlice({
     builder.addCase(fetchUser.rejected, (state, action) => {
       state.status = 'rejected'
       state.errorReg = action.payload
+      state.loading = false
+    })
+    builder.addCase(fetchFightUserUpdate.fulfilled, (state, action) => {
+      state.status = 'succeeded'
+      state.user.fight = action.payload.fight
       state.loading = false
     })
   }

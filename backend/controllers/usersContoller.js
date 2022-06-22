@@ -15,6 +15,7 @@ async function getUsers(req, res) {
       },
     }],
     where: {
+      fight: false,
       username: {
         [Op.ne]: req.body.name,
       },
@@ -22,6 +23,7 @@ async function getUsers(req, res) {
     order: sequelize.fn('RANDOM'),
     limit: 10,
   });
+
   res.json(users);
 }
 
@@ -49,7 +51,6 @@ async function getUserWeapons(req, res) {
     ],
     raw: true,
   });
-  console.log(weapons);
   res.json(weapons);
 }
 
@@ -79,4 +80,25 @@ async function getEnemyWeapons(req, res) {
   res.json({ weapons, user });
 }
 
-module.exports = { getUsers, getUserWeapons, getEnemyWeapons };
+async function putUsersFight(req, res) {
+  const userId = req.session.user.id;
+  const { enemyId } = req.params;
+
+  const user = await User.findOne({ where: { id: userId } });
+  const enemy = await User.findOne({ where: { id: enemyId } });
+
+  user.fight = !user.fight;
+  user.save();
+
+  await User.update({
+    fight: !enemy.fight,
+  }, {
+    where: {
+      id: enemy.id,
+    },
+  });
+  res.json(user);
+}
+module.exports = {
+  getUsers, getUserWeapons, getEnemyWeapons, putUsersFight,
+};
