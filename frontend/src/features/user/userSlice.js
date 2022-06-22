@@ -3,6 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const initialState = {
   user: {
     name: undefined,
+    energy: undefined,
     weapons: [],
     weaponsId: [],
     userWeaponsId: []
@@ -53,6 +54,7 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
     method: 'get'
   });
   const data = await response.json();
+  console.log(data)
   return data;
 })
 export const userSlice = createSlice({
@@ -67,6 +69,12 @@ export const userSlice = createSlice({
     },
     weaponsId: (state, action) => {
       state.user.weaponsId.push(action.payload)
+    },
+    decreaseEnergy: (state ) => {
+      state.user.energy -= 1
+    },
+    increaseEnergy: (state) => {
+      state.user.energy += 1     
     }
   },
   extraReducers(builder) { //санки в тулките все пишуться через екстра редюсер
@@ -109,7 +117,9 @@ export const userSlice = createSlice({
     })
     builder.addCase(fetchUser.fulfilled, (state, action) => {
       state.status = 'succeeded'
-      state.user.name = action.payload
+      state.user.name = action.payload.name;
+      state.user.energy = action.payload.energy;
+      state.user.weapons.push(...action.payload.weapons);
       state.loading = false
     })
     builder.addCase(fetchUser.rejected, (state, action) => {
@@ -120,6 +130,6 @@ export const userSlice = createSlice({
   }
 })
 
-export const { logout, weaponsId, userWeaponsId } = userSlice.actions
+export const { logout, weaponsId, userWeaponsId, decreaseEnergy, increaseEnergy } = userSlice.actions
 
 export default userSlice.reducer

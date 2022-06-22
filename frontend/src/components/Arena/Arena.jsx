@@ -1,12 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "../../features/users/usersSlice";
-import "./Arena.css";
-import lol from '../../img/crossed-swords-svgrepo-com.svg'
-
+import styles from "./Arena.module.css";
+import lol from "../../img/crossed-swords-svgrepo-com.svg";
 import Modal from "../Modal/Modal";
 import EnemyModal from "../Modal/EnemyModal/EnemyModal";
-
 import { fetchEnemyWeapons } from "../../features/enemy/enemySlice";
 
 function Arena() {
@@ -32,7 +30,7 @@ function Arena() {
 
   return (
     <>
-      <div className="img">
+      <div>
         <h1>Opponents</h1>
         <ul>
           {users.map((user) => (
@@ -41,15 +39,17 @@ function Arena() {
               <span> ATK {user.UserWeapons.reduce((acc, item) => acc + item.Weapon.ATK, 0)}</span>
               <span> DEF {user.UserWeapons.reduce((acc, item) => acc + item.Weapon.DEF, 0)}</span>
               <button
-                className="button"
+                className={styles.buttonArena}
                 onClick={() => handleClickEnemy(user.id)}
               >
-                <img className='red' src={lol} alt=''/>
+                <img className={styles.red} src={lol} alt="" />
               </button>
             </li>
           ))}
         </ul>
-        <button className='random' onClick={handleFetchUsers}>Update</button>
+        <button className={styles.random} onClick={handleFetchUsers}>
+          Update
+        </button>
         <Modal active={active} setActive={setActive}>
           <EnemyModal />
         </Modal>
