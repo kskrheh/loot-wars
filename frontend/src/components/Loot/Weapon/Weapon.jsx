@@ -2,7 +2,7 @@ import styles from "./Weapon.module.css";
 function Weapon({ weapon, handleLi, pertain }) {
   // console.log(weapon);
   return (
-    <li
+    <div
       data-pertain={pertain}
       id={weapon.id}
       className={
@@ -17,7 +17,7 @@ function Weapon({ weapon, handleLi, pertain }) {
       {weapon.title}
       🗡 {weapon.ATK}
       🛡 {weapon.DEF}Q{weapon.quality}
-    </li>
+    </div>
   );
 }
 

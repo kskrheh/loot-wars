@@ -18,6 +18,9 @@
     justify-content: space-around;
     align-items: center;
     align-content: stretch;
+    background-image: url('../../img/Jawas_SWGTCG.webp');
+    width: 100vw;
+    height: 100vh;
   
 }
 /* .bgimage {

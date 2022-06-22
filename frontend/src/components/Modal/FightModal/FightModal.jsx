@@ -1,4 +1,4 @@
-import {useDispatch, useSelector} from "react-redux";
+import { useSelector} from "react-redux";
 import Weapon from "../../Loot/Weapon/Weapon";
 import { useEffect, useState } from "react";
 

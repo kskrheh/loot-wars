@@ -193,7 +193,7 @@ function Loot() {
         Loot
       </button>
       <Equipped handleLi={handleLi} />
-      <ul className={`${styles.loot_container} ${styles.ul_loot}`}>
+      <div className={`${styles.loot_container} ${styles.ul_loot}`}>
         {weapons.map((weapon, index) => (
           <Weapon
             key={index}
@@ -202,7 +202,7 @@ function Loot() {
             handleLi={handleLi}
           />
         ))}
-      </ul>
+      </div>
       {weapons.length !== 0 && (
         <button
           className={styles.button_loot}
