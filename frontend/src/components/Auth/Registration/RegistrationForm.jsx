@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { fetchRegister } from "../../../features/user/userSlice";
+import styles from './RegistrationForm.module.css'
 
 const RegistrationForm = () => {
   const [isClicked, setIsClicked] = useState(false);
@@ -24,7 +25,8 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div>
+    
+    <div className={styles.rega}>
       {isClicked ? (
         <form
           action="/auth/register"
@@ -108,10 +110,10 @@ const RegistrationForm = () => {
           <div style={{ color: "red" }}>
             {errors?.email && <p>{errors?.email?.message || "Error!"}</p>}
           </div>
-          <button type="submit">Register</button>
+          <button className={styles.button} type="submit">Register</button>
         </form>
       ) : (
-        <button type="button" onClick={handleClick}>
+        <button className={styles.button} type="butto" onClick={handleClick}>
           Register
         </button>
       )}

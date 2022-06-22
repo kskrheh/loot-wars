@@ -10,7 +10,7 @@ import { Routes, Route } from "react-router-dom";
 import Arena from "./components/Arena/Arena";
 
 // eslint-disable-next-line no-unused-vars
-import styles from "./App.css";
+import styles from "./App.module.css";
 
 function App() {
   //saving situation
@@ -23,14 +23,14 @@ function App() {
 
   return (
     <div>
-      <header>
+      <header className={styles.app}>
         {user.user.name && (
           <>
             <Nav />
             <Footer />
           </>
         )}
-        <div className="appa">
+        <div className={styles.appa}>
           <Routes>
             <Route path="/" element={<Equipped />} />
             <Route path="/arena" element={<Arena />} />

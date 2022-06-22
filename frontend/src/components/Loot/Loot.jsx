@@ -1,19 +1,29 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-
-
-import { fetchLoot, removeWeapons } from "../../features/loot/lootSlice";
-import { fetchUserWeapons } from "../../features/user/userSlice";
-
+import {
+  fetchLoot,
+  pickLootWeapon,
+  removeWeapons,
+} from "../../features/loot/lootSlice";
+import {
+  decreaseEnergy,
+  fetchUserWeapons,
+  increaseEnergy,
+  pickWeapon,
+} from "../../features/user/userSlice";
 import Equipped from "../Equipped/Equipped";
 import Weapon from "./Weapon/Weapon";
-
 import styles from "./Loot.module.css";
 
 function Loot() {
   const weapons = useSelector((state) => state.loot.weapons);
   const user = useSelector((state) => state.user.user.name);
+  const energy = useSelector((state) => state.user.user.energy);
   const userWeapons = useSelector((state) => state.user.user.weapons);
+
+  const [delay, setDelay] = useState(1000);
+  const [isPlaying, setPlaying] = useState(false);
+
   const [arrayIds, setArrayIds] = useState({
     userWeaponID: [],
     lootWeaponID: [],
@@ -21,100 +31,158 @@ function Loot() {
   });
   const dispatch = useDispatch();
 
+  function useInterval(callback, delay) {
+    const savedCallback = useRef(callback);
+
+    useEffect(() => {
+      savedCallback.current = callback;
+    }, [callback]);
+
+    useEffect(() => {
+      if (!delay && delay !== 0) {
+        return;
+      }
+
+      const id = setInterval(() => savedCallback.current(), delay);
+
+      return () => clearInterval(id);
+    }, [delay]);
+  }
+
+  useInterval(
+    () => {
+      dispatch(increaseEnergy());
+      setPlaying(!isPlaying);
+    },
+    isPlaying ? delay : null
+  );
+
   const handleClick = () => {
     dispatch(fetchLoot());
+    dispatch(decreaseEnergy());
+    setPlaying(!isPlaying);
   };
 
   const handleSwap = () => {
-    let limit;
-    if (!userWeapons.length) {
-      limit = Math.abs(arrayIds.lootWeaponID.length - arrayIds.userWeaponID.length);
-    } else {
-      if (arrayIds.userWeaponID.length > arrayIds.lootWeaponID.length) {
-        limit = userWeapons.length - (arrayIds.userWeaponID.length - arrayIds.lootWeaponID.length);
-      }
-      if (arrayIds.userWeaponID.length < arrayIds.lootWeaponID.length) {
-        limit = userWeapons.length + (arrayIds.lootWeaponID.length - arrayIds.userWeaponID.length);
-      }
-      if (arrayIds.userWeaponID.length === arrayIds.lootWeaponID.length) {
-        limit = userWeapons.length;
-      }
-    }
-    console.log(limit);
-    if (limit <= 6) {
-      const body = JSON.stringify({ arrayIds, user: user });
-      const fetchWeapons = async () => {
-        const response = await fetch("http://localhost:4000/loot", {
-          method: "POST",
-          headers: { "Content-type": "application/json" },
-          credentials: "include",
-          body,
-        });
-        const result = await response.json();
-        console.log(result);
-      };
+    const body = JSON.stringify({ arrayIds, user: user });
+    const fetchWeapons = async () => {
+      const response = await fetch("http://localhost:4000/loot", {
+        method: "POST",
+        headers: { "Content-type": "application/json" },
+        credentials: "include",
+        body,
+      });
+      const result = await response.json();
+      console.log(result);
+    };
 
-      fetchWeapons();
-      dispatch(fetchUserWeapons(user));
-      setArrayIds({
-        userWeaponID: [],
-        lootWeaponID: [],
-        errorLoot: undefined,
-      });
-      dispatch(removeWeapons())
-    } else {
-      setArrayIds((prevState) => {
-        return {
-          ...prevState,
-          errorLoot: "У вас максимальное количество оружия",
-        };
-      });
-    }
+    fetchWeapons();
+    setArrayIds({
+      userWeaponID: [],
+      lootWeaponID: [],
+      errorLoot: undefined,
+    });
+    dispatch(fetchUserWeapons(user));
+    dispatch(removeWeapons());
   };
 
   const handleLi = (e) => {
-    const { pertain } = e.target.dataset;
-    let limit;
-    if (!userWeapons.length) {
-      limit = Math.abs(arrayIds.lootWeaponID.length - arrayIds.userWeaponID.length);
-    } else {
-      if (arrayIds.userWeaponID.length > arrayIds.lootWeaponID.length) {
-        limit = userWeapons.length - (arrayIds.userWeaponID.length - arrayIds.lootWeaponID.length);
-      }
-      if (arrayIds.userWeaponID.length < arrayIds.lootWeaponID.length) {
-        limit = userWeapons.length + (arrayIds.lootWeaponID.length - arrayIds.userWeaponID.length);
-      }
-      if (arrayIds.userWeaponID.length === arrayIds.lootWeaponID.length) {
-        limit = userWeapons.length;
-      }
-    }
-    console.log(limit);
-    console.log(arrayIds.userWeaponID);
-    if (!arrayIds.userWeaponID.includes(e.target.id)) {
-      e.target.style.backgroundColor = "green";
-      if (pertain === "userWeapon") {
-        setArrayIds((prevState) => {
-          return {
-            ...prevState,
-            userWeaponID: [...prevState.userWeaponID, e.target.id],
-          };
-        });
-      }
-    }
+    console.log(weapons, 'пушки с лута');
+    if (weapons.length) {
+      const { pertain } = e.target.dataset;
+      const dublicateCount = userWeapons.filter(
+        (el) => +el.id === +e.target.id
+      ).length;
+      const dublicateWeapons = weapons.filter(
+        (el) => +el.id === +e.target.id
+      ).length;
+      let count =
+        userWeapons.length -
+        arrayIds.userWeaponID.length +
+        arrayIds.lootWeaponID.length;
+        console.log(userWeapons, 'пушки с которыми пришли');
+        console.log(arrayIds.userWeaponID.length, 'хотим выбросить');
+        console.log(arrayIds.lootWeaponID.length, 'хотим взять');
+        console.log(count,'count limit')
+      if (count <= 6) {
+        if (pertain === "userWeapon") {
+          if (
+            arrayIds.userWeaponID.filter((el) => +el === +e.target.id)
+              .length !== +dublicateCount
+          ) {
+            dispatch(pickWeapon(e.target.id));
+            // e.target.style.backgroundColor = "green";
+            setArrayIds((prevState) => {
+              return {
+                ...prevState,
+                userWeaponID: [...prevState.userWeaponID, e.target.id],
+                errorLoot: "",
+              };
+            });
+          } else {
+            // e.target.style.backgroundColor = "white";
+            dispatch(pickWeapon(e.target.id));
+            setArrayIds((prevState) => {
+              const index = prevState.userWeaponID.findIndex(
+                (el) => el === e.target.id
+              );
+              console.log(index, "индеч");
+              const newUserWeaponID = [...prevState.userWeaponID];
+              newUserWeaponID.splice(index, 1);
 
-    if (!arrayIds.lootWeaponID.includes(e.target.id)) {
-      if (limit < 6) {
-        e.target.style.backgroundColor = "green";
+              return {
+                ...prevState,
+                userWeaponID: newUserWeaponID,
+                errorLoot: "",
+              };
+            });
+          }
+        }
 
         if (pertain === "lootWeapon") {
-          setArrayIds((prevState) => {
-            return {
-              ...prevState,
-              lootWeaponID: [...prevState.lootWeaponID, e.target.id],
-            };
-          });
+          if (count < 6) {
+            if (
+              arrayIds.lootWeaponID.filter((el) => +el === +e.target.id)
+                .length !== +dublicateWeapons
+            ) {
+              // e.target.style.backgroundColor = "green";
+              dispatch(pickLootWeapon(e.target.dataset.ind));
+              setArrayIds((prevState) => {
+                return {
+                  ...prevState,
+                  lootWeaponID: [...prevState.lootWeaponID, e.target.id],
+                  errorLoot: "",
+                };
+              });
+            } else {
+              // e.target.style.backgroundColor = "#5e2e2e";
+              dispatch(pickLootWeapon(e.target.dataset.ind));
+              
+              setArrayIds((prevState) => {
+                const index = prevState.lootWeaponID.findIndex(
+                  (el) => el === e.target.id
+                );
+                console.log(index, "индеч");
+                const newLootWeaponID = [...prevState.lootWeaponID];
+                newLootWeaponID.splice(index, 1);
+                return {
+                  ...prevState,
+                  lootWeaponID: newLootWeaponID,
+                  errorLoot: "",
+                };
+              });
+            }
+          } else {
+            setArrayIds((prevState) => {
+              return {
+                ...prevState,
+                errorLoot:
+                  "У вас максимальное количество оружия(6), попробуйте выставить ненужные вам пушки на выброс",
+              };
+            });
+          }
+          console.log(arrayIds);
         }
-        console.log(arrayIds);
       }
     }
   };
@@ -129,16 +197,17 @@ function Loot() {
         Loot
       </button>
       <Equipped handleLi={handleLi} />
-      <ul className={`${styles.loot_container} ${styles.ul_loot}`}>
+      <div className={`${styles.loot_container} ${styles.ul_loot}`}>
         {weapons.map((weapon, index) => (
           <Weapon
             key={index}
             pertain={"lootWeapon"}
             weapon={weapon}
             handleLi={handleLi}
+            ind={index}
           />
         ))}
-      </ul>
+      </div>
       {weapons.length !== 0 && (
         <button
           className={styles.button_loot}

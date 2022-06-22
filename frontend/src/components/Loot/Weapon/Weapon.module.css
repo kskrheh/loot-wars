@@ -1,0 +1,12 @@
+
+.pickOnLoot{
+background-color: chartreuse;
+}
+.pickOnUserWeapon{
+  background-color: rgb(211, 8, 103);
+  }
+
+.pickOff{
+background-color: inherit;
+
+}
