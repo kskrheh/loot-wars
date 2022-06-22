@@ -27,28 +27,39 @@ async function getUsers(req, res) {
 
 async function getUserWeapons(req, res) {
   const { username } = req.params;
-  const user = await User.findOne({ where: { username } });
-  const weapons = await UserWeapon.findAll({
-    where: {
-      user_id: user.id,
-    },
-    include: {
-      model: Weapon,
+  let user;
+  let weapons;
+  try {
+    user = await User.findOne({ where: { username } });
+  } catch (err) {
+    console.log(err.message);
+  }
+  try {
+    weapons = await UserWeapon.findAll({
+      where: {
+        user_id: user.id,
+      },
+      include: {
+        model: Weapon,
+        attributes: [
+          'id', 'ATK', 'DEF', 'title', 'quality',
+        ],
+      },
       attributes: [
-        'id', 'ATK', 'DEF', 'title', 'quality',
+        'id',
+        ['weapon_id', 'weapon_id'],
+        'wear',
+        [sequelize.col('Weapon.ATK'), 'ATK'],
+        [sequelize.col('Weapon.DEF'), 'DEF'],
+        [sequelize.col('Weapon.title'), 'title'],
+        [sequelize.col('Weapon.quality'), 'quality'],
       ],
-    },
-    attributes: [
-      'id',
-      ['weapon_id', 'weapon_id'],
-      'wear',
-      [sequelize.col('Weapon.ATK'), 'ATK'],
-      [sequelize.col('Weapon.DEF'), 'DEF'],
-      [sequelize.col('Weapon.title'), 'title'],
-      [sequelize.col('Weapon.quality'), 'quality'],
-    ],
-    raw: true,
-  });
+      raw: true,
+    });
+  } catch (err) {
+    console.log(err.message);
+  }
+
   console.log(weapons);
   res.json(weapons);
 }
