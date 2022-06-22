@@ -1,15 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "../../features/users/usersSlice";
-
 import styles from "./Arena.module.css";
 import lol from "../../img/crossed-swords-svgrepo-com.svg";
-
 import Modal from "../Modal/Modal";
 import EnemyModal from "../Modal/EnemyModal/EnemyModal";
-
 import { fetchEnemyWeapons } from "../../features/enemy/enemySlice";
-import { fetchUserWeapons } from "../../features/user/userSlice";
 
 function Arena() {
   const dispatch = useDispatch();
@@ -34,7 +30,6 @@ function Arena() {
 
   return (
     <>
-
       <div>
         <h1>Opponents</h1>
         <ul>
@@ -55,7 +50,6 @@ function Arena() {
         <button className={styles.random} onClick={handleFetchUsers}>
           Update
         </button>
-
         <Modal active={active} setActive={setActive}>
           <EnemyModal />
         </Modal>
