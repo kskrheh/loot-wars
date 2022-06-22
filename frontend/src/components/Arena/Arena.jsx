@@ -44,7 +44,7 @@ function Arena() {
               <span> ATK {user.UserWeapons.reduce((acc, item) => acc + item.Weapon.ATK, 0)}</span>
               <span> DEF {user.UserWeapons.reduce((acc, item) => acc + item.Weapon.DEF, 0)}</span>
               <button
-                className={styles.button}
+                className={styles.buttonArena}
                 onClick={() => handleClickEnemy(user.id)}
               >
                 <img className={styles.red} src={lol} alt="" />

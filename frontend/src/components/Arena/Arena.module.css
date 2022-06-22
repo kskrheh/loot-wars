@@ -1,16 +1,16 @@
-.button {
+.buttonArena {
   width: auto;
   height: auto;
   border-radius: 5px; box-shadow: 0px 1px 3px; font-size: 20px;
   background-color: rgb(211, 237, 184);
 }
- .button:hover {
+ .buttonArena:hover {
   background-color: red;
  }
 .random {
   background-color: rgb(211, 237, 184);
   border-radius: 10px; box-shadow: 0px 1px 3px; font-size: 20px;
-}
+} 
 
 .random:hover {
 

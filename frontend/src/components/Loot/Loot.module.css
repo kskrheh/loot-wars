@@ -13,13 +13,13 @@
   outline: none;
   border: 1px solid #55321C;
 
-  border-radius: 5px 5px 0 0;
+  border-radius: 10px 0px 10px 0;
 }
 
 .button_loot:hover {
   cursor: pointer;
   color: #55321C;
-  background-color: white;
+  background-color: #00FFCB;
   border: 1px solid #D5DBC1;
 }
 

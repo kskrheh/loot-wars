@@ -110,10 +110,10 @@ const RegistrationForm = () => {
           <div style={{ color: "red" }}>
             {errors?.email && <p>{errors?.email?.message || "Error!"}</p>}
           </div>
-          <button type="submit">Register</button>
+          <button className={styles.button} type="submit">Register</button>
         </form>
       ) : (
-        <button type="button" onClick={handleClick}>
+        <button className={styles.button} type="butto" onClick={handleClick}>
           Register
         </button>
       )}
