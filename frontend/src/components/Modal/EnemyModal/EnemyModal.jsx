@@ -3,7 +3,7 @@ import './EnemyModal.css'
 import {useDispatch, useSelector} from "react-redux";
 import Weapon from "../../Loot/Weapon/Weapon";
 import FightModal from "../FightModal/FightModal";
-import {isFighting} from "../../../features/user/userSlice";
+import {fetchFightUserUpdate, isFighting} from "../../../features/user/userSlice";
 
 const EnemyModal = () => {
   const fight = useSelector((state) => state.user.user.fight)
@@ -11,7 +11,7 @@ const EnemyModal = () => {
   const dispatch = useDispatch()
 
   const handleClick = () => {
-    dispatch(isFighting());
+    dispatch(fetchFightUserUpdate(enemy.id));
   }
 
   return (
