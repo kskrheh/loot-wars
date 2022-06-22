@@ -1,9 +1,4 @@
-<<<<<<< HEAD
-.li {
-  display: flex;
-  width: 100vw;
 
-=======
 .pickOnLoot{
 background-color: chartreuse;
 }
@@ -13,5 +8,5 @@ background-color: chartreuse;
 
 .pickOff{
 background-color: inherit;
->>>>>>> dev
+
 }
