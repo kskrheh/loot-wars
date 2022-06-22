@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "../../features/users/usersSlice";
-import "./App.css";
 import "./Arena.css";
 import lol from '../../img/crossed-swords-svgrepo-com.svg'
 
@@ -9,7 +8,6 @@ import Modal from "../Modal/Modal";
 import EnemyModal from "../Modal/EnemyModal/EnemyModal";
 
 import { fetchEnemyWeapons } from "../../features/enemy/enemySlice";
-import {fetchUserWeapons} from "../../features/user/userSlice";
 
 function Arena() {
   const dispatch = useDispatch();
