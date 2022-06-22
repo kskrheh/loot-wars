@@ -1,14 +1,11 @@
 import {useDispatch, useSelector} from "react-redux";
 import Weapon from "../../Loot/Weapon/Weapon";
 import { useEffect, useState } from "react";
-import {isFighting} from "../../../features/user/userSlice";
 
 function FightModal() {
     const enemy = useSelector((state) => state.enemy.enemy);
     const user = useSelector((state) => state.user.user);
-    const fight = useSelector((state) => state.user.user.fight)
     const [userWin, setUserWin] = useState();
-    const dispatch = useDispatch();
 
     const shuffle = (arr) => {
         return arr.map(el => [Math.random(), el]).sort().map(el => el[1]);
@@ -41,10 +38,6 @@ function FightModal() {
         } else setUserWin(false);
     }, [])
 
-    const handleClick = () => {
-        dispatch(isFighting());
-    }
-
     return(
       <>
         <ul>
@@ -60,7 +53,6 @@ function FightModal() {
         {
           userWin ? <p>Победа</p> : <p>Вы проиграли</p>
         }
-        <button onClick={handleClick}>ok</button>
       </>
     )
 }
