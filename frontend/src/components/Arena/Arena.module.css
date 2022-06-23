@@ -6,32 +6,58 @@
     font-family: 'League Gothic', sans-serif;
 }
 .buttonArena {
-  width: 45px;
-  height: 35px;
-  border-radius: 5px; box-shadow: 3px 3px 3px;
-  background-color: rgb(211, 237, 184);
-  margin-bottom: 10px;
+  /*width: 45px;*/
+  /*height: 35px;*/
+  /*border-radius: 5px; box-shadow: 3px 3px 3px;*/
+  /*background-color: rgb(211, 237, 184);*/
+  /*margin-bottom: 10px;*/
+    width: 45px;
+    height: 35px;
+    background-color: rgb(211, 237, 184);
+    outline: none;
+    border: 1px solid #55321C;
+    border-radius: 10px 0px 10px 0;
+    font-family: 'League Gothic', sans-serif;
+    font-size: 30px;
 }
+
  .buttonArena:hover {
-  background-color: #25513C;
+  /*background-color: #25513C;*/
+     cursor: pointer;
+     color: rgb(211, 237, 184);
+     background-color:  #540100;
+     border: 1px solid #000000;
  }
+
 .random {
-  margin-top: 10px;
-  padding: 5px 12px;
-  background-color: rgb(211, 237, 184);
-  border-radius: 10px; box-shadow: 0px 1px 3px; font-size: 20px;
-  font-family: 'League Gothic', sans-serif;
-  font-size: 30px;
-  letter-spacing: 0.5px;
+  /*margin-top: 10px;*/
+  /*padding: 5px 12px;*/
+  /*background-color: rgb(211, 237, 184);*/
+  /*border-radius: 10px; box-shadow: 0px 1px 3px; font-size: 20px;*/
+  /*font-family: 'League Gothic', sans-serif;*/
+  /*font-size: 30px;*/
+  /*letter-spacing: 0.5px;*/
+    width: 75px;
+    margin: 8px auto;
+    background-color: rgb(211, 237, 184);
+    outline: none;
+    border: 1px solid #55321C;
+    border-radius: 10px 0px 10px 0;
+    font-family: 'League Gothic', sans-serif;
+    font-size: 30px;
 }
 
 .random:hover {
-  background-color: #540100;
-  padding: 7px 14px;
-  color: rgb(211, 237, 184);
+  /*background-color: #540100;*/
+  /*padding: 7px 14px;*/
+  /*color: rgb(211, 237, 184);*/
+    cursor: pointer;
+    color: rgb(211, 237, 184);
+    background-color:  #540100;
+    border: 1px solid #D5DBC1;
 }
 
-li {
+.liArena {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -39,11 +65,13 @@ li {
     font-size: 25px;
     border-bottom: 3px solid black;
 }
+
 /*.ul_arena {*/
 /*    border-radius: 10%;*/
 /*    padding: 20px;*/
 /*    background-color: rgba(37, 81, 60, 0.6);*/
 /*}*/
+
 .title {
     margin-top: 5px;
     font-size: 50px;
