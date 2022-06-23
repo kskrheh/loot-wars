@@ -1,10 +1,11 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { fetchRegister } from "../../../features/user/userSlice";
 import styles from "./RegistrationForm.module.css";
 
 const RegistrationForm = () => {
+  const errorReg = useSelector((state) => state.user.errorReg)
   const [isClicked, setIsClicked] = useState(false);
   const {
     register,
@@ -12,7 +13,7 @@ const RegistrationForm = () => {
     handleSubmit,
     reset,
     getValues,
-  } = useForm({ mode: "onBlur" });
+  } = useForm({ mode: 'onSubmit' });
   const dispatch = useDispatch();
 
   const goRegister = (data) => {
@@ -23,9 +24,13 @@ const RegistrationForm = () => {
   const handleClick = () => {
     setIsClicked(!isClicked);
   };
-
   return (
     <div className={styles.rega}>
+      {
+            errorReg && (
+              <p>{errorReg}</p>
+            )
+          }
       {isClicked ? (
         <form
           action="/auth/register"
@@ -44,6 +49,10 @@ const RegistrationForm = () => {
                 minLength: {
                   value: 3,
                   message: "Минимум 3 символа!",
+                },
+                maxLength: {
+                  value: 10,
+                  message: "Максимум 10 символов!",
                 },
                 pattern: {
                   value: /[A-Za-z]{3}/,
@@ -103,7 +112,7 @@ const RegistrationForm = () => {
               {...register("email", {
                 required: "Обязательно к заполнению",
                 pattern: {
-                  value: /@/,
+                  value: /^((([0-9A-Za-z]{1}[-0-9A-z\.]{0,30}[0-9A-Za-z]?)|([0-9А-Яа-я]{1}[-0-9А-я\.]{0,30}[0-9А-Яа-я]?))@([-A-Za-z]{1,}\.){1,}[-A-Za-z]{2,})$/,
                   message: "enter real email!",
                 },
               })}

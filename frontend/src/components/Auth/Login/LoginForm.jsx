@@ -1,10 +1,11 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchLogin } from "../../../features/user/userSlice";
 import { useForm } from "react-hook-form";
 import styles from "./LoginForm.module.css";
 
 const LoginForm = () => {
+  const errorLogin = useSelector((state) => state.user.errorLogin)
   const [isClicked, setIsClicked] = useState(false);
   const {
     register,
@@ -23,6 +24,11 @@ const LoginForm = () => {
 
   return (
     <div>
+      {
+        errorLogin && (
+          <p>{errorLogin}</p>
+        )
+      }
       {isClicked ? (
         <form
           
