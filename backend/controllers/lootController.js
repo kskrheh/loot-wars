@@ -7,36 +7,63 @@ async function getLoot(req, res) {
 
   const getRandom = () => Math.floor(Math.random() * 100) + 1;
 
+  let weaponsAwait;
   const weaponsLoot = emptyArr.map(async () => {
     const number = getRandom();
     let weapon;
 
     if (number >= 45 && number <= 70) {
-      weapon = await Weapon.findOne({ where: { quality: '2' }, order: sequelize.fn('RANDOM'), raw: true });
-      return weapon;
+      try {
+        weapon = await Weapon.findOne({ where: { quality: '2' }, order: sequelize.fn('RANDOM'), raw: true });
+        return weapon;
+      } catch (error) {
+        res.send(error.message);
+      }
     }
 
     if (number > 70 && number <= 85) {
-      weapon = await Weapon.findOne({ where: { quality: '3' }, order: sequelize.fn('RANDOM'), raw: true });
-      return weapon;
+      try {
+        weapon = await Weapon.findOne({ where: { quality: '3' }, order: sequelize.fn('RANDOM'), raw: true });
+        return weapon;
+      } catch (error) {
+        res.send(error.message);
+      }
     }
 
     if (number > 85 && number <= 95) {
-      weapon = await Weapon.findOne({ where: { quality: '4' }, order: sequelize.fn('RANDOM'), raw: true });
-      return weapon;
+      try {
+        weapon = await Weapon.findOne({ where: { quality: '4' }, order: sequelize.fn('RANDOM'), raw: true });
+        return weapon;
+      } catch (error) {
+        res.send(error.message);
+      }
     }
 
     if (number > 95) {
-      weapon = await Weapon.findOne({ where: { quality: '5' }, order: sequelize.fn('RANDOM'), raw: true });
-      return weapon;
+      try {
+        weapon = await Weapon.findOne({ where: { quality: '5' }, order: sequelize.fn('RANDOM'), raw: true });
+        return weapon;
+      } catch (error) {
+        res.send(error.message);
+      }
     }
 
     if (number < 45) {
-      weapon = await Weapon.findOne({ where: { quality: '1' }, order: sequelize.fn('RANDOM'), raw: true });
-      return weapon;
+      try {
+        weapon = await Weapon.findOne({ where: { quality: '1' }, order: sequelize.fn('RANDOM'), raw: true });
+        return weapon;
+      } catch (error) {
+        res.send(error.message);
+      }
     }
   });
-  res.json(await Promise.all(weaponsLoot));
+
+  try {
+    weaponsAwait = await Promise.all(weaponsLoot);
+  } catch (error) {
+    res.send(error.message);
+  }
+  res.json(weaponsAwait);
 }
 
 async function swapLoot(req, res) {
@@ -44,51 +71,75 @@ async function swapLoot(req, res) {
     lengthPickUserWeapons: userWeaponsTrash,
     lengthPickLootWeapons: lootWeaponsPick,
   } = req.body.arrBody;
-  const user = await User.findOne({ where: { username: req.body.user } });
+  let user;
+  let weapon;
+  let userWeapons;
+  try {
+    user = await User.findOne({ where: { username: req.body.user } });
+  } catch (error) {
+    res.send(error.message);
+  }
 
   if (userWeaponsTrash.length) {
     userWeaponsTrash.forEach(async (elementID) => {
       if (elementID.id !== '0') {
-        const weapon = await UserWeapon.findOne({
-          where: {
-            id: +elementID.id,
-          },
-        });
-        await weapon.destroy();
+        try {
+          weapon = await UserWeapon.findOne({
+            where: {
+              id: +elementID.id,
+            },
+          });
+        } catch (error) {
+          res.send(error.message);
+        }
+
+        try {
+          await weapon.destroy();
+        } catch (error) {
+          res.send(error.message);
+        }
       }
     });
   }
 
   if (lootWeaponsPick.length) {
     lootWeaponsPick.forEach(async (elementID) => {
-      await UserWeapon.create({
-        user_id: user.id,
-        weapon_id: +elementID.id,
-        wear: 10,
-      });
+      try {
+        await UserWeapon.create({
+          user_id: user.id,
+          weapon_id: +elementID.id,
+          wear: 10,
+        });
+      } catch (error) {
+        res.send(error.message);
+      }
     });
   }
 
-  const userWeapons = await UserWeapon.findAll({
-    where: {
-      user_id: user.id,
-    },
-    include: {
-      model: Weapon,
+  try {
+    userWeapons = await UserWeapon.findAll({
+      where: {
+        user_id: user.id,
+      },
+      include: {
+        model: Weapon,
+        attributes: [
+          'ATK', 'DEF', 'title', 'quality',
+        ],
+      },
       attributes: [
-        'ATK', 'DEF', 'title', 'quality',
+        ['weapon_id', 'id'],
+        'wear',
+        [sequelize.col('Weapon.ATK'), 'ATK'],
+        [sequelize.col('Weapon.DEF'), 'DEF'],
+        [sequelize.col('Weapon.title'), 'title'],
+        [sequelize.col('Weapon.quality'), 'quality'],
       ],
-    },
-    attributes: [
-      ['weapon_id', 'id'],
-      'wear',
-      [sequelize.col('Weapon.ATK'), 'ATK'],
-      [sequelize.col('Weapon.DEF'), 'DEF'],
-      [sequelize.col('Weapon.title'), 'title'],
-      [sequelize.col('Weapon.quality'), 'quality'],
-    ],
-    raw: true,
-  });
+      raw: true,
+    });
+  } catch (error) {
+    res.send(error.message);
+  }
 
   res.json(userWeapons);
 }
