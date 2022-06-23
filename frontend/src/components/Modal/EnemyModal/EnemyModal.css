@@ -13,13 +13,7 @@
   align-items: center;
 }
 
-p {
-  display: flex;
-  justify-content: center;
-  padding-right: 15%;
-  margin: 20px;
-  border: 2px solid rgb(248,255,206)
-}
+
 
 .open-btn {
   margin: 10px 20px;
