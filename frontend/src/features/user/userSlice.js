@@ -3,11 +3,13 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const initialState = {
   user: {
     name: undefined,
-    energy: undefined,
+    energy: 20,
     fight: false,
     weapons: [],
     weaponsId: [],
-    userWeaponsId: []
+    userWeaponsId: [],
+    isTimer: false,
+    time: 0,
   },
   status: 'idle',
   errorReg: null,
@@ -109,10 +111,20 @@ export const userSlice = createSlice({
     },
     increaseEnergy: (state) => {
       state.user.energy += 1
+      // state.user.time = 0
     },
-    // isFighting: (state) => {
-    //   state.user.fight = !state.user.fight
-    // }
+    fightEnergy: (state) => {
+      state.user.energy -= 3
+    },
+    isTimer: (state, action) => {
+      state.user.isTimer = action.payload
+    },
+    changeTime: (state) => {
+      state.user.time -= 1
+    },
+    gainTimeMinute: (state) => {
+      state.user.time = 60
+    }
   },
   extraReducers(builder) { //санки в тулките все пишуться через екстра редюсер
     builder.addCase(fetchUserWeapons.fulfilled, (state, action) => {
@@ -217,6 +229,6 @@ export const userSlice = createSlice({
   }
 })
 
-export const { logout, weaponsId, userWeaponsId, decreaseEnergy, increaseEnergy, pickWeapon, isFighting } = userSlice.actions
+export const { logout, weaponsId, userWeaponsId, decreaseEnergy, increaseEnergy, pickWeapon, isTimer, fightEnergy, changeTime, gainTimeMinute } = userSlice.actions
 
 export default userSlice.reducer

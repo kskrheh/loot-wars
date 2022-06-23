@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   fetchLoot,
@@ -9,7 +9,7 @@ import {
   decreaseEnergy,
   fetchUserWeapons,
   fetchWeapons,
-  increaseEnergy,
+  isTimer,
   pickWeapon,
 } from "../../features/user/userSlice";
 import Equipped from "../Equipped/Equipped";
