@@ -41,25 +41,33 @@ async function getLoot(req, res) {
 }
 
 async function swapLoot(req, res) {
-  const { userWeaponID, lootWeaponID } = req.body.arrayIds;
+  const {
+    lengthPickUserWeapons: userWeaponsTrash,
+    lengthPickLootWeapons: lootWeaponsPick,
+  } = req.body.arrBody;
+  console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
+  console.log(lootWeaponsPick, userWeaponsTrash);
   const user = await User.findOne({ where: { username: req.body.user } });
 
-  if (userWeaponID.length) {
-    userWeaponID.forEach(async (elementID) => {
-      const weapon = await UserWeapon.findOne({
-        where: {
-          id: +elementID,
-        },
-      });
-      await weapon.destroy();
+  if (userWeaponsTrash.length) {
+    userWeaponsTrash.forEach(async (elementID) => {
+      if (elementID.id !== '0') {
+        const weapon = await UserWeapon.findOne({
+          where: {
+            id: +elementID.id,
+          },
+        });
+        console.log(weapon, 'DELETEEEEEEE');
+        await weapon.destroy();
+      }
     });
   }
 
-  if (lootWeaponID.length) {
-    lootWeaponID.forEach(async (elementID) => {
+  if (lootWeaponsPick.length) {
+    lootWeaponsPick.forEach(async (elementID) => {
       await UserWeapon.create({
         user_id: user.id,
-        weapon_id: +elementID,
+        weapon_id: +elementID.id,
         wear: 10,
       });
     });

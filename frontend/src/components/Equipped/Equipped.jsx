@@ -37,17 +37,20 @@ const Equipped = ({ handleLi }) => {
                     pertain={"userWeapon"}
                     weapon={weapons[index]}
                     handleLi={handleLi}
+                    ind={index}
                   />
                 );
               } else {
                 return (
-                  <li
+                  <div
                     key={index}
                     className={styles.infoContainer}
                     onClick={handleLi}
+                    data-pertain={"userWeapon"}
+                    data-ind={index}
                   >
                     No item
-                  </li>
+                  </div>
                 );
               }
             })}

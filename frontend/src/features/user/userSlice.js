@@ -83,8 +83,9 @@ export const userSlice = createSlice({
       state.user.weaponsId.push(action.payload)
     },
     pickWeapon: (state, action) => {
-      state.user.weapons = state.user.weapons.map((el) => {
-        if(+el.id === +action.payload){
+      state.user.weapons = state.user.weapons.map((el, i) => {
+        console.log(action.payload);
+        if(i === +action.payload){
           return {
             ...el,
             pick: el.pick === 1 ? 2 : 1
@@ -105,13 +106,27 @@ export const userSlice = createSlice({
   },
   extraReducers(builder) { //санки в тулките все пишуться через екстра редюсер
     builder.addCase(fetchUserWeapons.fulfilled, (state, action) => {
-      const updateActionPayload = action.payload.map((el) => {
-        return {
-          ...el,
-          pick: 1
-        }
-      })
-      state.user.weapons = updateActionPayload
+      if(action.payload.length === 6){
+        state.user.weapons = action.payload.map((el) => {
+          return {
+            ...el,
+            pick: 1,
+          }
+        })
+      }else{
+        const difference = 6 - action.payload.length;
+        // const indArr = new Array(difference).fill(1);
+        const newPayload = [...action.payload];
+        [1,1,1,1,1,1].forEach(element => {
+          newPayload.push({id: '0', title: 'No item', ATK: 0})
+        });
+        state.user.weapons = newPayload.map((el) => {
+          return {
+            ...el,
+            pick: 1,
+          }
+        })
+      }
     })
     builder.addCase(fetchUserWeapons.pending, (state, action) => {
       state.status = 'pending'
@@ -162,7 +177,6 @@ export const userSlice = createSlice({
       state.status = 'succeeded'
       state.user.name = action.payload.name;
       state.user.energy = action.payload.energy;
-      // state.user.fight = action.payload.fight
       if (action.payload.weapons) {
         state.user.weapons = action.payload.weapons
       }
