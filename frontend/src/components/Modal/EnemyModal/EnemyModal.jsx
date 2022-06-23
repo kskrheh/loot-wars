@@ -5,7 +5,7 @@ import Weapon from "../../Loot/Weapon/Weapon";
 import FightModal from "../FightModal/FightModal";
 import { fetchFightUserUpdate, fightEnergy } from "../../../features/user/userSlice";
 
-const EnemyModal = () => {
+const EnemyModal = ({ active, setActive }) => {
   const fight = useSelector((state) => state.user.user.fight);
   const energy = useSelector((state) => state.user.user.energy);
   const enemy = useSelector((state) => state.enemy.enemy);
@@ -21,7 +21,7 @@ const EnemyModal = () => {
   return (
     <>
       {fight ?
-        <FightModal />
+        <FightModal active={active} setActive={setActive} />
         :
         <div className='app'>
           <span>{`ATK ${enemy.weapons.reduce((sumAtk, weapon) => sumAtk + weapon.ATK, 0)}`} </span>

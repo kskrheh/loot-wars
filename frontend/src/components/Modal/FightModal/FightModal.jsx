@@ -2,12 +2,13 @@ import { useDispatch, useSelector } from "react-redux";
 import Weapon from "../../Loot/Weapon/Weapon";
 import { useEffect, useState } from "react";
 import { fetchWeaponsTake, pickEnemyWeapon } from "../../../features/enemy/enemySlice";
-import { pickWeapon } from "../../../features/user/userSlice";
+import { fetchFightUserUpdate, pickWeapon } from "../../../features/user/userSlice";
 
-function FightModal() {
+function FightModal({ active, setActive }) {
   const dispatch = useDispatch();
   const enemy = useSelector((state) => state.enemy.enemy);
   const user = useSelector((state) => state.user.user);
+  const userFight = useSelector((state) => state.user.user.fight)
   const [userWin, setUserWin] = useState();
 
   const shuffle = (arr) => {
@@ -46,22 +47,24 @@ function FightModal() {
   const handleSwap = (e) => {
     const { pertain } = e.target.dataset;
     if (pertain === "playerWeapon") {
-      //setErrPick(false);
       dispatch(pickWeapon(e.target.dataset.ind));
     }
     if (pertain === "enemyWeapon") {
-      //setErrPick(false);
       dispatch(pickEnemyWeapon(e.target.dataset.ind));
     }
   };
   const swapWeapon = () => {
     const lengthPickEnemyWeapons = enemy.weapons.filter((el) => el.pick === 3);
     const lengthPickUserWeapons = user.weapons.filter((el) => el.pick === 2);
-    console.log(lengthPickEnemyWeapons,lengthPickUserWeapons)
-    if(lengthPickEnemyWeapons.length === 1 && lengthPickUserWeapons.length === 1){
+    console.log(lengthPickEnemyWeapons, lengthPickUserWeapons)
+    if (lengthPickEnemyWeapons.length === 1 && lengthPickUserWeapons.length === 1) {
       const arrBody = { lengthPickEnemyWeapons, lengthPickUserWeapons };
-      const body = JSON.stringify({ arrBody, user: user});
+      const body = JSON.stringify({ arrBody, user: user });
       dispatch(fetchWeaponsTake(body))
+      if (userFight) {
+        dispatch(fetchFightUserUpdate(enemy.id));
+      }
+      setActive(false);
     }
   }
   return (
@@ -70,7 +73,7 @@ function FightModal() {
         <>
           <ul>
             {user.weapons.map((weapon, index) => (
-              <Weapon weapon={weapon} key={index} handleLi={handleSwap} pertain={"playerWeapon"} ind={index}/>
+              <Weapon weapon={weapon} key={index} handleLi={handleSwap} pertain={"playerWeapon"} ind={index} />
             ))}
           </ul>
           <ul>

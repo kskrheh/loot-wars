@@ -93,7 +93,8 @@ async function getEnemyWeapons(req, res) {
         ],
       },
       attributes: [
-        ['weapon_id', 'id'],
+        'id',
+        ['weapon_id', 'weapons_id'],
         'wear',
         [sequelize.col('Weapon.ATK'), 'ATK'],
         [sequelize.col('Weapon.DEF'), 'DEF'],
@@ -150,32 +151,39 @@ async function postTakeLoot(req, res) {
     lengthPickUserWeapons: userWeaponsTrash,
     lengthPickEnemyWeapons: enemyWeaponsPick,
   } = req.body.arrBody;
-  console.log(userWeaponsTrash, enemyWeaponsPick);
-  console.log(req.body.user, '<----')
+  console.log(userWeaponsTrash, '<TRASH');
+  console.log(enemyWeaponsPick, '<PICK');
+  // console.log(req.body.user, '<----');
+
+  let user;
   try {
-    const user = await User.findOne({ where: { username: req.body.user.name } });
+    user = await User.findOne({ where: { username: req.body.user.name } });
+  } catch (error) {
+    res.send(error.message);
+  }
 
-    const weapon = await UserWeapon.findOne({
-      where: {
-        id: +userWeaponsTrash[0].id,
+  try {
+    await UserWeapon.create(
+      {
+        user_id: user.id,
+        weapon_id: enemyWeaponsPick[0].weapons_id,
+        wear: 10,
       },
-    });
-    await weapon.destroy();
+    );
+  } catch (error) {
+    res.send(error.message);
+  }
 
-    await UserWeapon.create({
-      user_id: user.id,
-      weapon_id: +enemyWeaponsPick[0].weapon_id,
-      wear: 10,
-    });
+  try {
+    await UserWeapon.destroy({ where: { id: userWeaponsTrash[0].id } });
+  } catch (error) {
+    res.send(error.message);
+  }
 
-    await UserWeapon.destroy({
-      where: {
-        id: +enemyWeaponsPick[0].id,
-      },
-    });
-    res.json({ message: 'fulfilled' });
-  } catch (err) {
-    res.send(err.message);
+  try {
+    await UserWeapon.destroy({ where: { id: enemyWeaponsPick[0].id } });
+  } catch (error) {
+    res.send(error.message);
   }
 }
 

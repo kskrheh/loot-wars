@@ -57,7 +57,7 @@ function Arena() {
            Update
          </button>
          <Modal active={active} setActive={setActive}>
-           <EnemyModal/>
+           <EnemyModal active={active} setActive={setActive}/>
          </Modal>
        </div>
       }

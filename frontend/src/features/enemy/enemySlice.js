@@ -18,6 +18,7 @@ export const fetchEnemyWeapons = createAsyncThunk('enemy/fetchUsers', async (nam
   });
 
   const data = await response.json();
+  console.log(data)
   return data;
 })
 export const fetchWeaponsTake = createAsyncThunk('enemy/takeloot', async (body) => {
@@ -29,6 +30,7 @@ export const fetchWeaponsTake = createAsyncThunk('enemy/takeloot', async (body) 
   });
 
   const data = await response.json();
+  console.log(data)
   return data;
 })
 
