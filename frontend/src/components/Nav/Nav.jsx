@@ -1,6 +1,10 @@
 import { useSelector } from 'react-redux';
 import LogoutButton from '../Auth/Logout/LogoutButton';
 import styles from './Nav.module.css'
+import bladesSvg from "../../img/svg/blades.svg";
+import shieldSvg from "../../img/svg/shield.svg";
+import flashSvg from "../../img/svg/flash.svg";
+
 function Nav() {
   const user = useSelector((state) => state.user.user);
   const time = useSelector((state) => state.user.user.time);
@@ -15,9 +19,15 @@ function Nav() {
   return (
     <header>
       <div className={styles.container}>
-        <div>⚔{ATK ?? 0}</div>
-        <div>🛡{DEF ?? 0}</div>
-        <div>⚡{user.energy} {user.energy < 20 && `energy gain in ${time}`}</div>
+        <div>
+          <img alt={''} src={bladesSvg}/>
+          {ATK ?? 0}</div>
+        <div>
+          <img alt={''} src={shieldSvg}/>
+          {DEF ?? 0}</div>
+        <div>
+          <img alt={''} src={flashSvg}/>
+          {user.energy} {user.energy < 20 && `energy gain in ${time}`}</div>
         <LogoutButton />
       </div>
     </header>

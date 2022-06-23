@@ -1,8 +1,7 @@
 .container {
+  color: #d5c592;
   display: flex;
-
   justify-content: space-evenly;
   align-items: center;
-
   background-color: #25513C;
 }
