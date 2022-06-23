@@ -13,7 +13,7 @@ const RegistrationForm = () => {
     handleSubmit,
     reset,
     getValues,
-  } = useForm({ mode: "onBlur" });
+  } = useForm({ mode: 'onSubmit' });
   const dispatch = useDispatch();
 
   const goRegister = (data) => {
@@ -49,6 +49,10 @@ const RegistrationForm = () => {
                 minLength: {
                   value: 3,
                   message: "Минимум 3 символа!",
+                },
+                maxLength: {
+                  value: 10,
+                  message: "Максимум 10 символов!",
                 },
                 pattern: {
                   value: /[A-Za-z]{3}/,
