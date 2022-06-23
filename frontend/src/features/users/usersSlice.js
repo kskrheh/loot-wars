@@ -8,6 +8,7 @@ export const fetchUsers = createAsyncThunk('users/fetchUsers', async (name) => {
     credentials: 'include'
   });
   const data = await response.json()
+  console.log(data)
   return data;
 })
 

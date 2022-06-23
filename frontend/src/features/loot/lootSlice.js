@@ -19,8 +19,8 @@ export const lootSlice = createSlice({
       state.weapons = []
     },
     pickLootWeapon: (state, action) => {
-      state.weapons = state.weapons.map((el) => {
-        if (+el.id === +action.payload) {
+      state.weapons = state.weapons.map((el, i) => {
+        if (i === +action.payload) {
           return {
             ...el,
             pick: el.pick === 1 ? 3 : 1
@@ -34,13 +34,13 @@ export const lootSlice = createSlice({
     //фетч на получение лута
     builder.addCase(fetchLoot.fulfilled, (state, action) => { // добавляет редуктор для одного точного типа дейстий 
       state.status = 'succeeded'
+      state.loadingLoot = false;
       state.weapons = action.payload.map((el) => {
         return {
           ...el,
           pick: 1,
         }
-      })
-      state.loadingLoot = false;
+      });
     })
     builder.addCase(fetchLoot.pending, (state, action) => {
       state.status = 'pending';

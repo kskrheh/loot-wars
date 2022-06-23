@@ -1,10 +1,12 @@
 import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom'
 import { logout } from '../../../features/user/userSlice'
 
 import styles from './LogoutButton.module.css'
 
 const LogoutButton = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const goLogout = async (event) => {
     event.preventDefault();
@@ -15,6 +17,7 @@ const LogoutButton = () => {
     });
     if (response.status === 200) {
       dispatch(logout())
+      navigate('/')
     }
   }
 

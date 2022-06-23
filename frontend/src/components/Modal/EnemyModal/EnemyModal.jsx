@@ -1,9 +1,9 @@
 import React from 'react';
 import './EnemyModal.css'
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Weapon from "../../Loot/Weapon/Weapon";
 import FightModal from "../FightModal/FightModal";
-import {isFighting} from "../../../features/user/userSlice";
+import { fetchFightUserUpdate, fightEnergy } from "../../../features/user/userSlice";
 
 const EnemyModal = () => {
   const fight = useSelector((state) => state.user.user.fight)
@@ -11,19 +11,20 @@ const EnemyModal = () => {
   const dispatch = useDispatch()
 
   const handleClick = () => {
-    dispatch(isFighting());
+    dispatch(fetchFightUserUpdate(enemy.id));
+    dispatch(fightEnergy());
   }
 
   return (
     <>
-      { fight ?
-        <FightModal/>
-         :
+      {fight ?
+        <FightModal />
+        :
         <div className='app'>
           <span>{`ATK ${enemy.weapons.reduce((sumAtk, weapon) => sumAtk + weapon.ATK, 0)}`} </span>
           <span>{`DEF ${enemy.weapons.reduce((sumDef, weapon) => sumDef + weapon.DEF, 0)}`}</span>
           {
-            enemy.weapons.map((weapon, index) => <Weapon weapon={weapon} key={index}/>)
+            enemy.weapons.map((weapon, index) => <Weapon weapon={weapon} key={index} />)
           }
           <button onClick={handleClick}>Бить</button>
         </div>

@@ -3,16 +3,31 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 const initialState = {
   user: {
     name: undefined,
-    energy: undefined,
+    energy: 20,
     fight: false,
     weapons: [],
     weaponsId: [],
-    userWeaponsId: []
+    userWeaponsId: [],
+    isTimer: false,
+    time: 0,
   },
   status: 'idle',
   errorReg: null,
   loading: false,
+  errorWeapons: null,
+  swapCheck: false,
 }
+export const fetchWeapons = createAsyncThunk('user/fetchWeapon', async (body) => { // ac.t
+  const response = await fetch('http://localhost:4000/loot', {
+    method: 'POST',
+    credentials: 'include',
+    headers: {"Content-Type": "application/json"},
+    body,
+  });
+
+  const data = await response.json();
+  return data;
+})
 
 export const fetchUserWeapons = createAsyncThunk('user/fetchUserWeapon', async (name) => { // ac.t
   const response = await fetch(`/api/users/${name}/weapon`, {
@@ -54,9 +69,19 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
     credentials: 'include',
   });
   const data = await response.json();
-  // console.log(data)
   return data;
 })
+
+export const fetchFightUserUpdate = createAsyncThunk('user/fetchFightUserUpdate', async (enemyId) => {
+  const response = await fetch(`http://localhost:4000/users/${enemyId}/fight`, {
+    headers: { 'Content-Type': 'application/json' },
+    credentials: 'include',
+    method: 'put'
+  })
+  const data = await response.json();
+  return data;
+})
+
 export const userSlice = createSlice({
   name: 'user',
   initialState,
@@ -71,8 +96,8 @@ export const userSlice = createSlice({
       state.user.weaponsId.push(action.payload)
     },
     pickWeapon: (state, action) => {
-      state.user.weapons = state.user.weapons.map((el) => {
-        if(+el.id === +action.payload){
+      state.user.weapons = state.user.weapons.map((el, i) => {
+        if(i === +action.payload){
           return {
             ...el,
             pick: el.pick === 1 ? 2 : 1
@@ -86,20 +111,55 @@ export const userSlice = createSlice({
     },
     increaseEnergy: (state) => {
       state.user.energy += 1
+      // state.user.time = 0
     },
-    isFighting: (state) => {
-      state.user.fight = !state.user.fight
+    fightEnergy: (state) => {
+      state.user.energy -= 3
+    },
+    isTimer: (state, action) => {
+      state.user.isTimer = action.payload
+    },
+    changeTime: (state) => {
+      state.user.time -= 1
+    },
+    gainTimeMinute: (state) => {
+      state.user.time = 60
     }
   },
   extraReducers(builder) { //санки в тулките все пишуться через екстра редюсер
     builder.addCase(fetchUserWeapons.fulfilled, (state, action) => {
-      const updateActionPayload = action.payload.map((el) => {
-        return {
-          ...el, 
-          pick: 1
+      if(action.payload.length === 6){
+        state.user.weapons = action.payload.map((el) => {
+          return {
+            ...el,
+            pick: 1,
+          }
+        })
+      }else{
+        const difference = 6 - +action.payload.length;
+        const newPayload = [...action.payload];
+        for( let i = 0; i < difference; i++ ) {
+          newPayload.push({id: '0', title: 'No item', ATK: 0})
         }
-      })
-      state.user.weapons = updateActionPayload
+        state.user.weapons = newPayload.map((el) => {
+          return {
+            ...el,
+            pick: 1,
+          }
+        })
+      }
+      state.swapCheck = false
+    })
+    builder.addCase(fetchUserWeapons.pending, (state, action) => {
+      state.status = 'pending'
+      state.loading = true
+    })
+    builder.addCase(fetchUserWeapons.rejected, (state, action) => {
+      state.status = 'rejected'
+      state.loading = false
+      state.errorReg = 'Ошибка при обновлении вашего инвентаря'
+
+
     })
     builder.addCase(fetchRegister.pending, (state, action) => {
       state.status = 'pending'
@@ -109,12 +169,10 @@ export const userSlice = createSlice({
       state.status = 'succeeded'
       state.user.name = action.payload
       state.loading = false
-      // console.log(action.payload);
     })
     builder.addCase(fetchRegister.rejected, (state, action) => {
       state.status = 'rejected'
       state.errorReg = 'ошибка регистрации, возможно пользователь с таким логином уже существует'
-      // console.log(action.payload);
       state.loading = false
     })
     builder.addCase(fetchLogin.pending, (state, action) => {
@@ -149,9 +207,28 @@ export const userSlice = createSlice({
       state.errorReg = action.payload
       state.loading = false
     })
+    builder.addCase(fetchFightUserUpdate.fulfilled, (state, action) => {
+      state.status = 'succeeded'
+      state.user.fight = action.payload.fight
+      state.loading = false
+    })
+    builder.addCase(fetchWeapons.fulfilled, (state, action) => {
+      state.status = 'succeeded'
+      state.loading = false
+      state.swapCheck = true
+    })
+    builder.addCase(fetchWeapons.pending, (state, action) => {
+      state.status = 'pending'
+      state.loading = true;
+    })
+    builder.addCase(fetchWeapons.rejected, (state, action) => {
+      state.status = 'rejected'
+      state.loading = false;
+      state.errorWeapons = 'Ошибка при загрузке пушек'
+    })
   }
 })
 
-export const { logout, weaponsId, userWeaponsId, decreaseEnergy, increaseEnergy, pickWeapon, isFighting } = userSlice.actions
+export const { logout, weaponsId, userWeaponsId, decreaseEnergy, increaseEnergy, pickWeapon, isTimer, fightEnergy, changeTime, gainTimeMinute } = userSlice.actions
 
 export default userSlice.reducer
