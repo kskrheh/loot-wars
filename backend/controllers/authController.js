@@ -1,5 +1,7 @@
 const bcrypt = require('bcrypt');
-const { User } = require('../db/models');
+const {
+  User, UserWeapon, Weapon, sequelize,
+} = require('../db/models');
 const { SALT_ROUNDS } = require('../app/variables');
 
 async function createUser(req, res) {
@@ -60,19 +62,57 @@ async function logoutUser(req, res) {
 }
 
 async function getUserInfo(req, res) {
+  let weapons;
+  let user;
+  let username;
+  if (req.session.user) {
+    username = req.session.user.username;
+  }
   try {
-    const { username } = req.session.user;
-    const user = await User.findOne({
+    user = await User.findOne({
       where: {
         username,
       },
     });
-    console.log(user.username);
-    res.json(user.username);
+  } catch (err) {
+    res.status(400);
+  }
+  try {
+    weapons = await UserWeapon.findAll({
+      where: {
+        user_id: user.id,
+      },
+      include: {
+        model: Weapon,
+        attributes: [
+          'id', 'ATK', 'DEF', 'title', 'quality',
+        ],
+      },
+      attributes: [
+        'id',
+        ['weapon_id', 'weapon_id'],
+        'wear',
+        [sequelize.col('Weapon.ATK'), 'ATK'],
+        [sequelize.col('Weapon.DEF'), 'DEF'],
+        [sequelize.col('Weapon.title'), 'title'],
+        [sequelize.col('Weapon.quality'), 'quality'],
+      ],
+      raw: true,
+    });
+    if (weapons.length) {
+      res.json({
+        name: user.username, weapons, energy: user.energy, fight: user.fight,
+      });
+    } else {
+      res.json({
+        name: user.username, weapons: [], energy: user.energy, fight: user.fight,
+      });
+    }
   } catch (err) {
     res.send(err.message);
   }
 }
+
 module.exports = {
   createUser, loginUser, logoutUser, getUserInfo,
 };

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { fetchLogin } from "../../../features/user/userSlice";
 import { useForm } from "react-hook-form";
+import styles from './LoginForm.module.css'
 
 const LoginForm = () => {
   const [isClicked, setIsClicked] = useState(false);
@@ -51,10 +52,10 @@ const LoginForm = () => {
               {...register("password", { required: true })}
             />
           </label>
-          <button type="submit">Login</button>
+          <button className={styles.button} type="submit">Login</button>
         </form>
       ) : (
-        <button type="button" onClick={handleClick}>
+        <button className={styles.button} type="button" onClick={handleClick}>
           Login
         </button>
       )}

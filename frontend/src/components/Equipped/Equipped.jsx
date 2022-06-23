@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { v4 as uuidv4 } from 'uuid';
 
 import { fetchUserWeapons } from "../../features/user/userSlice";
 
 import LoginForm from "../Auth/Login/LoginForm";
 import RegistrationForm from "../Auth/Registration/RegistrationForm";
+// import Button from "../Button/Button";
 import Weapon from "../Loot/Weapon/Weapon";
 
 import styles from "./Equipped.module.css";
@@ -24,30 +24,41 @@ const Equipped = ({ handleLi }) => {
 
   return (
     <>
-      {
-        user.name ?
-          <ul className={styles.container}>
-            {
-              weapons.length >= 0 &&
-              emptyArr.map((el, index) => {
-                if (weapons[index]) {
-                  return (
-                    <Weapon key={uuidv4()} pertain={'userWeapon'} weapon={weapons[index]} handleLi={handleLi} />
-                  )
-                } else {
-                  return (
-                    <li key={index} className={styles.infoContainer} onClick={handleLi}>No item</li>
-                  )
-                }
-              })
-            }
-          </ul>
-          : (
-            <div className={styles.button_container}>
-              <RegistrationForm />
-              <LoginForm />
-            </div>
-          )}
+      {user.name ? (
+        <div className={styles.container}>
+          {weapons.length >= 0 &&
+            emptyArr.map((el, index) => {
+              if (weapons[index]) {
+                return (
+                  <Weapon
+                    key={index}
+                    pertain={"userWeapon"}
+                    weapon={weapons[index]}
+                    handleLi={handleLi}
+                    ind={index}
+                  />
+                );
+              } else {
+                return (
+                  <div
+                    key={index}
+                    className={styles.infoContainer}
+                    onClick={handleLi}
+                    data-pertain={"userWeapon"}
+                    data-ind={index}
+                  >
+                    No item
+                  </div>
+                );
+              }
+            })}
+        </div>
+      ) : (
+        <div className={styles.button_container}>
+          <RegistrationForm />
+          <LoginForm />
+        </div>
+      )}
     </>
   );
 };

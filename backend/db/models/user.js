@@ -8,8 +8,8 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(UserWeapon, { foreignKey: 'user_id' });
       User.belongsToMany(Weapon, {
         through: UserWeapon,
-        foreignKey: 'weapon_id',
-        otherKey: 'user_id',
+        foreignKey: 'user_id',
+        otherKey: 'weapon_id',
       });
     }
   }
@@ -47,6 +47,11 @@ module.exports = (sequelize, DataTypes) => {
     },
     logoutTime: {
       type: DataTypes.DATE,
+    },
+    fight: {
+      allowNull: false,
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
     },
     createdAt: {
       allowNull: false,
