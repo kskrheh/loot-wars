@@ -11,6 +11,7 @@ const initialState = {
     isTimer: false,
     time: 0,
   },
+  errorEnergy: false,
   status: 'idle',
   errorReg: null,
   errorLogin: null,
@@ -112,7 +113,6 @@ export const userSlice = createSlice({
     },
     increaseEnergy: (state) => {
       state.user.energy += 1
-      // state.user.time = 0
     },
     fightEnergy: (state) => {
       state.user.energy -= 3
@@ -125,7 +125,10 @@ export const userSlice = createSlice({
     },
     gainTimeMinute: (state) => {
       state.user.time = 60
-    }
+    },
+    errorEnergyMessage: (state, action) => {
+      state.errorEnergy = action.payload
+    },
   },
   extraReducers(builder) { //санки в тулките все пишуться через екстра редюсер
     builder.addCase(fetchUserWeapons.fulfilled, (state, action) => {
@@ -140,7 +143,7 @@ export const userSlice = createSlice({
         const difference = 6 - +action.payload.length;
         const newPayload = [...action.payload];
         for( let i = 0; i < difference; i++ ) {
-          newPayload.push({id: '0', title: 'No item', ATK: 0})
+          newPayload.push({id: '0', title: 'No item', ATK: 0, DEF: 0})
         }
         state.user.weapons = newPayload.map((el) => {
           return {
@@ -237,6 +240,6 @@ export const userSlice = createSlice({
   }
 })
 
-export const { logout, weaponsId, userWeaponsId, decreaseEnergy, increaseEnergy, pickWeapon, isTimer, fightEnergy, changeTime, gainTimeMinute } = userSlice.actions
+export const { logout, weaponsId, userWeaponsId, decreaseEnergy, increaseEnergy, pickWeapon, isTimer, fightEnergy, changeTime, gainTimeMinute, errorEnergyMessage, errorFightMessage } = userSlice.actions
 
 export default userSlice.reducer

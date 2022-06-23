@@ -9,8 +9,8 @@ import {
   decreaseEnergy,
   fetchUserWeapons,
   fetchWeapons,
-  isTimer,
   pickWeapon,
+  errorEnergyMessage,
 } from "../../features/user/userSlice";
 import Equipped from "../Equipped/Equipped";
 import Weapon from "./Weapon/Weapon";
@@ -22,12 +22,17 @@ function Loot() {
   const energy = useSelector((state) => state.user.user.energy);
   const userWeapons = useSelector((state) => state.user.user.weapons);
   const swapCheck = useSelector((state) => state.user.swapCheck);
+  const errorEnergyCheck = useSelector((state) => state.user.errorEnergy);
   const [errPick, setErrPick] = useState(false);
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    dispatch(fetchLoot());
-    dispatch(decreaseEnergy());
+    if (energy !== 0) {
+      dispatch(fetchLoot());
+      dispatch(decreaseEnergy());
+    } else {
+      dispatch(errorEnergyMessage(true));
+    }
   };
 
   const handleSwap = () => {
@@ -88,6 +93,7 @@ function Loot() {
         </button>
       )}
       {errPick && <span>Выберите одинаковое количество лута</span>}
+      {errorEnergyCheck && <span>Подождите пока восстановится энергия</span>}
     </div>
   );
 }
