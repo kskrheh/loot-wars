@@ -68,14 +68,7 @@ async function swapLoot(req, res) {
       });
     });
   }
-  // const userWeapons = await UserWeapon.findAll({
-  //   where: {
-  //     user_id: user.id,
-  //   },
-  //   include: {
-  //     model: Weapon,
-  //   },
-  // });
+
   const userWeapons = await UserWeapon.findAll({
     where: {
       user_id: user.id,

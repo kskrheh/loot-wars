@@ -68,7 +68,8 @@ async function getEnemyWeapons(req, res) {
       ],
     },
     attributes: [
-      ['weapon_id', 'id'],
+      'id',
+      ['weapon_id', 'weapon_id'],
       'wear',
       [sequelize.col('Weapon.ATK'), 'ATK'],
       [sequelize.col('Weapon.DEF'), 'DEF'],
@@ -99,6 +100,41 @@ async function putUsersFight(req, res) {
   });
   res.json(user);
 }
+
+async function postTakeLoot(req, res) {
+  const {
+    lengthPickUserWeapons: userWeaponsTrash,
+    lengthPickEnemyWeapons: enemyWeaponsPick,
+  } = req.body.arrBody;
+  console.log(userWeaponsTrash, enemyWeaponsPick);
+  console.log(req.body.user, '<----')
+  try {
+    const user = await User.findOne({ where: { username: req.body.user.name } });
+
+    const weapon = await UserWeapon.findOne({
+      where: {
+        id: +userWeaponsTrash[0].id,
+      },
+    });
+    await weapon.destroy();
+
+    await UserWeapon.create({
+      user_id: user.id,
+      weapon_id: +enemyWeaponsPick[0].weapon_id,
+      wear: 10,
+    });
+
+    await UserWeapon.destroy({
+      where: {
+        id: +enemyWeaponsPick[0].id,
+      },
+    });
+    res.json({ message: 'fulfilled' });
+  } catch (err) {
+    res.send(err.message);
+  }
+}
+
 module.exports = {
-  getUsers, getUserWeapons, getEnemyWeapons, putUsersFight,
+  getUsers, getUserWeapons, getEnemyWeapons, putUsersFight, postTakeLoot,
 };
