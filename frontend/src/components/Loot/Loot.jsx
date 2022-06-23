@@ -47,6 +47,7 @@ function Loot() {
       setErrPick(true);
     }
   };
+  
   if (swapCheck) {
     dispatch(fetchUserWeapons(user));
   }
