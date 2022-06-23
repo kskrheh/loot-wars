@@ -16,16 +16,12 @@ function Nav() {
     DEF = user.weapons.reduce((sum, weapon) => sum + weapon.DEF, 0)
   }
 
-  if (energy === 20) {
-    dispatch(isTimer(false));
-  }
-
   return (
     <header>
       <div className={styles.container}>
         <div>⚔{ATK ?? 0}</div>
         <div>🛡{DEF ?? 0}</div>
-        <div>⚡{user.energy} energy gain in :{user.energy < 20 && time}</div>
+        <div>⚡{user.energy} {user.energy < 20 && `energy gain in ${time}`}</div>
         <LogoutButton />
       </div>
     </header>
