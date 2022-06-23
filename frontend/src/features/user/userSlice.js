@@ -9,7 +9,7 @@ const initialState = {
     weaponsId: [],
     userWeaponsId: [],
     isTimer: false,
-    time: 0,
+    time: null,
   },
   errorEnergy: false,
   status: 'idle',
