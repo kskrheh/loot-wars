@@ -5,7 +5,6 @@ function Nav() {
   const user = useSelector((state) => state.user.user);
   let ATK;
   let DEF;
-  //console.log(user.weapons, '<-----')
   if (user.weapons.length !== 0) {
     ATK = user.weapons.reduce((sum, weapon) => sum + weapon.ATK, 0)
     DEF = user.weapons.reduce((sum, weapon) => sum + weapon.DEF, 0)

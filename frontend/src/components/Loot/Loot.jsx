@@ -8,6 +8,7 @@ import {
 import {
   decreaseEnergy,
   fetchUserWeapons,
+  fetchWeapons,
   increaseEnergy,
   pickWeapon,
 } from "../../features/user/userSlice";
@@ -20,79 +21,42 @@ function Loot() {
   const user = useSelector((state) => state.user.user.name);
   const energy = useSelector((state) => state.user.user.energy);
   const userWeapons = useSelector((state) => state.user.user.weapons);
-
-  const [delay, setDelay] = useState(1000);
-  const [isPlaying, setPlaying] = useState(false);
-
+  const swapCheck = useSelector((state) => state.user.swapCheck);
+  const [errPick, setErrPick] = useState(false);
   const dispatch = useDispatch();
-
-  function useInterval(callback, delay) {
-    const savedCallback = useRef(callback);
-
-    useEffect(() => {
-      savedCallback.current = callback;
-    }, [callback]);
-
-    useEffect(() => {
-      if (!delay && delay !== 0) {
-        return;
-      }
-
-      const id = setInterval(() => savedCallback.current(), delay);
-
-      return () => clearInterval(id);
-    }, [delay]);
-  }
-
-  useInterval(
-    () => {
-      dispatch(increaseEnergy());
-      setPlaying(!isPlaying);
-    },
-    isPlaying ? delay : null
-  );
 
   const handleClick = () => {
     dispatch(fetchLoot());
     dispatch(decreaseEnergy());
-    setPlaying(!isPlaying);
   };
 
   const handleSwap = () => {
-    const lengthPickLootWeapons = weapons.filter((el) => el.pick === 3); 
+    const lengthPickLootWeapons = weapons.filter((el) => el.pick === 3);
     const lengthPickUserWeapons = userWeapons.filter((el) => el.pick === 2);
-    console.log(lengthPickLootWeapons,lengthPickUserWeapons)
-    if(lengthPickLootWeapons.length === lengthPickUserWeapons.length){
-      const arrBody = {lengthPickLootWeapons,lengthPickUserWeapons}
+    if (lengthPickLootWeapons.length === lengthPickUserWeapons.length) {
+      const arrBody = { lengthPickLootWeapons, lengthPickUserWeapons };
       const body = JSON.stringify({ arrBody, user: user });
-      const fetchWeapons = async () => {
-        const response = await fetch("http://localhost:4000/loot", {
-          method: "POST",
-          headers: { "Content-type": "application/json" },
-          credentials: "include",
-          body,
-        });
-        const result = await response.json();
-        console.log(result);
-      };
-  
-      fetchWeapons();
-      dispatch(fetchUserWeapons(user));
+      dispatch(fetchWeapons(body));
       dispatch(removeWeapons());
+    } else {
+      setErrPick(true);
+    }
+  };
+  if (swapCheck) {
+    dispatch(fetchUserWeapons(user));
+  }
+  const handleLi = (e) => {
+    const { pertain } = e.target.dataset;
+    if (pertain === "userWeapon") {
+      setErrPick(false);
+      dispatch(pickWeapon(e.target.dataset.ind));
+    }
+    if (pertain === "lootWeapon") {
+      setErrPick(false);
+      dispatch(pickLootWeapon(e.target.dataset.ind));
     }
   };
 
-  const handleLi = (e) => {
-    const { pertain } = e.target.dataset;
-    console.log(pertain);
-    if (pertain === "userWeapon") {
-        dispatch(pickWeapon(e.target.dataset.ind));    
-    }
-    if (pertain === "lootWeapon") {
-        dispatch(pickLootWeapon(e.target.dataset.ind));
-      }
-    }
-    
   return (
     <div className={styles.loot_container}>
       <button
@@ -123,6 +87,7 @@ function Loot() {
           Swap
         </button>
       )}
+      {errPick && <span>Выберите одинаковое количество лута</span>}
     </div>
   );
 }

@@ -10,7 +10,6 @@ async function getLoot(req, res) {
   const weaponsLoot = emptyArr.map(async () => {
     const number = getRandom();
     let weapon;
-    console.log(number);
 
     if (number >= 45 && number <= 70) {
       weapon = await Weapon.findOne({ where: { quality: '2' }, order: sequelize.fn('RANDOM'), raw: true });
@@ -45,8 +44,6 @@ async function swapLoot(req, res) {
     lengthPickUserWeapons: userWeaponsTrash,
     lengthPickLootWeapons: lootWeaponsPick,
   } = req.body.arrBody;
-  console.log('AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA');
-  console.log(lootWeaponsPick, userWeaponsTrash);
   const user = await User.findOne({ where: { username: req.body.user } });
 
   if (userWeaponsTrash.length) {
@@ -57,7 +54,6 @@ async function swapLoot(req, res) {
             id: +elementID.id,
           },
         });
-        console.log(weapon, 'DELETEEEEEEE');
         await weapon.destroy();
       }
     });
@@ -72,16 +68,34 @@ async function swapLoot(req, res) {
       });
     });
   }
+  // const userWeapons = await UserWeapon.findAll({
+  //   where: {
+  //     user_id: user.id,
+  //   },
+  //   include: {
+  //     model: Weapon,
+  //   },
+  // });
   const userWeapons = await UserWeapon.findAll({
     where: {
       user_id: user.id,
     },
     include: {
       model: Weapon,
+      attributes: [
+        'ATK', 'DEF', 'title', 'quality',
+      ],
     },
+    attributes: [
+      ['weapon_id', 'id'],
+      'wear',
+      [sequelize.col('Weapon.ATK'), 'ATK'],
+      [sequelize.col('Weapon.DEF'), 'DEF'],
+      [sequelize.col('Weapon.title'), 'title'],
+      [sequelize.col('Weapon.quality'), 'quality'],
+    ],
+    raw: true,
   });
-
-  console.log(userWeapons);
 
   res.json(userWeapons);
 }
