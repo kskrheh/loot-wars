@@ -2,7 +2,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { fetchRegister } from "../../../features/user/userSlice";
-import styles from './RegistrationForm.module.css'
+import styles from "./RegistrationForm.module.css";
 
 const RegistrationForm = () => {
   const [isClicked, setIsClicked] = useState(false);
@@ -25,7 +25,6 @@ const RegistrationForm = () => {
   };
 
   return (
-    
     <div className={styles.rega}>
       {isClicked ? (
         <form
@@ -33,14 +32,15 @@ const RegistrationForm = () => {
           onSubmit={handleSubmit(goRegister)}
           method="post"
         >
-          <label htmlFor="username">
+          <label className={styles.lab} htmlFor="username">
             Username
             <input
+              className={styles.input}
               type="text"
               name="username"
               id="username"
               {...register("username", {
-                required: "Поле обязательно к заполнению",
+                required: "Обязательно к заполнению",
                 minLength: {
                   value: 3,
                   message: "Минимум 3 символа!",
@@ -52,17 +52,18 @@ const RegistrationForm = () => {
               })}
             />
           </label>
-          <div style={{ color: "red" }}>
+          <div style={{ color: "rgb(211, 237, 184)" }}>
             {errors?.username && <p>{errors?.username?.message || "Error!"}</p>}
           </div>
-          <label htmlFor="password">
+          <label className={styles.lab} htmlFor="password">
             Password
             <input
+              className={styles.input}
               type="password"
               name="password"
               id="password"
               {...register("password", {
-                required: "Поле обязательно к заполнению",
+                required: "Обязательно к заполнению",
                 minLength: {
                   value: 8,
                   message: "Минимум 8 символов!",
@@ -70,36 +71,37 @@ const RegistrationForm = () => {
               })}
             />
           </label>
-          <div style={{ color: "red" }}>
+          <div style={{ color: "rgb(211, 237, 184)" }}>
             {errors?.password && <p>{errors?.password?.message || "Error!"}</p>}
           </div>
-          <label htmlFor="passwordRepeat">
+          <label className={styles.lab} htmlFor="passwordRepeat">
             RepeatPassword
             <input
+              className={styles.input}
               type="password"
               name="passwordRepeat"
               id="passwordRepeat"
               {...register("passwordRepeat", {
-                required: "Поле обязательно к заполнению",
+                required: "Обязательно к заполнению",
                 validate: {
                   isRepeat: (value) => getValues("password") === value,
                 },
               })}
             />
-          </label>
-          <div style={{ color: "red" }}>
             {errors.passwordRepeat?.type === "isRepeat" && (
-              <p>{"Пароли не совпадают!"}</p>
+              <p style={{ color: "rgb(211, 237, 184)" }}>{"Пароли не совпадают!"}</p>
             )}
-          </div>
-          <label htmlFor="email">
+          </label>
+
+          <label className={styles.lab} htmlFor="email">
             Email
             <input
+              className={styles.input}
               type="email"
               name="email"
               id="email"
               {...register("email", {
-                required: "Поле обязательно к заполнению",
+                required: "Обязательно к заполнению",
                 pattern: {
                   value: /@/,
                   message: "enter real email!",
@@ -107,10 +109,12 @@ const RegistrationForm = () => {
               })}
             />
           </label>
-          <div style={{ color: "red" }}>
+          <div style={{ color: "rgb(211, 237, 184)" }}>
             {errors?.email && <p>{errors?.email?.message || "Error!"}</p>}
           </div>
-          <button className={styles.button} type="submit">Register</button>
+          <button className={styles.button} type="submit">
+            Register
+          </button>
         </form>
       ) : (
         <button className={styles.button} type="butto" onClick={handleClick}>
