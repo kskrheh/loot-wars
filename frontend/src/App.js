@@ -3,7 +3,7 @@ import Footer from "./components/Footer/Footer";
 import Loot from "./components/Loot/Loot";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { fetchUser, increaseEnergy, isTimer, changeTime, gainTimeMinute } from "./features/user/userSlice";
+import { fetchUser, increaseEnergy, isTimer, changeTime, gainTimeMinute, errorEnergyMessage } from "./features/user/userSlice";
 import { useEffect } from "react";
 import Equipped from "./components/Equipped/Equipped";
 import { Routes, Route } from "react-router-dom";
@@ -41,10 +41,11 @@ useEffect(() => {
     }, 1000)
     if (gainTime === 0) {
       dispatch(increaseEnergy());
+      dispatch(errorEnergyMessage(false))
       dispatch(gainTimeMinute())
     }
     return () => clearTimeout(timeout)
-  }, [gainTimerOn, gainTime])
+  }, [gainTimerOn, gainTime, dispatch])
 
   useEffect(() => {
     dispatch(fetchUser());

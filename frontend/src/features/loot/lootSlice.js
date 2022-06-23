@@ -4,7 +4,6 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit"; // запус�
 export const fetchLoot = createAsyncThunk('users/fetchLoot', async () => {
   const response = await fetch('http://localhost:4000/loot');
   const data = await response.json();
-  // console.log(data);
   return data;
 })
 
@@ -35,13 +34,13 @@ export const lootSlice = createSlice({
     //фетч на получение лута
     builder.addCase(fetchLoot.fulfilled, (state, action) => { // добавляет редуктор для одного точного типа дейстий 
       state.status = 'succeeded'
+      state.loadingLoot = false;
       state.weapons = action.payload.map((el) => {
         return {
           ...el,
           pick: 1,
         }
-      })
-      state.loadingLoot = false;
+      });
     })
     builder.addCase(fetchLoot.pending, (state, action) => {
       state.status = 'pending';

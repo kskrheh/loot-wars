@@ -8,8 +8,9 @@ import {
 import {
   decreaseEnergy,
   fetchUserWeapons,
-  isTimer,
+  fetchWeapons,
   pickWeapon,
+  errorEnergyMessage,
 } from "../../features/user/userSlice";
 import Equipped from "../Equipped/Equipped";
 import Weapon from "./Weapon/Weapon";
@@ -20,146 +21,44 @@ function Loot() {
   const user = useSelector((state) => state.user.user.name);
   const energy = useSelector((state) => state.user.user.energy);
   const userWeapons = useSelector((state) => state.user.user.weapons);
-
-  const [arrayIds, setArrayIds] = useState({
-    userWeaponID: [],
-    lootWeaponID: [],
-    errorLoot: undefined,
-  });
+  const swapCheck = useSelector((state) => state.user.swapCheck);
+  const errorEnergyCheck = useSelector((state) => state.user.errorEnergy);
+  const [errPick, setErrPick] = useState(false);
   const dispatch = useDispatch();
 
   const handleClick = () => {
-    if (energy === 0) {
-      console.log('You have to wait')
-      return;
-    } else {
+    if (energy !== 0) {
       dispatch(fetchLoot());
       dispatch(decreaseEnergy());
-      dispatch(isTimer(true))
+    } else {
+      dispatch(errorEnergyMessage(true));
     }
   };
 
   const handleSwap = () => {
-    const body = JSON.stringify({ arrayIds, user: user });
-    const fetchWeapons = async () => {
-      const response = await fetch("http://localhost:4000/loot", {
-        method: "POST",
-        headers: { "Content-type": "application/json" },
-        credentials: "include",
-        body,
-      });
-      const result = await response.json();
-      console.log(result);
-    };
-
-    fetchWeapons();
-    setArrayIds({
-      userWeaponID: [],
-      lootWeaponID: [],
-      errorLoot: undefined,
-    });
-    dispatch(fetchUserWeapons(user));
-    dispatch(removeWeapons());
+    const lengthPickLootWeapons = weapons.filter((el) => el.pick === 3);
+    const lengthPickUserWeapons = userWeapons.filter((el) => el.pick === 2);
+    if (lengthPickLootWeapons.length === lengthPickUserWeapons.length) {
+      const arrBody = { lengthPickLootWeapons, lengthPickUserWeapons };
+      const body = JSON.stringify({ arrBody, user: user });
+      dispatch(fetchWeapons(body));
+      dispatch(removeWeapons());
+    } else {
+      setErrPick(true);
+    }
   };
-
+  if (swapCheck) {
+    dispatch(fetchUserWeapons(user));
+  }
   const handleLi = (e) => {
-    console.log(weapons, 'пушки с лута');
-    if (weapons.length) {
-      const { pertain } = e.target.dataset;
-      const dublicateCount = userWeapons.filter(
-        (el) => +el.id === +e.target.id
-      ).length;
-      const dublicateWeapons = weapons.filter(
-        (el) => +el.id === +e.target.id
-      ).length;
-      let count =
-        userWeapons.length -
-        arrayIds.userWeaponID.length +
-        arrayIds.lootWeaponID.length;
-      console.log(userWeapons, 'пушки с которыми пришли');
-      console.log(arrayIds.userWeaponID.length, 'хотим выбросить');
-      console.log(arrayIds.lootWeaponID.length, 'хотим взять');
-      console.log(count, 'count limit')
-      if (count <= 6) {
-        if (pertain === "userWeapon") {
-          if (
-            arrayIds.userWeaponID.filter((el) => +el === +e.target.id)
-              .length !== +dublicateCount
-          ) {
-            dispatch(pickWeapon(e.target.id));
-            // e.target.style.backgroundColor = "green";
-            setArrayIds((prevState) => {
-              return {
-                ...prevState,
-                userWeaponID: [...prevState.userWeaponID, e.target.id],
-                errorLoot: "",
-              };
-            });
-          } else {
-            // e.target.style.backgroundColor = "white";
-            dispatch(pickWeapon(e.target.id));
-            setArrayIds((prevState) => {
-              const index = prevState.userWeaponID.findIndex(
-                (el) => el === e.target.id
-              );
-              console.log(index, "индеч");
-              const newUserWeaponID = [...prevState.userWeaponID];
-              newUserWeaponID.splice(index, 1);
-
-              return {
-                ...prevState,
-                userWeaponID: newUserWeaponID,
-                errorLoot: "",
-              };
-            });
-          }
-        }
-
-        if (pertain === "lootWeapon") {
-          if (count < 6) {
-            if (
-              arrayIds.lootWeaponID.filter((el) => +el === +e.target.id)
-                .length !== +dublicateWeapons
-            ) {
-              // e.target.style.backgroundColor = "green";
-              dispatch(pickLootWeapon(e.target.dataset.ind));
-              setArrayIds((prevState) => {
-                return {
-                  ...prevState,
-                  lootWeaponID: [...prevState.lootWeaponID, e.target.id],
-                  errorLoot: "",
-                };
-              });
-            } else {
-              // e.target.style.backgroundColor = "#5e2e2e";
-              dispatch(pickLootWeapon(e.target.dataset.ind));
-
-              setArrayIds((prevState) => {
-                const index = prevState.lootWeaponID.findIndex(
-                  (el) => el === e.target.id
-                );
-                console.log(index, "индеч");
-                const newLootWeaponID = [...prevState.lootWeaponID];
-                newLootWeaponID.splice(index, 1);
-                return {
-                  ...prevState,
-                  lootWeaponID: newLootWeaponID,
-                  errorLoot: "",
-                };
-              });
-            }
-          } else {
-            setArrayIds((prevState) => {
-              return {
-                ...prevState,
-                errorLoot:
-                  "У вас максимальное количество оружия(6), попробуйте выставить ненужные вам пушки на выброс",
-              };
-            });
-          }
-          console.log(arrayIds);
-        }
-      }
+    const { pertain } = e.target.dataset;
+    if (pertain === "userWeapon") {
+      setErrPick(false);
+      dispatch(pickWeapon(e.target.dataset.ind));
+    }
+    if (pertain === "lootWeapon") {
+      setErrPick(false);
+      dispatch(pickLootWeapon(e.target.dataset.ind));
     }
   };
 
@@ -193,7 +92,8 @@ function Loot() {
           Swap
         </button>
       )}
-      {arrayIds.errorLoot && <h5>{arrayIds.errorLoot}</h5>}
+      {errPick && <span>Выберите одинаковое количество лута</span>}
+      {errorEnergyCheck && <span>Подождите пока восстановится энергия</span>}
     </div>
   );
 }
