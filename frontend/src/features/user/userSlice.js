@@ -38,6 +38,7 @@ export const fetchUserWeapons = createAsyncThunk('user/fetchUserWeapon', async (
   });
 
   const data = await response.json();
+  console.log(data)
   return data;
 })
 
