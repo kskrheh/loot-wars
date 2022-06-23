@@ -1,9 +1,9 @@
 import React from 'react';
 import './Modal.css'
-import {useDispatch, useSelector} from "react-redux";
-import {fetchFightUserUpdate, isFighting} from "../../features/user/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchFightUserUpdate } from "../../features/user/userSlice";
 
-const Modal = ({active, setActive, children}) => {
+const Modal = ({ active, setActive, children }) => {
   const enemy = useSelector((state) => state.enemy.enemy)
   const dispatch = useDispatch();
 

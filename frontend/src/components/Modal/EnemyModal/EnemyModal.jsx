@@ -6,13 +6,16 @@ import FightModal from "../FightModal/FightModal";
 import { fetchFightUserUpdate, fightEnergy } from "../../../features/user/userSlice";
 
 const EnemyModal = () => {
-  const fight = useSelector((state) => state.user.user.fight)
+  const fight = useSelector((state) => state.user.user.fight);
+  const energy = useSelector((state) => state.user.user.energy);
   const enemy = useSelector((state) => state.enemy.enemy);
   const dispatch = useDispatch()
 
   const handleClick = () => {
-    dispatch(fetchFightUserUpdate(enemy.id));
-    dispatch(fightEnergy());
+    if (energy >= 3) {
+      dispatch(fetchFightUserUpdate(enemy.id));
+      dispatch(fightEnergy());
+    }
   }
 
   return (
@@ -27,6 +30,7 @@ const EnemyModal = () => {
             enemy.weapons.map((weapon, index) => <Weapon weapon={weapon} key={index} />)
           }
           <button onClick={handleClick}>Бить</button>
+          {energy < 3 && <span>Подождите пока восстановится энергия</span>}
         </div>
       }
     </>

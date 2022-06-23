@@ -1,13 +1,9 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { isTimer } from '../../features/user/userSlice';
+import { useSelector } from 'react-redux';
 import LogoutButton from '../Auth/Logout/LogoutButton';
 import styles from './Nav.module.css'
 function Nav() {
   const user = useSelector((state) => state.user.user);
-  const energy = useSelector((state) => state.user.user.energy);
   const time = useSelector((state) => state.user.user.time);
-
-  const dispatch = useDispatch();
 
   let ATK;
   let DEF;
