@@ -1,12 +1,10 @@
 .modal {
   position: fixed;
-
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
    display: flex;
-
   align-items: center;
   justify-content: center;
   opacity: 0;
@@ -30,7 +28,7 @@ flex-wrap: nowrap;
   border-radius: 50px;
   background-color: rgb(39,64,42);
   border: 10px solid rgb(248,255,206);
-  opacity: 0.9;
+  opacity: 0.95;
   height: 60vh;
   width: 90vw;
   transform: scale(0.5);
@@ -39,5 +37,5 @@ flex-wrap: nowrap;
  .modal_content.active {
 
   transform: scale(1);
-  
+
 }
