@@ -1,22 +1,30 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { isTimer } from '../../features/user/userSlice';
 import LogoutButton from '../Auth/Logout/LogoutButton';
 import styles from './Nav.module.css'
-
 function Nav() {
   const user = useSelector((state) => state.user.user);
-  const ATK = user.weapons.reduce((sum, weapon) => sum + weapon.ATK, 0)
-  const DEF = user.weapons.reduce((sum, weapon) => sum + weapon.DEF, 0)
+  const energy = useSelector((state) => state.user.user.energy);
+  const time = useSelector((state) => state.user.user.time);
+
+  const dispatch = useDispatch();
+
+  let ATK;
+  let DEF;
+  if (user.weapons.length !== 0) {
+    ATK = user.weapons.reduce((sum, weapon) => sum + weapon.ATK, 0)
+    DEF = user.weapons.reduce((sum, weapon) => sum + weapon.DEF, 0)
+  }
 
   return (
     <header>
       <div className={styles.container}>
-        <div>⚔{ATK}</div>
-        <div>🛡{DEF}</div>
-        <div>⚡{user.energy}</div>
+        <div>⚔{ATK ?? 0}</div>
+        <div>🛡{DEF ?? 0}</div>
+        <div>⚡{user.energy} {user.energy < 20 && `energy gain in ${time}`}</div>
         <LogoutButton />
       </div>
     </header>
   );
 }
-
 export default Nav;

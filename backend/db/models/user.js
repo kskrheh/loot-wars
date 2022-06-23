@@ -48,6 +48,11 @@ module.exports = (sequelize, DataTypes) => {
     logoutTime: {
       type: DataTypes.DATE,
     },
+    fight: {
+      allowNull: false,
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
     createdAt: {
       allowNull: false,
       type: DataTypes.DATE,
