@@ -7,6 +7,7 @@ const cookiesMiddleware = require('universal-cookie-express');
 const authRouter = require('./routes/auth.routes');
 const usersRouter = require('./routes/users.routes');
 const lootRouter = require('./routes/loot.routes');
+const redirectReact = require('./middleware/redirectReact');
 
 const app = express();
 
@@ -31,6 +32,7 @@ app.use(session(
 app.use('/auth', authRouter);
 app.use('/users', usersRouter);
 app.use('/loot', lootRouter);
+app.use(redirectReact);
 
 app.listen(process.env.PORT, () => {
   // eslint-disable-next-line no-console
