@@ -1,7 +1,4 @@
-.rega {
 
-
-} 
 .lab {
   font-size: medium;
   font-size: 20px;
@@ -16,6 +13,7 @@
   justify-content: flex-start;
   align-items: stretch;
   align-content: space-around;
+  
 
 
 box-shadow: 3px  3px;
@@ -112,6 +110,7 @@ content: '';
 /* border-radius: 2px 2px 10px 10px; */
 /* box-shadow: 3px  3px; */
 .button {
+  font-family: 'League Gothic', sans-serif;
   
     text-transform: uppercase;
     width: 100px;
@@ -158,6 +157,7 @@ background:linear-gradient(-45deg, transparent 5px, rgb(248,255,206) 0); */
   padding-bottom: 20px;
   padding-left: 20px;
   padding-right: 20px;
+  font-family: 'League Gothic', sans-serif;
 } 
 
 @media (max-width:820px) {
@@ -177,4 +177,8 @@ background:linear-gradient(-45deg, transparent 5px, rgb(248,255,206) 0); */
     font-size: 20px;
   }
 }
-
+/* .pepe {
+  font-family: 'League Gothic', sans-serif;
+  font-size: 15px;
+  color: rgb(211, 237, 184) ;
+} */

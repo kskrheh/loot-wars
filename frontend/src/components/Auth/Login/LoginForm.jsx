@@ -43,7 +43,7 @@ const LoginForm = () => {
               name="username"
               id="username"
               {...register("username", {
-                required: "Поле обязательно к заполнению!",
+                required: "Обязательно к заполнению!",
               })}
             />
           </label>

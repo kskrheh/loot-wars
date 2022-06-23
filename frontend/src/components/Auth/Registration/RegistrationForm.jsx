@@ -5,7 +5,7 @@ import { fetchRegister } from "../../../features/user/userSlice";
 import styles from "./RegistrationForm.module.css";
 
 const RegistrationForm = () => {
-  const errorReg = useSelector((state) => state.user.errorReg)
+  const errorReg = useSelector((state) => state.user.errorReg);
   const [isClicked, setIsClicked] = useState(false);
   const {
     register,
@@ -13,7 +13,7 @@ const RegistrationForm = () => {
     handleSubmit,
     reset,
     getValues,
-  } = useForm({ mode: 'onSubmit' });
+  } = useForm({ mode: "onSubmit" });
   const dispatch = useDispatch();
 
   const goRegister = (data) => {
@@ -26,11 +26,7 @@ const RegistrationForm = () => {
   };
   return (
     <div className={styles.rega}>
-      {
-            errorReg && (
-              <p>{errorReg}</p>
-            )
-          }
+      {errorReg && <p>{errorReg}</p>}
       {isClicked ? (
         <form
           action="/auth/register"
@@ -97,11 +93,12 @@ const RegistrationForm = () => {
                 },
               })}
             />
-            {errors.passwordRepeat?.type === "isRepeat" && (
-              <p style={{ color: "rgb(211, 237, 184)" }}>{"Пароли не совпадают!"}</p>
-            )}
           </label>
-
+          <div style={{ color: "rgb(211, 237, 184)" }}>
+            {errors.passwordRepeat?.type === "isRepeat" && (
+              <p className={styles.pepe}>{"Пароли не совпадают!"}</p>
+            )}
+          </div>
           <label className={styles.lab} htmlFor="email">
             Email
             <input
@@ -112,7 +109,8 @@ const RegistrationForm = () => {
               {...register("email", {
                 required: "Обязательно к заполнению",
                 pattern: {
-                  value: /^((([0-9A-Za-z]{1}[-0-9A-z\.]{0,30}[0-9A-Za-z]?)|([0-9А-Яа-я]{1}[-0-9А-я\.]{0,30}[0-9А-Яа-я]?))@([-A-Za-z]{1,}\.){1,}[-A-Za-z]{2,})$/,
+                  value:
+                    /^((([0-9A-Za-z]{1}[-0-9A-z\.]{0,30}[0-9A-Za-z]?)|([0-9А-Яа-я]{1}[-0-9А-я\.]{0,30}[0-9А-Яа-я]?))@([-A-Za-z]{1,}\.){1,}[-A-Za-z]{2,})$/,
                   message: "enter real email!",
                 },
               })}
