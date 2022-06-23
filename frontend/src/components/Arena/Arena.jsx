@@ -38,7 +38,7 @@ function Arena() {
          <h1 className={styles.title}>Opponents</h1>
          <ul className={styles.ul_arena}>
            {users.map((user) => (
-             <li key={user.id}>
+             <li className={styles.liArena} key={user.id}>
                {user.username}
                <span> <img className={styles.svgIcon} alt={''}
                               src={bladesSvg}/> {user.UserWeapons.reduce((acc, item) => acc + item.Weapon.ATK, 0)}</span>

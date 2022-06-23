@@ -28,7 +28,9 @@ const Equipped = ({ handleLi }) => {
     <>
       {user.name ? (
         <div className={styles.container}>
-          {weapons.length >= 0 &&
+          <h1 className={styles.title}>Your equipment</h1>
+          <ul className={styles.ulEquipped}>
+            {weapons.length >= 0 &&
             emptyArr.map((el, index) => {
               if (weapons[index]) {
                 return (
@@ -51,6 +53,7 @@ const Equipped = ({ handleLi }) => {
                 );
               }
             })}
+          </ul>
         </div>
       ) : (
         <div className={styles.button_container}>
