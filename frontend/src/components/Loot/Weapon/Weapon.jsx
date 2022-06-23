@@ -1,4 +1,6 @@
 import styles from "./Weapon.module.css";
+import bladesSvg from "../../../img/svg/bladesBlack.svg";
+import shieldSvg from "../../../img/svg/shieldBlack.svg";
 function Weapon({ weapon, handleLi, pertain, ind }) {
   return (
     <>
@@ -18,9 +20,17 @@ function Weapon({ weapon, handleLi, pertain, ind }) {
       onClick={handleLi}
     >
           {weapon.title}
-          🗡 {weapon.ATK}
-          🛡 {weapon.DEF}
-          Q {weapon.quality}
+          <span>
+            <img className={styles.svgIcon} alt={''}
+               src={bladesSvg}/> {weapon.ATK}
+          </span>
+          <span>
+            <img className={styles.svgIcon} alt={''}
+               src={shieldSvg}/> {weapon.DEF}
+          </span>
+          <span>
+            {' '}Q {weapon.quality}
+          </span>
         </li>
       ) : (
         <li

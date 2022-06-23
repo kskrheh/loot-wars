@@ -40,7 +40,8 @@ function Arena() {
            {users.map((user) => (
              <li className={styles.liArena} key={user.id}>
                {user.username}
-               <span> <img className={styles.svgIcon} alt={''}
+               <span>
+                 <img className={styles.svgIcon} alt={''}
                               src={bladesSvg}/> {user.UserWeapons.reduce((acc, item) => acc + item.Weapon.ATK, 0)}</span>
                <span> <img className={styles.svgIcon} alt={''}
                               src={shieldSvg}/> {user.UserWeapons.reduce((acc, item) => acc + item.Weapon.DEF, 0)}</span>
