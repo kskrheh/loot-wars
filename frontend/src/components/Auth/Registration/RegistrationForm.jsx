@@ -29,7 +29,7 @@ const RegistrationForm = () => {
     <div className={styles.rega}>
       {isClicked ? (
         <form
-          action="/auth/register"
+          action="/api/auth/register"
           onSubmit={handleSubmit(goRegister)}
           method="post"
         >

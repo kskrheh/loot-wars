@@ -19,7 +19,7 @@ const initialState = {
   swapCheck: false,
 }
 export const fetchWeapons = createAsyncThunk('user/fetchWeapon', async (body) => { // ac.t
-  const response = await fetch('http://localhost:4000/loot', {
+  const response = await fetch('/api/loot', {
     method: 'POST',
     credentials: 'include',
     headers: {"Content-Type": "application/json"},
@@ -74,7 +74,7 @@ export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
 })
 
 export const fetchFightUserUpdate = createAsyncThunk('user/fetchFightUserUpdate', async (enemyId) => {
-  const response = await fetch(`http://localhost:4000/users/${enemyId}/fight`, {
+  const response = await fetch(`/api/users/${enemyId}/fight`, {
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
     method: 'put'
