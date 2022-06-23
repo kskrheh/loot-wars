@@ -6,10 +6,13 @@ import {fetchFightUserUpdate, isFighting} from "../../features/user/userSlice";
 const Modal = ({active, setActive, children}) => {
   const enemy = useSelector((state) => state.enemy.enemy)
   const dispatch = useDispatch();
+  const userFight = useSelector((state) => state.user.user.fight)
 
   const handleClick = () => {
     setActive(false)
+    if (userFight) {
     dispatch(fetchFightUserUpdate(enemy.id));
+    }
   }
 
   return (

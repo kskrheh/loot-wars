@@ -40,21 +40,44 @@ function FightModal() {
 
   return (
     <>
-      <ul>
-        {
-          enemy.weapons.map((weapon, index) => <Weapon weapon={weapon} key={index} />)
-        }
-      </ul>
-      <ul>
-        {
-          user.weapons.map((weapon, index) => <Weapon weapon={weapon} key={index} />)
-        }
-      </ul>
-      {
-        userWin ? <p>Победа</p> : <p>Вы проиграли</p>
-      }
+      {userWin ? (
+        <>
+          <ul>
+            {enemy.weapons.map((weapon, index) => (
+              <Weapon weapon={weapon} key={index} />
+                ))}
+          </ul>
+          <ul>
+            {user.weapons.map((weapon, index) => (
+              <Weapon weapon={weapon} key={index} />
+                ))}
+          </ul>
+          <p>Victory</p>
+        </>
+        ) : (
+          <>
+            <ul>
+              {enemy.weapons.map((weapon, index) => (
+                <Weapon weapon={weapon} key={index} />
+                ))}
+            </ul>
+            <ul>
+              {user.weapons.map((weapon, index) => (
+                <Weapon weapon={weapon} key={index} />
+                ))}
+            </ul>
+            <p>Defeat</p>
+          </>
+        )}
     </>
-  )
+  );
+
+
+
+
+
+
+
 }
 
 export default FightModal;

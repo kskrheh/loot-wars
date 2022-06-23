@@ -2,16 +2,19 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUsers } from "../../features/users/usersSlice";
 import styles from "./Arena.module.css";
-import lol from "../../img/crossed-swords-svgrepo-com.svg";
 import Modal from "../Modal/Modal";
 import EnemyModal from "../Modal/EnemyModal/EnemyModal";
 import { fetchEnemyWeapons } from "../../features/enemy/enemySlice";
+import bladesRedSvg from "../../img/svg/bladesRed.svg";
+import bladesSvg from "../../img/svg/bladesBlack.svg";
+import shieldSvg from "../../img/svg/shieldBlack.svg";
 
 function Arena() {
   const dispatch = useDispatch();
   const [active, setActive] = useState(false);
   const users = useSelector((state) => state.users.users);
   const name = useSelector((state) => state.user.user.name);
+  const loadingUsers = useSelector((state) => state.users.users.loadingUsers)
   let enemyOne;
 
   const handleFetchUsers = () => {
@@ -30,30 +33,34 @@ function Arena() {
 
   return (
     <>
-      <div>
-        <h1>Opponents</h1>
-        <ul>
-          {users.map((user) => (
-            <li key={user.id}>
-              {user.username}
-              <span> ATK {user.UserWeapons.reduce((acc, item) => acc + item.Weapon.ATK, 0)}</span>
-              <span> DEF {user.UserWeapons.reduce((acc, item) => acc + item.Weapon.DEF, 0)}</span>
-              <button
-                className={styles.buttonArena}
-                onClick={() => handleClickEnemy(user.id)}
-              >
-                <img className={styles.red} src={lol} alt="" />
-              </button>
-            </li>
-          ))}
-        </ul>
-        <button className={styles.random} onClick={handleFetchUsers}>
-          Update
-        </button>
-        <Modal active={active} setActive={setActive}>
-          <EnemyModal />
-        </Modal>
-      </div>
+      { loadingUsers ? <p>Loading</p>
+       : <div className={styles.arena_content}>
+         <h1 className={styles.title}>Opponents</h1>
+         <ul className={styles.ul_arena}>
+           {users.map((user) => (
+             <li key={user.id}>
+               {user.username}
+               <span> <img className={styles.svgIcon} alt={''}
+                              src={bladesSvg}/> {user.UserWeapons.reduce((acc, item) => acc + item.Weapon.ATK, 0)}</span>
+               <span> <img className={styles.svgIcon} alt={''}
+                              src={shieldSvg}/> {user.UserWeapons.reduce((acc, item) => acc + item.Weapon.DEF, 0)}</span>
+               <button
+                      className={styles.buttonArena}
+                      onClick={() => handleClickEnemy(user.id)}
+                  >
+                 <img src={bladesRedSvg} alt=""/>
+               </button>
+             </li>
+            ))}
+         </ul>
+         <button className={styles.random} onClick={handleFetchUsers}>
+           Update
+         </button>
+         <Modal active={active} setActive={setActive}>
+           <EnemyModal/>
+         </Modal>
+       </div>
+      }
     </>
   );
 }
