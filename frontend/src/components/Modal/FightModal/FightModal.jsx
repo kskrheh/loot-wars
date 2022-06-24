@@ -89,7 +89,7 @@ function FightModal({ active, setActive }) {
               />
             ))}
           </ul>
-          <button onClick={swapWeapon}>Swap
+          <button className={styles.button_fight} onClick={swapWeapon}>Swap
           </button>
         </>
       ) : (
