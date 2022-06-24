@@ -47,42 +47,50 @@ function Loot() {
       setErrPick(true);
     }
   };
+  
   if (swapCheck) {
     dispatch(fetchUserWeapons(user));
   }
   const handleLi = (e) => {
-    const { pertain } = e.target.dataset;
+    const data = e.target.closest('li').dataset;
+    const { pertain } = data;
     if (pertain === "userWeapon") {
       setErrPick(false);
-      dispatch(pickWeapon(e.target.dataset.ind));
+      dispatch(pickWeapon(data.ind));
     }
     if (pertain === "lootWeapon") {
       setErrPick(false);
-      dispatch(pickLootWeapon(e.target.dataset.ind));
+      dispatch(pickLootWeapon(data.ind));
     }
   };
 
   return (
     <div className={styles.loot_container}>
+      <Equipped handleLi={handleLi} />
       <button
-        className={styles.button_loot}
-        type="button"
-        onClick={handleClick}
+          className={styles.button_loot}
+          type="button"
+          onClick={handleClick}
       >
         Loot
       </button>
-      <Equipped handleLi={handleLi} />
-      <div className={`${styles.loot_container} ${styles.ul_loot}`}>
-        {weapons.map((weapon, index) => (
-          <Weapon
-            key={index}
-            pertain={"lootWeapon"}
-            weapon={weapon}
-            handleLi={handleLi}
-            ind={index}
-          />
-        ))}
-      </div>
+      {
+        weapons.length > 0 &&
+          <div className={`${styles.loot_container} ${styles.ul_loot} ${styles.ul_width}`}>
+            <ul className={styles.ulEquipped}>
+              {weapons.map((weapon, index) => (
+                <Weapon
+                      key={index}
+                      pertain={"lootWeapon"}
+                      weapon={weapon}
+                      handleLi={handleLi}
+                      ind={index}
+                  />
+              ))}
+            </ul>
+          </div>
+      }
+
       {weapons.length !== 0 && (
         <button
           className={styles.button_loot}

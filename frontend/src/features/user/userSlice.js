@@ -9,11 +9,12 @@ const initialState = {
     weaponsId: [],
     userWeaponsId: [],
     isTimer: false,
-    time: 0,
+    time: null,
   },
   errorEnergy: false,
   status: 'idle',
   errorReg: null,
+  errorLogin: null,
   loading: false,
   errorWeapons: null,
   swapCheck: false,
@@ -38,6 +39,7 @@ export const fetchUserWeapons = createAsyncThunk('user/fetchUserWeapon', async (
   });
 
   const data = await response.json();
+  console.log(data)
   return data;
 })
 
@@ -167,29 +169,36 @@ export const userSlice = createSlice({
     builder.addCase(fetchRegister.pending, (state, action) => {
       state.status = 'pending'
       state.loading = true
+      state.errorReg = null
+
     })
     builder.addCase(fetchRegister.fulfilled, (state, action) => {
       state.status = 'succeeded'
       state.user.name = action.payload
       state.loading = false
+      state.errorReg = null
+
     })
     builder.addCase(fetchRegister.rejected, (state, action) => {
       state.status = 'rejected'
-      state.errorReg = 'ошибка регистрации, возможно пользователь с таким логином уже существует'
+      state.errorReg = 'Пользователь с таким логином или почтой уже существует'
       state.loading = false
     })
     builder.addCase(fetchLogin.pending, (state, action) => {
       state.status = 'pending'
       state.loading = true
+      state.errorLogin = null
     })
     builder.addCase(fetchLogin.fulfilled, (state, action) => {
       state.status = 'succeeded'
       state.user.name = action.payload
       state.loading = false
+      state.errorLogin = null
+
     })
     builder.addCase(fetchLogin.rejected, (state, action) => {
       state.status = 'rejected'
-      state.errorReg = 'Пользователя с таким логином или паролем не существует'
+      state.errorLogin = 'Пользователя с таким логином или паролем не существует'
       state.loading = false
     })
     builder.addCase(fetchUser.pending, (state, action) => {

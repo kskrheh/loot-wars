@@ -11,6 +11,7 @@ import Arena from "./components/Arena/Arena";
 
 // eslint-disable-next-line no-unused-vars
 import styles from "./App.module.css";
+import QRcode from "./components/QRcode";
 
 function App() {
   //saving situation
@@ -65,6 +66,7 @@ useEffect(() => {
             <Route path="/" element={<Equipped />} />
             <Route path="/arena" element={<Arena />} />
             <Route path="/loot" element={<Loot />} />
+            <Route path="/qrcode" element={<QRcode />} />
           </Routes>
         </div>
       </header>
