@@ -162,12 +162,12 @@ margin-top: 20px;
   justify-content: flex-start;
   align-items: stretch;
   align-content: space-around;
-
-
-box-shadow: 2px  2px;
-background-color: rgb(211, 237, 184);
-border-radius: 10px;
-width: 250px;
+  box-shadow: 2px  2px;
+  background-color: rgb(211, 237, 184);
+  border-radius: 10px;
+  width: 250px;
+  box-shadow: 2px  2px;
+  border: solid;
 
 }
 .button_container {

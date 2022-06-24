@@ -9,6 +9,7 @@ import RegistrationForm from "../Auth/Registration/RegistrationForm";
 import Weapon from "../Loot/Weapon/Weapon";
 
 import styles from "./Equipped.module.css";
+import im from "../../img/H1/307380.svg";
 
 const Equipped = ({ handleLi }) => {
   const [emptyArr] = useState(new Array(6).fill(" "));
@@ -58,7 +59,9 @@ const Equipped = ({ handleLi }) => {
         </div>
       ) : (
         <>
-          <h1 className={styles.WARS}>LOOT-WARS</h1>
+          <h1 className={styles.WARS}>
+            LOOT-WARS <img className={styles.sv} src={im} />
+          </h1>
           <div className={styles.button_container}>
             <div className={styles.divRega}>
               <RegistrationForm />

@@ -17,7 +17,7 @@
 box-shadow: 2px  2px;
 background-color: rgb(211, 237, 184);
 border-radius: 10px;
-border: solid black;
+border: solid ;
     width: 250px;
 
 }
@@ -185,3 +185,4 @@ background:linear-gradient(-45deg, transparent 5px, rgb(248,255,206) 0); */
   font-size: 15px;
   color: rgb(211, 237, 184) ;
 } */
+

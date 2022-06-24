@@ -57,7 +57,7 @@ const RegistrationForm = () => {
               })}
             />
           </label>
-          <div style={{ color: "rgb(211, 237, 184)" }}>
+          <div style={{ color: "rgb(237, 124, 83)" }}>
             {errors?.username && <p>{errors?.username?.message || "Error!"}</p>}
           </div>
           <label className={styles.lab} htmlFor="password">
@@ -76,7 +76,7 @@ const RegistrationForm = () => {
               })}
             />
           </label>
-          <div style={{ color: "rgb(211, 237, 184)" }}>
+          <div style={{ color: "rgb(237, 124, 83)" }}>
             {errors?.password && <p>{errors?.password?.message || "Error!"}</p>}
           </div>
           <label className={styles.lab} htmlFor="passwordRepeat">
@@ -94,7 +94,7 @@ const RegistrationForm = () => {
               })}
             />
           </label>
-          <div style={{ color: "rgb(211, 237, 184)" }}>
+          <div style={{ color: "rgb(237, 124, 83)" }}>
             {errors.passwordRepeat?.type === "isRepeat" && (
               <p className={styles.pepe}>{"Passwords don't match"}</p>
             )}
@@ -116,7 +116,7 @@ const RegistrationForm = () => {
               })}
             />
           </label>
-          <div style={{ color: "rgb(211, 237, 184)" }}>
+          <div style={{ color: "rgb(237, 124, 83)" }}>
             {errors?.email && <p>{errors?.email?.message || "Error!"}</p>}
           </div>
           <button className={styles.button} type="submit">

@@ -48,7 +48,7 @@ const LoginForm = () => {
               })}
             />
           </label>
-          <div style={{ color: "rgb(211, 237, 184)" }}>
+          <div style={{ color: "rgb(237, 124, 83)" }}>
             {errors?.username && <p>{errors?.username?.message || "Error!"}</p>}
           </div>
           <label className={styles.lab} htmlFor="password">
