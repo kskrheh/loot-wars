@@ -3,6 +3,7 @@ import Weapon from "../../Loot/Weapon/Weapon";
 import { useEffect, useState } from "react";
 import { fetchWeaponsTake, pickEnemyWeapon } from "../../../features/enemy/enemySlice";
 import { fetchFightUserUpdate, pickWeapon } from "../../../features/user/userSlice";
+import styles from './FightModal.module.css'
 
 function FightModal({ active, setActive }) {
   const dispatch = useDispatch();
@@ -42,7 +43,7 @@ function FightModal({ active, setActive }) {
     if (userScore > enemyScore) {
       setUserWin(true);
     } else setUserWin(false);
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleSwap = (e) => {
     const { pertain } = e.target.dataset;
@@ -71,12 +72,13 @@ function FightModal({ active, setActive }) {
     <>
       {userWin ? (
         <>
-          <ul>
+          <div className={styles.text}>Victory</div>
+          <ul className={styles.my_weapons}>
             {user.weapons.map((weapon, index) => (
               <Weapon weapon={weapon} key={index} handleLi={handleSwap} pertain={"playerWeapon"} ind={index} />
             ))}
           </ul>
-          <ul>
+          <ul className={styles.my_weapons}>
             {enemy.weapons.map((weapon, index) => (
               <Weapon
                 weapon={weapon}
@@ -87,23 +89,22 @@ function FightModal({ active, setActive }) {
               />
             ))}
           </ul>
-          <p>Victory</p>
           <button onClick={swapWeapon}>Swap
           </button>
         </>
       ) : (
         <>
-          <ul>
+          <div className={styles.text}>Defeat</div>
+          <ul className={styles.my_weapons}>
             {user.weapons.map((weapon, index) => (
               <Weapon weapon={weapon} key={index} />
             ))}
           </ul>
-          <ul>
+          <ul className={styles.my_weapons}>
             {enemy.weapons.map((weapon, index) => (
               <Weapon weapon={weapon} key={index} />
             ))}
           </ul>
-          <p>Defeat</p>
         </>
       )}
     </>

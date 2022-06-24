@@ -8,12 +8,12 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
-  width: 100vw;
   align-items: center;
+  color: #d5c592;
 }
-
-
+.span_stat {
+  font-size: 30px;
+}
 
 .open-btn {
   margin: 10px 20px;
@@ -21,3 +21,6 @@
   font-size: 2rem;
 }
 
+.button_fight {
+  margin-top: 20px;
+}

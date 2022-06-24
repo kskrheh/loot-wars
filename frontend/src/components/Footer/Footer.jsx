@@ -13,23 +13,19 @@ function Footer() {
       <nav>
         <ul className={styles.ul_footer}>
           <li className={styles.li}><Link to="/">
-            <img alt={''} src={homeSvg}/>
+            <img alt={''} src={homeSvg} />
           </Link></li>
 
           <li className={styles.li}><Link to="/loot">
-            <img alt={''} src={showelSvg}/>
+            <img alt={''} src={showelSvg} />
           </Link></li>
 
           <li className={styles.li}><Link to="/arena">
-            <img alt={''} src={bladesSvg}/>
+            <img alt={''} src={bladesSvg} />
           </Link></li>
 
-          {/*<li className={styles.li}><Link to="/telegram">*/}
-          {/*  <img alt={''} src={chatSvg}/>*/}
-          {/*</Link></li>*/}
-
-          <li className={styles.li}><Link to="/history">
-            <img alt={''} src={bookSvg}/>
+          <li className={styles.li}><Link to="/qrcode">
+            <img alt={''} src={bookSvg} />
           </Link></li>
         </ul>
       </nav>

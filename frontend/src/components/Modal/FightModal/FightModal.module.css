@@ -1,18 +1,20 @@
-.modal {
-  
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: center;
-	align-items: center;
-	align-content: stretch;
-  width: 100vw;
-  justify-content: space-around;
+.my_weapons {
+  margin-right: 25px;
+  color: #d5c592;
 }
 
-.modalUl {
-  justify-content: center;
-  align-items: center;
-  width: 220px;
+.text {
+  color: #d5c592;
+  font-size: 35px;
+  margin-right: 25px;
+}
 
+@media (max-width: 768px) {
+  .text {
+    margin-bottom: 25px;
+  }
+
+  .my_weapons {
+    margin-bottom: 25px;
+  }
 }
