@@ -17,7 +17,8 @@ export const usersSlice = createSlice({
   initialState: {
     users: [],
     status: 'idle',
-    error: null
+    error: null,
+    loadingUsers: false,
   },
   reducers: {
   },
@@ -25,6 +26,15 @@ export const usersSlice = createSlice({
     builder.addCase(fetchUsers.fulfilled, (state, action) => {
       state.status = 'succeeded'
       state.users = action.payload
+      state.loadingUsers = false
+    })
+    builder.addCase(fetchUsers.pending, (state, action) => {
+    state.status = 'pending'
+    state.loadingUsers = true
+    })
+    builder.addCase(fetchUsers.rejected, (state, action) => {
+      state.status = 'rejected'
+      state.loadingUsers = false
     })
   }
 })

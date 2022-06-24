@@ -1,20 +1,75 @@
-
-.buttonArena {
-  width: auto;
-  height: auto;
-  border-radius: 5px; box-shadow: 0px 1px 3px; font-size: 20px;
-  background-color: rgb(211, 237, 184);
+.arena_content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-family: 'League Gothic', sans-serif;
 }
+.buttonArena {
+  /*width: 45px;*/
+  /*height: 35px;*/
+  /*border-radius: 5px; box-shadow: 3px 3px 3px;*/
+  /*background-color: rgb(211, 237, 184);*/
+  /*margin-bottom: 10px;*/
+    width: 45px;
+    height: 35px;
+    background-color: rgb(211, 237, 184);
+    outline: none;
+    border: 1px solid #55321C;
+    border-radius: 3px 3px 12px 12px;
+    font-family: 'League Gothic', sans-serif;
+    font-size: 30px;
+}
+
  .buttonArena:hover {
-  background-color: red;
+  /*background-color: #25513C;*/
+     cursor: pointer;
+     color: rgb(211, 237, 184);
+     background-color:  #540100;
+     border: 1px solid #000000;
  }
+
 .random {
-  background-color: rgb(211, 237, 184);
-  border-radius: 10px; box-shadow: 0px 1px 3px; font-size: 20px;
+    width: 75px;
+    margin: 8px auto;
+    background-color: rgb(211, 237, 184);
+    outline: none;
+    border: 1px solid #55321C;
+    border-radius: 3px 3px 12px 12px;
+    font-family: 'League Gothic', sans-serif;
+    font-size: 30px;
 }
 
 .random:hover {
-
-  background-color: brown;
-  padding: 2px 4px;
+    cursor: pointer;
+    color: rgb(211, 237, 184);
+    background-color:  #540100;
+    border: 1px solid #D5DBC1;
 }
+
+.liArena {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 10px;
+    font-size: 25px;
+    border-bottom: 3px solid black;
+}
+
+/*.ul_arena {*/
+/*    border-radius: 10%;*/
+/*    padding: 20px;*/
+/*    background-color: rgba(37, 81, 60, 0.6);*/
+/*}*/
+
+.title {
+    margin-top: 5px;
+    font-size: 50px;
+}
+.svgIcon {
+    /*position: absolute;*/
+    padding-top: 10px;
+}
+/*.spanEnemy {*/
+/*    position: relative;*/
+/*}*/

@@ -7,18 +7,12 @@
 .app {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  
-  width: 100vw;
+  justify-content: space-between;
   align-items: center;
+  color: #d5c592;
 }
-
-p {
-  display: flex;
-  justify-content: center;
-  padding-right: 15%;
-  margin: 20px;
-  border: 2px solid rgb(248,255,206)
+.span_stat {
+  font-size: 30px;
 }
 
 .open-btn {
@@ -27,3 +21,20 @@ p {
   font-size: 2rem;
 }
 
+.button_fight {
+  width: 75px;
+  margin: 8px auto;
+  background-color: rgb(211, 237, 184);
+  outline: none;
+  border: 1px solid #55321C;
+  border-radius: 3px 3px 12px 12px;
+  font-family: 'League Gothic', sans-serif;
+  font-size: 30px;
+}
+
+.button_fight:hover {
+  cursor: pointer;
+  color: rgb(211, 237, 184);
+  background-color:  #540100;
+  border: 1px solid #D5DBC1;
+}

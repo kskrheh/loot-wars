@@ -5,7 +5,7 @@ import Weapon from "../../Loot/Weapon/Weapon";
 import FightModal from "../FightModal/FightModal";
 import { fetchFightUserUpdate, fightEnergy } from "../../../features/user/userSlice";
 
-const EnemyModal = () => {
+const EnemyModal = ({ active, setActive }) => {
   const fight = useSelector((state) => state.user.user.fight);
   const energy = useSelector((state) => state.user.user.energy);
   const enemy = useSelector((state) => state.enemy.enemy);
@@ -21,15 +21,15 @@ const EnemyModal = () => {
   return (
     <>
       {fight ?
-        <FightModal />
+        <FightModal active={active} setActive={setActive} />
         :
         <div className='app'>
-          <span>{`ATK ${enemy.weapons.reduce((sumAtk, weapon) => sumAtk + weapon.ATK, 0)}`} </span>
-          <span>{`DEF ${enemy.weapons.reduce((sumDef, weapon) => sumDef + weapon.DEF, 0)}`}</span>
+          <span className='span_stat'>{`ATK ${enemy.weapons.reduce((sumAtk, weapon) => sumAtk + weapon.ATK, 0)}`} </span>
+          <span className='span_stat'>{`DEF ${enemy.weapons.reduce((sumDef, weapon) => sumDef + weapon.DEF, 0)}`}</span>
           {
             enemy.weapons.map((weapon, index) => <Weapon weapon={weapon} key={index} />)
           }
-          <button onClick={handleClick}>Бить</button>
+          <button className='button_fight' onClick={handleClick}>Attack</button>
           {energy < 3 && <span>Подождите пока восстановится энергия</span>}
         </div>
       }

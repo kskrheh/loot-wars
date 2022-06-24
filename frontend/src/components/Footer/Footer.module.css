@@ -11,8 +11,20 @@
 ul > li > a{
   text-decoration: none;
 }
-.li {
- 
-  border: 1px solid rgb(238, 5, 5);
-  border-radius: 25%;
+/*.li {*/
+
+/*  !*border: 1px solid rgb(238, 5, 5);*!*/
+/*  border-radius: 25%;*/
+/*}*/
+.colorites {
+
+  
+}
+.colorites:hover {
+  cursor: pointer;
+  color: rgb(211, 237, 184);
+  /* background: radial-gradient(ellipse at top, #e66465, transparent),
+            radial-gradient(ellipse at bottom, #4d9f0c, transparent); */
+  background: radial-gradient(circle at center, #B10500 0, #540100 60%);
+  border-radius: 35%;
 }

@@ -2,34 +2,46 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
+  width: fit-content;
+  margin: auto;
+  /*padding: 10px;*/
+  border-radius: 5%;
+  margin-top: 5px;
+  /*width: 100%;*/
+}
+
+.ul_width {
+  width: 100%;
 }
 
 .button_loot {
   width: 75px;
-  margin: 10px auto;
-
-  background-color: #D5DBC1;
-  color: white;
+  margin: 8px auto;
+  background-color: rgb(211, 237, 184);
+  /*color: #540100;*/
   outline: none;
   border: 1px solid #55321C;
-
-  border-radius: 10px 0px 10px 0;
+  border-radius: 3px 3px 12px 12px;
+  font-family: 'League Gothic', sans-serif;
+  font-size: 30px;
 }
 
 .button_loot:hover {
   cursor: pointer;
-  color: #55321C;
-  background-color: #00FFCB;
+  color: rgb(211, 237, 184);
+  background-color:  #540100;
   border: 1px solid #D5DBC1;
 }
 
 .ul_loot {
+  padding: 10px;
   background-color: #55321C;
+  font-family: 'League Gothic', sans-serif;
 }
 
-.selected {
-  background: #0099FF;
+.ulEquipped {
+  display: block;
+  color: #d5c592;
 }
-.selected:hover {
-  background: #3272A1;
-}
+
+
