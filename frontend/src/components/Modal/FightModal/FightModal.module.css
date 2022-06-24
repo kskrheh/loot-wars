@@ -1,18 +1,38 @@
-.modal {
-  
-	display: flex;
-	flex-direction: row;
-	flex-wrap: nowrap;
-	justify-content: center;
-	align-items: center;
-	align-content: stretch;
-  width: 100vw;
-  justify-content: space-around;
+.my_weapons {
+  margin-right: 25px;
+  color: #d5c592;
 }
 
-.modalUl {
-  justify-content: center;
-  align-items: center;
-  width: 220px;
+.text {
+  color: #d5c592;
+  font-size: 35px;
+  margin-right: 25px;
+}
 
+@media (max-width: 768px) {
+  .text {
+    margin-bottom: 25px;
+  }
+
+  .my_weapons {
+    margin-bottom: 25px;
+  }
+}
+
+.button_fight {
+  width: 75px;
+  margin: 8px auto;
+  background-color: rgb(211, 237, 184);
+  outline: none;
+  border: 1px solid #55321C;
+  border-radius: 3px 3px 12px 12px;
+  font-family: 'League Gothic', sans-serif;
+  font-size: 30px;
+}
+
+.button_fight:hover {
+  cursor: pointer;
+  color: rgb(211, 237, 184);
+  background-color:  #540100;
+  border: 1px solid #D5DBC1;
 }

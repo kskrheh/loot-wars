@@ -30,13 +30,6 @@
  }
 
 .random {
-  /*margin-top: 10px;*/
-  /*padding: 5px 12px;*/
-  /*background-color: rgb(211, 237, 184);*/
-  /*border-radius: 10px; box-shadow: 0px 1px 3px; font-size: 20px;*/
-  /*font-family: 'League Gothic', sans-serif;*/
-  /*font-size: 30px;*/
-  /*letter-spacing: 0.5px;*/
     width: 75px;
     margin: 8px auto;
     background-color: rgb(211, 237, 184);
@@ -48,9 +41,6 @@
 }
 
 .random:hover {
-  /*background-color: #540100;*/
-  /*padding: 7px 14px;*/
-  /*color: rgb(211, 237, 184);*/
     cursor: pointer;
     color: rgb(211, 237, 184);
     background-color:  #540100;
