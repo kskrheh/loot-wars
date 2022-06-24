@@ -31,6 +31,7 @@ const LoginForm = () => {
       }
       {isClicked ? (
         <form
+        className={styles.formoc}
           
           action="/auth/login"
           method="post"
