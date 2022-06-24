@@ -16,7 +16,7 @@
     background-color: rgb(211, 237, 184);
     outline: none;
     border: 1px solid #55321C;
-    border-radius: 10px 0px 10px 0;
+    border-radius: 3px 3px 12px 12px;
     font-family: 'League Gothic', sans-serif;
     font-size: 30px;
 }
@@ -42,7 +42,7 @@
     background-color: rgb(211, 237, 184);
     outline: none;
     border: 1px solid #55321C;
-    border-radius: 10px 0px 10px 0;
+    border-radius: 3px 3px 12px 12px;
     font-family: 'League Gothic', sans-serif;
     font-size: 30px;
 }

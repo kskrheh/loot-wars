@@ -41,14 +41,14 @@ const RegistrationForm = () => {
               name="username"
               id="username"
               {...register("username", {
-                required: "Обязательно к заполнению",
+                required: "Be sure to fill in!",
                 minLength: {
                   value: 3,
-                  message: "Минимум 3 символа!",
+                  message: "Minimum of 3 characters",
                 },
                 maxLength: {
                   value: 10,
-                  message: "Максимум 10 символов!",
+                  message: "Maximum of 10 characters",
                 },
                 pattern: {
                   value: /[A-Za-z]{3}/,
@@ -57,7 +57,7 @@ const RegistrationForm = () => {
               })}
             />
           </label>
-          <div style={{ color: "rgb(211, 237, 184)" }}>
+          <div style={{ color: "rgb(237, 124, 83)" }}>
             {errors?.username && <p>{errors?.username?.message || "Error!"}</p>}
           </div>
           <label className={styles.lab} htmlFor="password">
@@ -68,15 +68,15 @@ const RegistrationForm = () => {
               name="password"
               id="password"
               {...register("password", {
-                required: "Обязательно к заполнению",
+                required: "Be sure to fill in!",
                 minLength: {
                   value: 8,
-                  message: "Минимум 8 символов!",
+                  message: "Minimum of 8 characters",
                 },
               })}
             />
           </label>
-          <div style={{ color: "rgb(211, 237, 184)" }}>
+          <div style={{ color: "rgb(237, 124, 83)" }}>
             {errors?.password && <p>{errors?.password?.message || "Error!"}</p>}
           </div>
           <label className={styles.lab} htmlFor="passwordRepeat">
@@ -87,16 +87,16 @@ const RegistrationForm = () => {
               name="passwordRepeat"
               id="passwordRepeat"
               {...register("passwordRepeat", {
-                required: "Обязательно к заполнению",
+                required: "Be sure to fill in!",
                 validate: {
                   isRepeat: (value) => getValues("password") === value,
                 },
               })}
             />
           </label>
-          <div style={{ color: "rgb(211, 237, 184)" }}>
+          <div style={{ color: "rgb(237, 124, 83)" }}>
             {errors.passwordRepeat?.type === "isRepeat" && (
-              <p className={styles.pepe}>{"Пароли не совпадают!"}</p>
+              <p className={styles.pepe}>{"Passwords don't match"}</p>
             )}
           </div>
           <label className={styles.lab} htmlFor="email">
@@ -107,7 +107,7 @@ const RegistrationForm = () => {
               name="email"
               id="email"
               {...register("email", {
-                required: "Обязательно к заполнению",
+                required: "Be sure to fill in!",
                 pattern: {
                   value:
                     /^((([0-9A-Za-z]{1}[-0-9A-z\.]{0,30}[0-9A-Za-z]?)|([0-9А-Яа-я]{1}[-0-9А-я\.]{0,30}[0-9А-Яа-я]?))@([-A-Za-z]{1,}\.){1,}[-A-Za-z]{2,})$/,
@@ -116,7 +116,7 @@ const RegistrationForm = () => {
               })}
             />
           </label>
-          <div style={{ color: "rgb(211, 237, 184)" }}>
+          <div style={{ color: "rgb(237, 124, 83)" }}>
             {errors?.email && <p>{errors?.email?.message || "Error!"}</p>}
           </div>
           <button className={styles.button} type="submit">

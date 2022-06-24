@@ -21,7 +21,7 @@
   /*color: #540100;*/
   outline: none;
   border: 1px solid #55321C;
-  border-radius: 10px 0px 10px 0;
+  border-radius: 3px 3px 12px 12px;
   font-family: 'League Gothic', sans-serif;
   font-size: 30px;
 }
@@ -43,9 +43,4 @@
   display: block;
 }
 
-.selected {
-  background: #0099FF;
-}
-.selected:hover {
-  background: #3272A1;
-}
+

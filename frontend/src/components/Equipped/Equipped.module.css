@@ -19,9 +19,9 @@
     justify-content: space-around;
     align-items: center;
     align-content: stretch;
-    background-image: url('../../img/Jawas_SWGTCG.webp');
-    width: 100vw;
-    height: 100vh;
+
+    /* width: 100vw;
+    height: 100vh; */
 
 }
 
@@ -57,12 +57,28 @@
 /*  width: 100px*/
 /*}*/
 
+.divLogin{
+  margin-right:;
+}
+.sv {
+  margin-bottom: 50px;
+ margin-left: 5px;
+  display: flex;
+  justify-content: center;
+  
+
+  font-size: 150px;
+  text-shadow: 4px 4px 12px;
+ 
+}
+
+
 .title {
   font-size: 50px;
 }
 
   .button_container {
-  
+  width: 100vh;
       display: flex;
       flex-direction: column;
       flex-wrap: nowrap;
@@ -71,34 +87,40 @@
       align-content: stretch;
       background-color: #55321C;
       opacity: 0.8;
-      border: 7px solid rgb(248,255,206);
+      border: 10px solid rgb(248,255,206);
       border-top-left-radius:10px;
-       border-top-right-radius:10px;
+      border-top-right-radius:10px;
       border-bottom-right-radius:40px;
       border-bottom-left-radius:40px;
       box-shadow: 0 0 0 1px;
- 
+      /* margin-left: 24px;
+      margin-top: 20px;
+      margin: 0;  */
+  
     
   }
 @media  (max-width:820px) {
   .button_container {
     margin: auto;
     margin-top: 20px;
-    width: 200px;
+    width: 300px;
     padding-top: 20px;
     padding-bottom: 20px;
     padding-left: 20px;
     padding-right: 20px;
     box-shadow: 0 0 0 1px;
   }
-
+.WARS {
+  width: 400px;
+  height: auto;
+}
 
 }
 
 @media (min-width: 821px) {
   .button_container {
     margin: auto;
-    margin-top: 150px;
+    margin-top: 25px;
     width: 500px;
     padding-top: 50px;
     padding-bottom: 50px;
@@ -111,4 +133,14 @@
 .ulEquipped {
     display: block;
 
+}
+.WARS {
+  margin-top: 50px;
+  font-family: 'League Gothic', sans-serif;
+  display: flex;
+  justify-content: center;
+
+  font-size: 150px;
+  text-shadow: 4px 4px 12px;
+  font-size: 900;
 }
