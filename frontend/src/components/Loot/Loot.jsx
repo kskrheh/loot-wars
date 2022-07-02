@@ -93,8 +93,8 @@ function Loot() {
 
       {weapons.length !== 0 && (
         <button
-          className={styles.button_loot}
-          type="button"
+        className={styles.button_loot}
+        type="button"
           onClick={handleSwap}
         >
           Swap

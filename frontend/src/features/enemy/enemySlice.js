@@ -11,18 +11,18 @@ const initialState = {
 }
 
 export const fetchEnemyWeapons = createAsyncThunk('enemy/fetchUsers', async (name) => {
-  const response = await fetch(`http://localhost:4000/users/enemy/${name}`, {
-    method: 'GET',
-    credentials: 'include',
-    headers: { "Content-Type": "application/json" }
-  });
+    const response = await fetch(`/api/users/enemy/${name}`, {
+        method: 'GET',
+        credentials: 'include',
+        headers: {"Content-Type": "application/json"}
+    });
 
   const data = await response.json();
   console.log(data)
   return data;
 })
 export const fetchWeaponsTake = createAsyncThunk('enemy/takeloot', async (body) => {
-  const response = await fetch('http://localhost:4000/users/enemy/takeloot', {
+  const response = await fetch('/api/users/enemy/takeloot', {
     method: 'POST',
     credentials: 'include',
     headers: { "Content-Type": "application/json" },

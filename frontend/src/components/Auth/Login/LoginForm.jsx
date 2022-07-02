@@ -31,9 +31,7 @@ const LoginForm = () => {
       }
       {isClicked ? (
         <form
-        className={styles.formoc}
-          
-          action="/auth/login"
+          action="/api/auth/login"
           method="post"
           onSubmit={handleSubmit(goLogin)}
         >

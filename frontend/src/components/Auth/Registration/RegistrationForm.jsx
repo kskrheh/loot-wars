@@ -29,7 +29,7 @@ const RegistrationForm = () => {
       {errorReg && <p>{errorReg}</p>}
       {isClicked ? (
         <form
-          action="/auth/register"
+          action="/api/auth/register"
           onSubmit={handleSubmit(goRegister)}
           method="post"
         >

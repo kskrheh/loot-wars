@@ -10,7 +10,7 @@ const LogoutButton = () => {
 
   const goLogout = async (event) => {
     event.preventDefault();
-    const response = await fetch('http://localhost:4000/auth/logout', {
+    const response = await fetch('/api/auth/logout', {
       method: 'delete',
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include'

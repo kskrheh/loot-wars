@@ -20,7 +20,7 @@ const initialState = {
   swapCheck: false,
 }
 export const fetchWeapons = createAsyncThunk('user/fetchWeapon', async (body) => { // ac.t
-  const response = await fetch('http://localhost:4000/loot', {
+  const response = await fetch('/api/loot', {
     method: 'POST',
     credentials: 'include',
     headers: {"Content-Type": "application/json"},
@@ -32,7 +32,7 @@ export const fetchWeapons = createAsyncThunk('user/fetchWeapon', async (body) =>
 })
 
 export const fetchUserWeapons = createAsyncThunk('user/fetchUserWeapon', async (name) => { // ac.t
-  const response = await fetch(`http://localhost:4000/users/${name}/weapon`, {
+  const response = await fetch(`/api/users/${name}/weapon`, {
     method: 'GET',
     credentials: 'include',
     headers: {"Content-Type": "application/json"}
@@ -45,7 +45,7 @@ export const fetchUserWeapons = createAsyncThunk('user/fetchUserWeapon', async (
 
 export const fetchRegister = createAsyncThunk('user/fetchRegister', async ({ username, email, password, passwordRepeat }) => {
     const body = JSON.stringify({ username, passwordRepeat, password, email });
-    const response = await fetch('http://localhost:4000/auth/register', {
+    const response = await fetch('/api/auth/register', {
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
       body,
@@ -56,7 +56,7 @@ export const fetchRegister = createAsyncThunk('user/fetchRegister', async ({ use
 })
 export const fetchLogin = createAsyncThunk('user/fetchLogin', async ({ username, password }) => {
     const body = JSON.stringify({ username, password });
-    const response = await fetch('http://localhost:4000/auth/login', {
+    const response = await fetch('/api/auth/login', {
       headers: { 'Content-Type': 'application/json' },
       credentials: 'include',
       body,
@@ -66,17 +66,17 @@ export const fetchLogin = createAsyncThunk('user/fetchLogin', async ({ username,
 })
 
 export const fetchUser = createAsyncThunk('user/fetchUser', async () => {
-  const response = await fetch('http://localhost:4000/auth/info', {
+  const response = await fetch('/api/auth/info', {
     headers: { 'Content-Type': 'application/json' },
+    method: 'get',
     credentials: 'include',
-    method: 'get'
   });
   const data = await response.json();
   return data;
 })
 
 export const fetchFightUserUpdate = createAsyncThunk('user/fetchFightUserUpdate', async (enemyId) => {
-  const response = await fetch(`http://localhost:4000/users/${enemyId}/fight`, {
+  const response = await fetch(`/api/users/${enemyId}/fight`, {
     headers: { 'Content-Type': 'application/json' },
     credentials: 'include',
     method: 'put'

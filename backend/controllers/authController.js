@@ -32,7 +32,7 @@ async function loginUser(req, res) {
       },
     });
   } catch (err) {
-    res.send(err.message);
+    res.status(400);
   }
   if (!user) {
     res.status(403);
